@@ -1,0 +1,128 @@
+/**
+ * Copyright (c) 2024 Yuga Web
+ * This file is part of the Protect My Infos plugin.
+ * License: GPLv2 or later. See LICENSE file for details.
+ */
+
+.wrap.protect-my-infos-settings-page {
+    margin: 0 auto;
+    max-width: 90rem;
+    padding: 1.5rem;
+    background-color: #fff;
+}
+
+.gform-settings-header {
+    background-color: #f3f4f5;
+    padding: 20px 0;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.gform-settings__wrapper img {
+    max-width: 100%;
+    height: auto;
+}
+
+.admin-notifications {
+    margin-bottom: 20px;
+}
+
+.settings-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar-menu {
+    width: 200px;
+    background: #fff;
+    border-right: 1px solid #ccc;
+    padding: 10px;
+}
+
+.sidebar-menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar-menu li {
+    margin-bottom: 10px;
+}
+
+.sidebar-menu li.active a {
+    font-weight: bold;
+    color: #0073aa;
+}
+
+.sidebar-menu a {
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+}
+
+.settings-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.settings-section {
+    display: none;
+}
+
+.settings-section.active {
+    display: block;
+}
+
+.reveal-option {
+    display: none;
+}
+
+.reveal-option.show {
+    display: table-row;
+}
+
+.settings-table th {
+    text-align: left;
+    vertical-align: top;
+    padding-right: 15px;
+}
+
+.settings-table td {
+    padding-bottom: 10px;
+}
+
+.ad-column {
+    width: 250px;
+    background: #f3f4f5;
+    border-left: 1px solid #ccc;
+}
+
+.ad-banner {
+    display: block;
+    text-align: center;
+}
+
+.ad-banner img {
+    max-width: 100%;
+    height: auto; 
+}
+
+/* Donation section */
+
+.donation-option {
+    margin: 40px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.donation-option h3 {
+    margin-top: 0;
+}
+
+.donation-option img {
+    margin-top: 10px;
+    border-radius: 5px;
+}
+

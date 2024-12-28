@@ -1,0 +1,192 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Protect My Infos\n"
+"POT-Creation-Date: 2024-12-26 15:19+0100\n"
+"PO-Revision-Date: 2024-08-15 17:57+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: protect-my-infos.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: includes/enqueue.php:27 includes/obfuscation-enabled.php:15
+#: includes/settings.php:120 includes/shortcode.php:52
+msgid "- Click to reveal the phone number -"
+msgstr ""
+
+#: includes/enqueue.php:28 includes/obfuscation-enabled.php:18
+#: includes/settings.php:124 includes/shortcode.php:53
+msgid "- Click to reveal the email address -"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+#: includes/header.php:20 includes/settings.php:54 includes/settings.php:55
+msgid "Protect My Infos"
+msgstr ""
+
+#: includes/settings.php:13
+msgid "Invalid nonce."
+msgstr ""
+
+#: includes/settings.php:18
+msgid "Permission denied."
+msgstr ""
+
+#: includes/settings.php:24 includes/settings.php:36
+msgid "Invalid options structure."
+msgstr ""
+
+#: includes/settings.php:31
+msgid "No valid options provided."
+msgstr ""
+
+#: includes/settings.php:46
+msgid "Settings saved successfully."
+msgstr ""
+
+#: includes/settings.php:78
+msgid "Plugin updates are available."
+msgstr ""
+
+#: includes/settings.php:87 includes/settings.php:97
+msgid "General Settings"
+msgstr ""
+
+#: includes/settings.php:88
+msgid "Obfuscation"
+msgstr ""
+
+#: includes/settings.php:89 includes/settings.php:133
+msgid "Advanced Settings"
+msgstr ""
+
+#: includes/settings.php:90 includes/settings.php:140
+msgid "Support the Author"
+msgstr ""
+
+#: includes/settings.php:102
+msgid "Obfuscation Settings"
+msgstr ""
+
+#: includes/settings.php:109
+msgid "Blur Mode"
+msgstr ""
+
+#: includes/settings.php:119
+msgid "Custom Phone Reveal Text"
+msgstr ""
+
+#: includes/settings.php:123
+msgid "Custom Email Reveal Text"
+msgstr ""
+
+#: includes/settings.php:134
+msgid "New features coming soon..."
+msgstr ""
+
+#: includes/settings.php:141
+msgid ""
+"If you like this plugin and would like to support me, please consider making "
+"a donation!"
+msgstr ""
+
+#: includes/settings.php:145
+msgid "Donate with PayPal"
+msgstr ""
+
+#: includes/settings.php:166
+msgid "Donate with Bitcoin"
+msgstr ""
+
+#: includes/settings.php:167
+msgid "Scan the QR code or use this address to donate:"
+msgstr ""
+
+#: includes/settings.php:178
+msgid "Save Settings"
+msgstr ""
+
+#: includes/settings.php:186
+msgid "Ad Banner"
+msgstr ""
+
+#: includes/settings.php:209
+msgid "Protect Phone Numbers"
+msgstr ""
+
+#: includes/settings.php:217
+msgid "Protect Emails"
+msgstr ""
+
+#: includes/settings.php:225
+msgid "Show Icons"
+msgstr ""
+
+#: includes/settings.php:233
+msgid "Text Color"
+msgstr ""
+
+#: includes/settings.php:241
+msgid "Icons Color"
+msgstr ""
+
+#: includes/settings.php:257
+msgid "Enable Obfuscation"
+msgstr ""
+
+#: includes/settings.php:265
+msgid "Obfuscation Type"
+msgstr ""
+
+#: includes/settings.php:331
+msgid "With placeholder text"
+msgstr ""
+
+#: includes/settings.php:332
+msgid "With blurred letters/numbers"
+msgstr ""
+
+#: includes/settings.php:342
+msgid "Blur entire data"
+msgstr ""
+
+#: includes/settings.php:343
+msgid "Blur only the center"
+msgstr ""
+
+#: includes/settings.php:344
+msgid "Blur only the first half"
+msgstr ""
+
+#: includes/settings.php:345
+msgid "Blur only the second half"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "https://www.yugaweb.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Protect phone numbers and email addresses from bots using advanced "
+"encryption and various protection methods, ensuring visibility only to human "
+"users. Highly customizable, this plugin allows you to select which data to "
+"protect and how, offering flexibility and robust security for your website."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Yuga Web"
+msgstr ""
