@@ -29,9 +29,10 @@ require_once plugin_dir_path(__FILE__) . 'includes/settings.php';
 
 function protect_my_infos_admin_notice() {
     echo '<div class="notice notice-info is-dismissible">
-        <p>' . __('Thank you for using Protect My Infos! Visit our website for updates.', 'protect-my-infos') . '</p>
+        <p>' . __('Thank you for using Protect My Infos! ', 'protect-my-infos') . '<a href="https://yugaweb.com" target="_blank">' . __('Visit our website for updates.', 'protect-my-infos') . '</a></p>
     </div>';
 }
 add_action('admin_notices', 'protect_my_infos_admin_notice');
+
 
 ?>
