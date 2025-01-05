@@ -19,34 +19,33 @@ function protect_my_infos_ajax_save_settings() {
         return;
     }
 
-    // Process and validate POST data
-    if (!isset($_POST['options'])) {
+    // Retrieve and validate POST data
+    $raw_post_options = filter_input(INPUT_POST, 'options', FILTER_DEFAULT);
+    if (!$raw_post_options || !is_string($raw_post_options)) {
         wp_send_json_error(esc_html__('Invalid options structure.', 'protect-my-infos'));
         return;
     }
 
-    parse_str($_POST['options'], $parsed_options);
+    // Unslash and parse the raw input
+    $post_options_unescaped = wp_unslash($raw_post_options);
 
-    if (empty($parsed_options)) {
-        wp_send_json_error(esc_html__('No valid options provided.', 'protect-my-infos'));
-        return;
-    }
+    parse_str($post_options_unescaped, $parsed_options);
 
+    // Validate the parsed options
     if (!is_array($parsed_options) || !isset($parsed_options['protect_my_infos_options'])) {
         wp_send_json_error(esc_html__('Invalid options structure.', 'protect-my-infos'));
         return;
     }
 
-    $new_options = array_map('sanitize_text_field', $parsed_options['protect_my_infos_options']);
+    // Sanitize the parsed options
+    $sanitized_options = array_map('sanitize_text_field', $parsed_options['protect_my_infos_options']);
 
-    // Save the new options
-    update_option('protect_my_infos_options', $new_options);
+    // Save the sanitized options
+    update_option('protect_my_infos_options', $sanitized_options);
 
     // Return success response
     wp_send_json_success(esc_html__('Settings saved successfully.', 'protect-my-infos'));
 }
-
-// Add admin menu for plugin settings
 add_action('wp_ajax_protect_my_infos_save_settings', 'protect_my_infos_ajax_save_settings');
 
 function protect_my_infos_add_admin_menu() {
@@ -87,6 +86,7 @@ function protect_my_infos_options_page() {
                     <li class="active"><a href="#general-settings"><?php esc_html_e('General Settings', 'protect-my-infos'); ?></a></li>
                     <li><a href="#obfuscation-settings"><?php esc_html_e('Obfuscation', 'protect-my-infos'); ?></a></li>
                     <li><a href="#advanced-settings"><?php esc_html_e('Advanced Settings', 'protect-my-infos'); ?></a></li>
+                    <li><a href="#how-to-use"><?php esc_html_e('How to use it', 'protect-my-infos'); ?></a></li>
                     <li><a href="#support-author"><?php esc_html_e('Support the Author', 'protect-my-infos'); ?></a></li>
                 </ul>
             </div>
@@ -134,6 +134,23 @@ function protect_my_infos_options_page() {
                     <p><?php esc_html_e('New features coming soon...', 'protect-my-infos'); ?></p>
                 </div>
 
+                 <!-- How to use it section -->
+
+                <div id="how-to-use" class="settings-section">
+                    <h2><?php esc_html_e('How to use Protect My Infos', 'protect-my-infos'); ?></h2>
+                    <p><?php esc_html_e('To use Protect My Infos, follow these steps:', 'protect-my-infos'); ?></p>
+                    <ol>
+                        <li><?php esc_html_e('In General Settings, choose the data you want to protect: phone numbers, email addresses, or both.', 'protect-my-infos'); ?></li>
+                        <li><?php esc_html_e('In Obfuscation, set your preferred obfuscation type and customization options.', 'protect-my-infos'); ?></li>
+                        <li><?php esc_html_e('Use the shortcode in your posts or pages to protect specific information:', 'protect-my-infos'); ?></li>
+                        <pre>
+                [protect_my_infos type="email" value="youremail@example.com"]
+                [protect_my_infos type="phone" value="+1234567890"]
+                        </pre>
+                        <li><?php esc_html_e('Save your settings and test on your site to ensure proper functionality.', 'protect-my-infos'); ?></li>
+                    </ol>
+                </div>
+
                 <!-- Support Author section -->
 
                 <div id="support-author" class="settings-section">
@@ -145,35 +162,34 @@ function protect_my_infos_options_page() {
                         <h3><?php esc_html_e('Donate with PayPal', 'protect-my-infos'); ?></h3>
                         <div id="donate-button-container">
                             <div id="donate-button"></div>
-                            <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
-                            <script>
-                                PayPal.Donation.Button({
-                                    env: 'production',
-                                    hosted_button_id: '87SXE2YJQAUWE',
-                                    image: {
-                                        src: 'https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif',
-                                        alt: 'Donate with PayPal button',
-                                        title: 'PayPal - The safer, easier way to pay online!'
-                                    }
-                                }).render('#donate-button');
-                            </script>
                         </div>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                if (typeof PayPal !== 'undefined' && PayPal.Donation) {
+                                    PayPal.Donation.Button({
+                                        env: 'production',
+                                        hosted_button_id: '87SXE2YJQAUWE',
+                                        image: {
+                                            src: 'https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif',
+                                            alt: 'Donate with PayPal button',
+                                            title: 'PayPal - The safer, easier way to pay online!'
+                                        }
+                                    }).render('#donate-button');
+                                } else {
+                                    console.error('PayPal SDK not loaded.');
+                                }
+                            });
+                        </script>
                     </div>
+
 
                     <!-- Bitcoin Donation -->
                     <div class="donation-option">
                         <h3><?php esc_html_e('Donate with Bitcoin', 'protect-my-infos'); ?></h3>
                         <p><?php esc_html_e('Scan the QR code or use this address to donate:', 'protect-my-infos'); ?></p>
                         <p><strong>1CCR8p61GnGQaeKGfrhneewnxAqKDgxEZp</strong></p>
-                        <div class="qr-code" style="width: 100%; height: 100%; box-shadow: var(--shadow-elevation1); opacity: 1; border-radius: 4px; padding: var(--space-2xs); text-align: center;">
-                            <?php
-                            $svg_path = plugin_dir_path(__FILE__) . '../images/qr-code.svg';
-                            if (file_exists($svg_path)) {
-                                echo file_get_contents($svg_path);
-                            } else {
-                                esc_html_e('SVG not found.', 'protect-my-infos');
-                            }
-                            ?>
+                        <div class="qr-code">
+                            <img src="<?php echo esc_url(plugins_url('images/qr-code.svg', dirname(__FILE__))); ?>" alt="<?php esc_attr_e('Bitcoin QR Code', 'protect-my-infos'); ?>" style="width: 80px; height: 80px;">
                         </div>
                     </div>
                 </div>
@@ -350,3 +366,17 @@ function blur_mode_render() {
     </select>
     <?php
 }
+
+function protect_my_infos_enqueue_paypal($hook_suffix) {
+    if ($hook_suffix === 'toplevel_page_protect-my-infos') {
+        wp_register_script(
+            'paypal-sdk',
+            'https://www.paypalobjects.com/donate/sdk/donate-sdk.js',
+            array(),
+            null,
+            true
+        );
+        wp_enqueue_script('paypal-sdk');
+    }
+}
+add_action('admin_enqueue_scripts', 'protect_my_infos_enqueue_paypal');
