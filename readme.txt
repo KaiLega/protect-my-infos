@@ -4,7 +4,7 @@ Tags: security, privacy, email obfuscation, phone number protection
 Requires at least: 5.0
 Tested up to: 6.7
 Requires PHP: 7.2
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -88,6 +88,13 @@ Yes, Protect My Infos does not store or process any user data, ensuring complian
 = 1.3 =
 * Added customizable settings for obfuscation type, reveal texts, and colors.
 
+= 1.3.1 =
+* Added How to use section
+
+= 1.3.2 =
+* Security updates
+
 == Upgrade Notice ==
 = 1.3 =
 Review your settings after updating to ensure compatibility with the new features.
+

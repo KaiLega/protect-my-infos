@@ -15,11 +15,17 @@ if (!defined('ABSPATH')) {
 ?>
 
 <header class="gform-settings-header">
-<div class="gform-settings__wrapper">
-<!-- Display the logo with a secured and escaped URL -->
-<img src="<?php echo esc_url(plugins_url('images/pmi_logo.png', dirname(__FILE__))); ?>" alt="<?php esc_attr_e('Protect My Infos', 'protect-my-infos'); ?>" width="266">
-<div class="gform-settings-header_buttons">
-<!-- Additional header buttons can be added here -->
-</div>
-</div>
+    <div class="gform-settings__wrapper">
+        <!-- Display the logo with a secured and escaped URL -->
+        <img 
+            src="<?php echo esc_url(add_query_arg(array(
+                'image' => 'logo',
+                'nonce' => wp_create_nonce('protect_my_infos_image_nonce')
+            ), home_url('/'))); ?>" 
+            alt="<?php esc_attr_e('Protect My Infos Logo', 'protect-my-infos'); ?>" 
+            width="266"
+        />
+    </div>
 </header>
+
+ 

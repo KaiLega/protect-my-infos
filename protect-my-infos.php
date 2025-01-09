@@ -3,7 +3,7 @@
  Plugin Name: Protect My Infos
  Plugin URI: https://www.yugaweb.com/protect-my-infos/
  Description: Protect phone numbers and email addresses from bots using advanced encryption and various protection methods, ensuring visibility only to human users. Highly customizable, this plugin allows you to select which data to protect and how, offering flexibility and robust security for your website.
- Version: 1.3.1
+ Version: 1.3.2
  Author: Yuga Web
  Author URI: https://www.yugaweb.com/
  License: GPLv2 or later
@@ -26,13 +26,4 @@ add_action('plugins_loaded', 'protect_my_infos_load_textdomain');
 require_once plugin_dir_path(__FILE__) . 'includes/enqueue.php';
 require_once plugin_dir_path(__FILE__) . 'includes/shortcode.php';
 require_once plugin_dir_path(__FILE__) . 'includes/settings.php';
-
-function protect_my_infos_admin_notice() {
-    echo '<div class="notice notice-info is-dismissible">
-        <p>' . esc_html__('Thank you for using Protect My Infos! ', 'protect-my-infos') . 
-        '<a href="https://yugaweb.com" target="_blank">' . esc_html__('Visit our website for updates.', 'protect-my-infos') . '</a></p>
-    </div>';
-}
-add_action('admin_notices', 'protect_my_infos_admin_notice');
-
-?>
+require_once plugin_dir_path(__FILE__) . 'includes/helpers.php';
