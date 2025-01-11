@@ -90,7 +90,7 @@
     padding-bottom: 10px;
 }
 
-.right-column {
+.column-right {
     width: 250px;
     background: #f3f4f5;
     border-left: 1px solid #ccc;
@@ -104,6 +104,13 @@
 .right-image img {
     max-width: 100%;
     height: auto; 
+}
+
+.wide-input {
+    width: 100%; 
+    max-width: 400px;
+    box-sizing: border-box;
+    min-width: 300px;
 }
 
 /* Donation section */
@@ -124,11 +131,4 @@
 .donation-option img {
     margin-top: 10px;
     border-radius: 5px;
-}
-
-.wide-input {
-    width: 100%; 
-    max-width: 400px;
-    box-sizing: border-box;
-    min-width: 300px;
 }

@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 // Display an admin notice
 function protect_my_infos_admin_notice() {
     echo '<div class="notice notice-info is-dismissible">
-        <p>' . esc_html__('Thank you for using Protect My Infos!', 'protect-my-infos') . 
+        <p>' . esc_html__('Thank you for using Protect My Infos! ', 'protect-my-infos') . 
         '<a href="https://yugaweb.com" target="_blank">' . esc_html__('Visit our website for updates.', 'protect-my-infos') . '</a></p>
     </div>';
 }
@@ -84,4 +84,5 @@ function protect_my_infos_get_image_url($image_key) {
         $image_root_url . $allowed_images[$image_key]
     );
 }
+add_action('admin_enqueue_scripts', 'protect_my_infos_enqueue_paypal');
 

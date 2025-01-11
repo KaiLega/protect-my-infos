@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Protect My Infos\n"
-"POT-Creation-Date: 2025-01-11 13:41+0100\n"
+"POT-Creation-Date: 2025-01-11 14:25+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Yuga Web\n"
@@ -36,8 +36,8 @@ msgid "Protect My Infos Logo"
 msgstr "Protect My Infos Logo"
 
 #: includes/helpers.php:15
-msgid "Thank you for using Protect My Infos!"
-msgstr "Grazie per aver utilizzato Protect My Infos!"
+msgid "Thank you for using Protect My Infos! "
+msgstr "Grazie per aver utilizzato Protect My Infos! "
 
 #: includes/helpers.php:16
 msgid "Visit our website for updates."
