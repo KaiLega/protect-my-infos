@@ -90,18 +90,18 @@
     padding-bottom: 10px;
 }
 
-.ad-column {
+.right-column {
     width: 250px;
     background: #f3f4f5;
     border-left: 1px solid #ccc;
 }
 
-.ad-banner {
+.right-image {
     display: block;
     text-align: center;
 }
 
-.ad-banner img {
+.right-image img {
     max-width: 100%;
     height: auto; 
 }
@@ -126,3 +126,9 @@
     border-radius: 5px;
 }
 
+.wide-input {
+    width: 100%; 
+    max-width: 400px;
+    box-sizing: border-box;
+    min-width: 300px;
+}

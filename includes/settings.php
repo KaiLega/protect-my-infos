@@ -6,6 +6,9 @@
  * License: GPLv2 or later. See LICENSE file for details.
  */
 
+ $plugin_data = get_file_data(plugin_dir_path(__DIR__) . 'protect-my-infos.php', array('Version' => 'Version'));
+ $plugin_version = $plugin_data['Version']; 
+
 // Handles AJAX save settings request
 function protect_my_infos_ajax_save_settings() {
     // Verify nonce for security
@@ -102,50 +105,65 @@ function protect_my_infos_options_page() {
             <!-- Single Form for All Settings -->
             <form id="protect-my-infos-settings-form" method="post" class="settings-content">
                 <?php wp_nonce_field('protect_my_infos_nonce_action', 'protect_my_infos_nonce_field'); ?>
+                <div id="general-settings" class="settings-section active">
+                    <h2><?php esc_html_e('General Settings', 'protect-my-infos'); ?></h2>
+                    <?php do_settings_sections('protect_my_infos_general'); ?>
+                    <?php submit_button(__('Save Settings', 'protect-my-infos'), 'primary', 'submit', true); ?>
+                </div>
 
-                    <div id="general-settings" class="settings-section active">
-                        <h2><?php esc_html_e('General Settings', 'protect-my-infos'); ?></h2>
-                        <?php do_settings_sections('protect_my_infos_general'); ?>
-                    </div>
+                <div id="obfuscation-settings" class="settings-section">
+                    <h2><?php esc_html_e('Obfuscation Settings', 'protect-my-infos'); ?></h2>
+                    <?php do_settings_sections('protect_my_infos_obfuscation'); ?>
 
-                    <div id="obfuscation-settings" class="settings-section">
-                        <h2><?php esc_html_e('Obfuscation Settings', 'protect-my-infos'); ?></h2>
-                        <?php do_settings_sections('protect_my_infos_obfuscation'); ?>
+                    <!-- Blur Mode Field -->
+                    <table class="form-table">
+                        <tbody>
+                            <tr class="blur-mode-option" <?php echo $options['obfuscation_type'] === 'blurred' ? '' : 'style="display:none;"'; ?>>
+                                <th scope="row"><?php esc_html_e('Blur Mode', 'protect-my-infos'); ?></th>
+                                <td><?php blur_mode_render(); ?></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                        <!-- Blur Mode Field -->
-                        <table class="form-table">
-                            <tbody>
-                                <tr class="blur-mode-option" <?php echo $options['obfuscation_type'] === 'blurred' ? '' : 'style="display:none;"'; ?>>
-                                    <th scope="row"><?php esc_html_e('Blur Mode', 'protect-my-infos'); ?></th>
-                                    <td><?php blur_mode_render(); ?></td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <!-- Conditional Fields for "placeholder" -->
-                        <table class="form-table">
-                            <tbody>
-                                <tr class="reveal-option" <?php echo $options['obfuscation_type'] === 'placeholder' ? '' : 'style="display:none;"'; ?>>
-                                    <th scope="row"><?php esc_html_e('Custom Phone Reveal Text', 'protect-my-infos'); ?></th>
-                                    <td><input type="text" name="protect_my_infos_options[reveal_phone_text]" value="<?php echo isset($options['reveal_phone_text']) ? esc_attr($options['reveal_phone_text']) : ''; ?>" placeholder="<?php esc_html_e('- Click to reveal the phone number -', 'protect-my-infos'); ?>"></td>
-                                </tr>
-                                <tr class="reveal-option" <?php echo $options['obfuscation_type'] === 'placeholder' ? '' : 'style="display:none;"'; ?>>
-                                    <th scope="row"><?php esc_html_e('Custom Email Reveal Text', 'protect-my-infos'); ?></th>
-                                    <td><input type="text" name="protect_my_infos_options[reveal_email_text]" value="<?php echo isset($options['reveal_email_text']) ? esc_attr($options['reveal_email_text']) : ''; ?>" placeholder="<?php esc_html_e('- Click to reveal the email address -', 'protect-my-infos'); ?>"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <!-- Conditional Fields for "placeholder" -->
+                    <table class="form-table">
+                        <tbody>
+                            <tr class="reveal-option" <?php echo $options['obfuscation_type'] === 'placeholder' ? '' : 'style="display:none;"'; ?>>
+                                <th scope="row"><?php esc_html_e('Custom Phone Reveal Text', 'protect-my-infos'); ?></th>
+                                <td>
+                                    <input 
+                                        type="text" 
+                                        name="protect_my_infos_options[reveal_phone_text]" 
+                                        value="<?php echo isset($options['reveal_phone_text']) ? esc_attr($options['reveal_phone_text']) : ''; ?>" 
+                                        placeholder="<?php esc_html_e('- Click to reveal the phone number -', 'protect-my-infos'); ?>"
+                                        class="wide-input"
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="reveal-option" <?php echo $options['obfuscation_type'] === 'placeholder' ? '' : 'style="display:none;"'; ?>>
+                                <th scope="row"><?php esc_html_e('Custom Email Reveal Text', 'protect-my-infos'); ?></th>
+                                <td>
+                                    <input 
+                                        type="text" 
+                                        name="protect_my_infos_options[reveal_email_text]" 
+                                        value="<?php echo isset($options['reveal_email_text']) ? esc_attr($options['reveal_email_text']) : ''; ?>" 
+                                        placeholder="<?php esc_html_e('- Click to reveal the email -', 'protect-my-infos'); ?>" 
+                                        class="wide-input"
+                                    >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <?php submit_button(__('Save Settings', 'protect-my-infos'), 'primary', 'submit', true); ?>
+                </div>
 
                     <!-- Advanced-settings section -->
-
                     <div id="advanced-settings" class="settings-section">
                         <h2><?php esc_html_e('Advanced Settings', 'protect-my-infos'); ?></h2>
                         <p><?php esc_html_e('New features coming soon...', 'protect-my-infos'); ?></p>
                     </div>
 
                     <!-- How to use it section -->
-
                     <div id="how-to-use" class="settings-section">
                         <h2><?php esc_html_e('How to use Protect My Infos', 'protect-my-infos'); ?></h2>
                         <p><?php esc_html_e('To use Protect My Infos, follow these steps:', 'protect-my-infos'); ?></p>
@@ -162,7 +180,6 @@ function protect_my_infos_options_page() {
                     </div>
 
                     <!-- Support Author section -->
-
                     <div id="support-author" class="settings-section">
                         <h2><?php esc_html_e('Support the Author', 'protect-my-infos'); ?></h2>
                         <p><?php esc_html_e('If you like this plugin and would like to support me, please consider making a donation!', 'protect-my-infos'); ?></p>
@@ -209,20 +226,19 @@ function protect_my_infos_options_page() {
                             </div>
                         </div>
                     </div>
-                    <?php submit_button(__('Save Settings', 'protect-my-infos'), 'primary', 'submit', true); ?>
                     <div id="save-status"></div>
             </form>
 
-            <!-- Advertisement Column -->
-            <div class="ad-column">
-                <div class="ad-banner">
+            <!-- Right Column -->
+            <div class="column-right">
+                <div class="right-image">
                     <a href="https://www.yugaweb.com/" target="_blank">
                         <img 
                             src="<?php echo esc_url(add_query_arg(array(
                                 'image' => 'banner',
                                 'nonce' => wp_create_nonce('protect_my_infos_image_nonce')
                             ), home_url('/'))); ?>" 
-                            alt="<?php esc_attr_e('Ad Banner', 'protect-my-infos'); ?>" 
+                            alt="<?php esc_attr_e('Yuga Web Design banner', 'protect-my-infos'); ?>" 
                             style="width: 100%;"
                         />
                     </a>
@@ -394,7 +410,7 @@ function protect_my_infos_enqueue_paypal($hook_suffix) {
             'paypal-sdk',
             'https://www.paypalobjects.com/donate/sdk/donate-sdk.js',
             array(),
-            null,
+            $plugin_version,
             true
         );
         wp_enqueue_script('paypal-sdk');
