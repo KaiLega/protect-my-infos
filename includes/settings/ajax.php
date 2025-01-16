@@ -17,13 +17,11 @@ function yw_protect_my_infos_ajax_save_settings() {
             : '');
 
     if (!wp_verify_nonce($nonce, 'yw_protect_my_infos_nonce_action')) {
-        error_log('Nonce verification failed: ' . $nonce);
         wp_send_json_error(esc_html__('Invalid nonce.', 'yw-protect-my-infos'));
         return;
     }
 
     if (!current_user_can('manage_options')) {
-        error_log('User does not have manage_options capability.');
         wp_send_json_error(esc_html__('Permission denied.', 'yw-protect-my-infos'));
         return;
     }

@@ -4,7 +4,7 @@ Tags: security, privacy, email obfuscation, phone number protection
 
 Tested up to: 6.7
 
-Stable tag: 1.3.4
+Stable tag: 1.3.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -116,6 +116,9 @@ Note: This plugin does not store or process sensitive personal information. All 
 
 = 1.3.4 =
 * Refactoring and security updates
+
+= 1.3.5 =
+* Performance and localization updates
 
 == Upgrade Notice ==
 = 1.3 =

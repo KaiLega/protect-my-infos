@@ -11,7 +11,7 @@ function yw_protect_my_infos_get_plugin_version() {
         require_once ABSPATH . 'wp-admin/includes/plugin.php';
     }
     $plugin_data = get_plugin_data(WP_PLUGIN_DIR . '/protect-my-infos/protect-my-infos.php');
-    return $plugin_data['Version'] ?? '1.0'; 
+    return $plugin_data['Version'] ?? '1.0';
 }
 
 // Enqueue frontend scripts and styles
@@ -26,7 +26,7 @@ function yw_protect_my_infos_enqueue_scripts() {
         $plugin_version,
         true
     );
-    
+
     // Enqueue the frontend CSS
     wp_enqueue_style(
         'yw-protect-my-infos-css',
@@ -34,11 +34,12 @@ function yw_protect_my_infos_enqueue_scripts() {
         array(),
         $plugin_version
     );
-    
+
+    // Localize script with plugin options
     $options = get_option('yw_protect_my_infos_options');
     wp_localize_script('yw-protect-my-infos-script', 'ywProtectMyInfos', array(
         'ajaxUrl' => esc_url(admin_url('admin-ajax.php')),
-        'imageNonce' => wp_create_nonce('yw_protect_my_infos_image_nonce'), 
+        'imageNonce' => wp_create_nonce('yw_protect_my_infos_image_nonce'),
         'protectPhoneNumbers' => isset($options['yw_protect_phone_numbers']) ? intval($options['yw_protect_phone_numbers']) : 0,
         'protectEmails' => isset($options['protect_emails']) ? intval($options['protect_emails']) : 0,
         'enableObfuscation' => isset($options['enable_obfuscation']) ? intval($options['enable_obfuscation']) : 0,
@@ -50,14 +51,13 @@ add_action('wp_enqueue_scripts', 'yw_protect_my_infos_enqueue_scripts');
 
 // Enqueue admin scripts and styles
 function yw_protect_my_infos_enqueue_admin_scripts($hook_suffix) {
-    // Only enqueue on the plugin's settings page
     if ($hook_suffix === 'toplevel_page_yw-protect-my-infos') {
         $plugin_version = yw_protect_my_infos_get_plugin_version();
 
         // Enqueue the color picker
         wp_enqueue_style('wp-color-picker');
         wp_enqueue_script('wp-color-picker');
-        
+
         // Enqueue the admin CSS
         wp_enqueue_style(
             'yw-protect-my-infos-admin-css',
@@ -65,7 +65,7 @@ function yw_protect_my_infos_enqueue_admin_scripts($hook_suffix) {
             array(),
             $plugin_version
         );
-        
+
         // Enqueue the admin JS
         wp_enqueue_script(
             'yw-protect-my-infos-admin-script',
@@ -74,53 +74,40 @@ function yw_protect_my_infos_enqueue_admin_scripts($hook_suffix) {
             $plugin_version,
             true
         );
-        
+
         // Localize the admin script
         wp_localize_script(
             'yw-protect-my-infos-admin-script',
             'ywProtectMyInfos',
             array(
-                'nonce' => wp_create_nonce('yw_protect_my_infos_nonce_action'), 
+                'nonce' => wp_create_nonce('yw_protect_my_infos_nonce_action'),
                 'imageNonce' => wp_create_nonce('yw_protect_my_infos_image_nonce'),
                 'ajaxUrl' => esc_url(admin_url('admin-ajax.php')),
             )
         );
-    }
-}
-add_action('admin_enqueue_scripts', 'yw_protect_my_infos_enqueue_admin_scripts');
 
-// Enqueue admin script for donation button
-function yw_protect_my_infos_enqueue_donation_button() {
+        // Enqueue PayPal SDK and donation button script
+        wp_enqueue_script(
+            'paypal-sdk',
+            'https://www.paypalobjects.com/donate/sdk/donate-sdk.js',
+            array(),
+            $plugin_version,
+            true
+        );
+        wp_enqueue_script(
+            'yw-protect-my-infos-donation-button',
+            plugin_dir_url(dirname(__FILE__)) . 'js/donation-button.js',
+            array('paypal-sdk'),
+            $plugin_version,
+            true
+        );
 
-    $plugin_version = yw_protect_my_infos_get_plugin_version();
-
-    // Enqueue the PayPal SDK to enable donation functionality via a secure "Donate" button.
-    wp_enqueue_script(
-        'paypal-sdk',
-        'https://www.paypalobjects.com/donate/sdk/donate-sdk.js',
-        array(),
-        $plugin_version,
-        true // Load in footer
-    );
-
-    // Enqueue custom script for rendering the PayPal "Donate" button with plugin-specific configurations.
-    wp_enqueue_script(
-        'yw-protect-my-infos-donation-button',
-        plugin_dir_url(dirname(__FILE__)) . 'js/donation-button.js',
-        array('paypal-sdk'),
-        $plugin_version,
-        true
-    );
-
-    // Localize script to provide data for the PayPal "Donate" button.
-    wp_localize_script(
-        'yw-protect-my-infos-donation-button',
-        'ywProtectMyInfosLang',
-        array(
+        // Localize PayPal script
+        wp_localize_script('yw-protect-my-infos-donation-button', 'ywProtectMyInfosLang', array(
             'altText' => esc_html__('Donate with PayPal button', 'yw-protect-my-infos'),
             'titleText' => esc_html__('PayPal - The safer, easier way to pay online!', 'yw-protect-my-infos'),
             'locale' => get_locale()
-        )
-    );
+        ));
+    }
 }
-add_action('admin_enqueue_scripts', 'yw_protect_my_infos_enqueue_donation_button');
+add_action('admin_enqueue_scripts', 'yw_protect_my_infos_enqueue_admin_scripts');

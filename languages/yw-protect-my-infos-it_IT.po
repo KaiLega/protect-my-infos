@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Protect My Infos\n"
-"POT-Creation-Date: 2025-01-15 17:48+0100\n"
+"POT-Creation-Date: 2025-01-16 10:53+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Yuga Web\n"
@@ -22,20 +22,31 @@ msgstr ""
 "X-Poedit-SearchPath-6: css\n"
 "X-Poedit-SearchPath-7: .\n"
 
-#: includes/class-yw-protect-my-infos-obfuscator.php:54 includes/enqueue.php:26
+#: includes/class-yw-protect-my-infos-obfuscator.php:65 includes/enqueue.php:45
 #: includes/settings/helpers.php:91
 msgid "- Click to reveal the phone number -"
 msgstr "- Clicca qui per rivelare il telefono -"
 
-#: includes/class-yw-protect-my-infos-obfuscator.php:55 includes/enqueue.php:27
+#: includes/class-yw-protect-my-infos-obfuscator.php:66 includes/enqueue.php:46
 msgid "- Click to reveal the email address -"
 msgstr "- Clicca qui per rivelare l'email -"
 
-#: includes/enqueue.php:108
+#: includes/class-yw-protect-my-infos-obfuscator.php:68
+msgid "Click to reveal"
+msgstr "- Clicca qui per rivelare"
+
+#: includes/class-yw-protect-my-infos-obfuscator.php:97
+#: includes/class-yw-protect-my-infos-obfuscator.php:101
+#: includes/class-yw-protect-my-infos-obfuscator.php:105
+#: includes/class-yw-protect-my-infos-obfuscator.php:109
+msgid "Hover to reveal"
+msgstr "Passa qui il mouse per rivelare"
+
+#: includes/enqueue.php:120
 msgid "Donate with PayPal button"
 msgstr "Dona con Paypal"
 
-#: includes/enqueue.php:109
+#: includes/enqueue.php:121
 msgid "PayPal - The safer, easier way to pay online!"
 msgstr "PayPal - Il modo più sicuro e facile per pagare online!"
 
@@ -47,7 +58,7 @@ msgstr "Grazie per aver utilizzato Protect My Infos! "
 msgid "Visit our website for updates."
 msgstr "Visitate il nostro sito web per gli aggiornamenti."
 
-#: includes/helpers.php:29 includes/settings/ajax.php:22
+#: includes/helpers.php:29 includes/settings/ajax.php:21
 msgid "Invalid nonce."
 msgstr "Nonce non valido."
 
@@ -60,63 +71,88 @@ msgstr "Parametri dell'immagine non validi."
 msgid "Protect My Infos"
 msgstr "Protect My Infos"
 
-#: includes/settings/admin-menu.php:35
+#: includes/settings/admin-menu.php:44
 msgid "Plugin updates are available."
 msgstr "Aggiornamenti del plugin disponibili."
 
-#: includes/settings/admin-menu.php:44 includes/settings/admin-menu.php:59
+#: includes/settings/admin-menu.php:54 includes/settings/admin-menu.php:69
 msgid "General Settings"
 msgstr "Impostazioni generali"
 
-#: includes/settings/admin-menu.php:45
+#: includes/settings/admin-menu.php:55
 msgid "Obfuscation"
 msgstr "Offuscamento"
 
-#: includes/settings/admin-menu.php:46 includes/settings/admin-menu.php:99
+#: includes/settings/admin-menu.php:56 includes/settings/admin-menu.php:139
 msgid "Advanced Settings"
 msgstr "Impostazioni avanzate"
 
-#: includes/settings/admin-menu.php:47
+#: includes/settings/admin-menu.php:57
 msgid "How to use it"
 msgstr "Come utilizzare il plugin"
 
-#: includes/settings/admin-menu.php:48 includes/settings/admin-menu.php:121
+#: includes/settings/admin-menu.php:58 includes/settings/admin-menu.php:161
 msgid "Support the Author"
 msgstr "Supporta l’autore"
 
-#: includes/settings/admin-menu.php:61 includes/settings/admin-menu.php:93
+#: includes/settings/admin-menu.php:72
+#: includes/settings/settings-sections.php:85
+msgid "Protect Phone Numbers"
+msgstr "Proteggi i numeri di telefono"
+
+#: includes/settings/admin-menu.php:78
+#: includes/settings/settings-sections.php:93
+msgid "Protect Emails"
+msgstr "Proteggi le email"
+
+#: includes/settings/admin-menu.php:84
+#: includes/settings/settings-sections.php:101
+msgid "Show Icons"
+msgstr "Mostra le icone"
+
+#: includes/settings/admin-menu.php:90
+#: includes/settings/settings-sections.php:109
+msgid "Text Color"
+msgstr "Colore del testo"
+
+#: includes/settings/admin-menu.php:96
+#: includes/settings/settings-sections.php:117
+msgid "Icons Color"
+msgstr "Colore delle icone"
+
+#: includes/settings/admin-menu.php:102 includes/settings/admin-menu.php:134
 msgid "Save Settings"
 msgstr "Salva impostazioni"
 
-#: includes/settings/admin-menu.php:66
+#: includes/settings/admin-menu.php:107
 msgid "Obfuscation Settings"
 msgstr "Impostazioni di offuscamento"
 
-#: includes/settings/admin-menu.php:73
+#: includes/settings/admin-menu.php:114
 msgid "Blur Mode"
 msgstr "Modalità Blur"
 
-#: includes/settings/admin-menu.php:82
+#: includes/settings/admin-menu.php:123
 msgid "Custom Phone Reveal Text"
 msgstr "Testo personalizzato per rivelare il numero di telefono"
 
-#: includes/settings/admin-menu.php:86
+#: includes/settings/admin-menu.php:127
 msgid "Custom Email Reveal Text"
 msgstr "Testo personalizzato per rivelare l'indirizzo email"
 
-#: includes/settings/admin-menu.php:100
+#: includes/settings/admin-menu.php:140
 msgid "New features coming soon..."
 msgstr "Nuove funzionalità in arrivo..."
 
-#: includes/settings/admin-menu.php:105
+#: includes/settings/admin-menu.php:145
 msgid "How to use Protect My Infos"
 msgstr "Come utilizzare Protect My Infos"
 
-#: includes/settings/admin-menu.php:106
+#: includes/settings/admin-menu.php:146
 msgid "To use Protect My Infos, follow these steps:"
 msgstr "Per utilizzare Protect My Infos, segui questi passaggi:"
 
-#: includes/settings/admin-menu.php:108
+#: includes/settings/admin-menu.php:148
 msgid ""
 "In General Settings, choose the data you want to protect: phone numbers, "
 "email addresses, or both."
@@ -124,7 +160,7 @@ msgstr ""
 "Nelle Impostazioni Generali, scegli i dati che desideri proteggere: numeri "
 "di telefono, indirizzi email o entrambi."
 
-#: includes/settings/admin-menu.php:109
+#: includes/settings/admin-menu.php:149
 msgid ""
 "In Obfuscation, set your preferred obfuscation type and customization "
 "options."
@@ -132,21 +168,21 @@ msgstr ""
 "Nella sezione Offuscamento, imposta il tipo di offuscamento preferito e le "
 "opzioni di personalizzazione."
 
-#: includes/settings/admin-menu.php:110
+#: includes/settings/admin-menu.php:150
 msgid ""
 "Use the shortcode in your posts or pages to protect specific information:"
 msgstr ""
 "Usa lo shortcode nei tuoi post o nelle tue pagine per proteggere "
 "informazioni specifiche:"
 
-#: includes/settings/admin-menu.php:115
+#: includes/settings/admin-menu.php:155
 msgid ""
 "Save your settings and test on your site to ensure proper functionality."
 msgstr ""
 "Salva le impostazioni e testa sul tuo sito per assicurarti che funzioni "
 "correttamente."
 
-#: includes/settings/admin-menu.php:122
+#: includes/settings/admin-menu.php:162
 msgid ""
 "If you like this plugin and would like to support me, please consider making "
 "a donation!"
@@ -154,43 +190,43 @@ msgstr ""
 "Se ti piace il plugin e vuoi supportare il suo sviluppo, considera una "
 "donazione!"
 
-#: includes/settings/admin-menu.php:126
+#: includes/settings/admin-menu.php:166
 msgid "Donate with PayPal"
 msgstr "Dona con Paypal"
 
-#: includes/settings/admin-menu.php:134
+#: includes/settings/admin-menu.php:174
 msgid "Donate with Bitcoin"
 msgstr "Dona con Bitcoin"
 
-#: includes/settings/admin-menu.php:135
+#: includes/settings/admin-menu.php:175
 msgid "Scan the QR code or use this address to donate:"
 msgstr "Scansiona il codice QR o usa questo indirizzo:"
 
-#: includes/settings/admin-menu.php:143
+#: includes/settings/admin-menu.php:183
 msgid "Bitcoin QR Code"
 msgstr "QR Code per Bitcoin"
 
-#: includes/settings/admin-menu.php:161
+#: includes/settings/admin-menu.php:201
 msgid "Yuga Web Design banner"
 msgstr "Yuga Web Design banner"
 
-#: includes/settings/ajax.php:28
+#: includes/settings/ajax.php:27
 msgid "Permission denied."
 msgstr "Permesso negato."
 
-#: includes/settings/ajax.php:36 includes/settings/ajax.php:46
+#: includes/settings/ajax.php:34 includes/settings/ajax.php:42
 msgid "Invalid options structure."
 msgstr "Struttura delle opzioni non valida."
 
-#: includes/settings/ajax.php:88
+#: includes/settings/ajax.php:81
 msgid "Failed to save settings."
 msgstr "Errore nel salvataggio delle impostazioni."
 
-#: includes/settings/ajax.php:95
+#: includes/settings/ajax.php:86
 msgid "Settings saved successfully."
 msgstr "Impostazioni salvate con successo."
 
-#: includes/settings/header.php:24
+#: includes/settings/header.php:25
 msgid "Protect My Infos Logo"
 msgstr "Protect My Infos Logo"
 
@@ -226,26 +262,6 @@ msgstr "Inserisci custom text..."
 msgid "- Click to reveal the email -"
 msgstr "- Clicca qui per rivelare l'email -"
 
-#: includes/settings/settings-sections.php:85
-msgid "Protect Phone Numbers"
-msgstr "Proteggi i numeri di telefono"
-
-#: includes/settings/settings-sections.php:93
-msgid "Protect Emails"
-msgstr "Proteggi le email"
-
-#: includes/settings/settings-sections.php:101
-msgid "Show Icons"
-msgstr "Mostra le icone"
-
-#: includes/settings/settings-sections.php:109
-msgid "Text Color"
-msgstr "Colore del testo"
-
-#: includes/settings/settings-sections.php:117
-msgid "Icons Color"
-msgstr "Colore delle icone"
-
 #: includes/settings/settings-sections.php:135
 msgid "Enable Obfuscation"
 msgstr "Abilita l'offuscamento"
@@ -262,11 +278,11 @@ msgstr "Configura le impostazioni generali per Protect My Infos."
 msgid "Configure obfuscation settings for Protect My Infos."
 msgstr "Configura le impostazioni di offuscamento per Protect My Infos."
 
-#: includes/shortcode.php:47
+#: includes/shortcode.php:45
 msgid "No value provided."
 msgstr "Nessun valore fornito."
 
-#: includes/shortcode.php:57
+#: includes/shortcode.php:52
 msgid "Settings not configured."
 msgstr "Impostazioni non configurate."
 

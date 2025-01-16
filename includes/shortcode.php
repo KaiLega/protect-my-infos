@@ -24,12 +24,8 @@ add_shortcode('yw_protect_my_infos', 'yw_protect_my_infos_shortcode');
  * @param array $atts Shortcode attributes.
  * @return string Generated HTML output.
  */
+
 function yw_protect_my_infos_shortcode($atts) {
-    global $wpdb;
-
-    // Fetch the option directly from the database for debugging
-    $raw_options = $wpdb->get_row("SELECT * FROM {$wpdb->options} WHERE option_name = 'yw_protect_my_infos_options'", ARRAY_A);
-
     // Set up default attributes
     $atts = shortcode_atts(
         array(
@@ -48,10 +44,11 @@ function yw_protect_my_infos_shortcode($atts) {
     // Get plugin options from the database
     $options = get_option('yw_protect_my_infos_options', array());
 
+    // Check if options are empty
     if (empty($options)) {
         return esc_html__('Settings not configured.', 'yw-protect-my-infos');
     }
-    
+
     // Use the obfuscator class to generate the protected output
     return YW_Protect_My_Infos_Obfuscator::generate($atts['type'], $atts['value'], $options);
 }

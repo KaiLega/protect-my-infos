@@ -77,9 +77,13 @@ function yw_protect_my_infos_render_reveal_option() {
     $options = get_option('yw_protect_my_infos_options');
     $placeholder = isset($options['reveal_option']) ? esc_attr($options['reveal_option']) : '';
     ?>
-    <input type="text" name="yw_protect_my_infos_options[reveal_option]" value="<?php echo $placeholder; ?>" placeholder="<?php esc_html_e('Enter custom text...', 'yw-protect-my-infos'); ?>" />
+    <input type="text" 
+       name="yw_protect_my_infos_options[reveal_option]" 
+       value="<?php echo esc_attr($placeholder); ?>" 
+       placeholder="<?php echo esc_attr__('Enter custom text...', 'yw-protect-my-infos'); ?>" />
     <?php
 }
+
 
 function yw_protect_my_infos_render_reveal_phone_text() {
     $options = get_option('yw_protect_my_infos_options');
@@ -88,7 +92,7 @@ function yw_protect_my_infos_render_reveal_phone_text() {
         type="text" 
         name="yw_protect_my_infos_options[reveal_phone_text]" 
         value="<?php echo isset($options['reveal_phone_text']) ? esc_attr($options['reveal_phone_text']) : ''; ?>" 
-        placeholder="<?php esc_html_e('- Click to reveal the phone number -', 'yw-protect-my-infos'); ?>" 
+        placeholder="<?php echo esc_attr__('- Click to reveal the phone number -', 'yw-protect-my-infos'); ?>"
         class="yw-wide-input"
     >
     <?php
