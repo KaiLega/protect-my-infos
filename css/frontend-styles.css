@@ -1,0 +1,21 @@
+/**
+ * Copyright (c) 2024 Yuga Web
+ * This file is part of the Protect My Infos plugin.
+ * License: GPLv2 or later. See LICENSE file for details.
+ */
+
+ .yw-blurred-info {
+  filter: blur(3px);
+  cursor: pointer;
+  color: inherit;
+}
+
+.yw-blurred-info:hover {
+  filter: blur(1px); 
+}
+
+.yw-protect-info {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}

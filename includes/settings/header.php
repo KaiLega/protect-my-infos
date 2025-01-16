@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Copyright (c) 2024 Yuga Web
@@ -14,18 +13,17 @@ if (!defined('ABSPATH')) {
 // HTML Header section with proper escaping and security
 ?>
 
-<header class="gform-settings-header">
-    <div class="gform-settings__wrapper">
+<header class="yw-protect-my-infos-settings-header">
+    <div class="yw-protect-my-infos-settings__wrapper">
+        
         <!-- Display the logo with a secured and escaped URL -->
         <img 
             src="<?php echo esc_url(add_query_arg(array(
                 'image' => 'logo',
-                'nonce' => wp_create_nonce('protect_my_infos_image_nonce')
+                'nonce' => wp_create_nonce('yw_protect_my_infos_image_nonce')
             ), home_url('/'))); ?>" 
-            alt="<?php esc_attr_e('Protect My Infos Logo', 'protect-my-infos'); ?>" 
+            alt="<?php esc_attr_e('Protect My Infos Logo', 'yw-protect-my-infos'); ?>" 
             width="266"
         />
     </div>
 </header>
-
- 

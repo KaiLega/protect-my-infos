@@ -4,109 +4,110 @@
  * License: GPLv2 or later. See LICENSE file for details.
  */
 
-.wrap.protect-my-infos-settings-page {
+ .wrap.yw-protect-my-infos-settings-page {
     margin: 0 auto;
     max-width: 90rem;
     padding: 1.5rem;
     background-color: #fff;
 }
 
-.gform-settings-header {
+.yw-protect-my-infos-settings-header {
     background-color: #f3f4f5;
     padding: 20px 0;
     text-align: center;
     margin-bottom: 20px;
 }
 
-.gform-settings__wrapper img {
+.yw-protect-my-infos-settings__wrapper img {
     max-width: 100%;
     height: auto;
 }
 
-.admin-notifications {
+.yw-admin-notifications {
     margin-bottom: 20px;
 }
 
-.settings-container {
+.yw-settings-container {
     display: flex;
     justify-content: space-between;
 }
 
-.sidebar-menu {
+.yw-sidebar-menu {
     width: 200px;
     background: #fff;
     border-right: 1px solid #ccc;
     padding: 10px;
 }
 
-.sidebar-menu ul {
+.yw-sidebar-menu ul {
     list-style-type: none;
     padding: 0;
 }
 
-.sidebar-menu li {
+.yw-sidebar-menu li {
     margin-bottom: 10px;
 }
 
-.sidebar-menu li.active a {
+.yw-sidebar-menu li.active a {
     font-weight: bold;
     color: #0073aa;
 }
 
-.sidebar-menu a {
+.yw-sidebar-menu a {
     text-decoration: none;
     color: #333;
     cursor: pointer;
 }
 
-.settings-content {
+.yw-settings-content {
     flex: 1;
     padding: 20px;
 }
 
-.settings-section {
+.yw-settings-section {
     display: none;
 }
 
-.settings-section.active {
+.yw-settings-section.active {
     display: block;
 }
 
-.reveal-option {
+.yw-reveal-option {
     display: none;
 }
 
-.reveal-option.show {
+.yw-reveal-option.show {
     display: table-row;
 }
 
-.settings-table th {
+.yw-settings-table th {
     text-align: left;
     vertical-align: top;
     padding-right: 15px;
 }
 
-.settings-table td {
+.yw-settings-table td {
     padding-bottom: 10px;
 }
 
-.column-right {
+.yw-column-right {
     width: 250px;
     background: #f3f4f5;
     border-left: 1px solid #ccc;
+    padding: 10px;
 }
 
-.right-image {
+.yw-right-image {
     display: block;
     text-align: center;
 }
 
-.right-image img {
+.yw-right-image img {
     max-width: 100%;
     height: auto; 
 }
 
-.wide-input {
+.yw-wide-input {
     width: 100%; 
     max-width: 400px;
     box-sizing: border-box;
@@ -115,7 +116,7 @@
 
 /* Donation section */
 
-.donation-option {
+.yw-donation-option {
     margin: 40px;
     padding: 15px;
     border: 1px solid #ddd;
@@ -124,11 +125,12 @@
     text-align: center;
 }
 
-.donation-option h3 {
+.yw-donation-option h3 {
     margin-top: 0;
 }
 
-.donation-option img {
+.yw-donation-option img {
     margin-top: 10px;
     border-radius: 5px;
 }
+

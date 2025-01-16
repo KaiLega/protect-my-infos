@@ -11,20 +11,25 @@ if (!defined('ABSPATH')) {
 }
 
 // Include the obfuscator class
-require_once plugin_dir_path(__FILE__) . 'class-obfuscator.php';
+require_once plugin_dir_path(__FILE__) . 'class-yw-protect-my-infos-obfuscator.php';
 
 /**
- * Register the shortcode [protect_my_infos].
+ * Register the shortcode [yw_protect_my_infos].
  */
-add_shortcode('protect_my_infos', 'protect_my_infos_shortcode');
+add_shortcode('yw_protect_my_infos', 'yw_protect_my_infos_shortcode');
 
 /**
- * Shortcode handler for [protect_my_infos].
+ * Shortcode handler for [yw_protect_my_infos].
  *
  * @param array $atts Shortcode attributes.
  * @return string Generated HTML output.
  */
-function protect_my_infos_shortcode($atts) {
+function yw_protect_my_infos_shortcode($atts) {
+    global $wpdb;
+
+    // Fetch the option directly from the database for debugging
+    $raw_options = $wpdb->get_row("SELECT * FROM {$wpdb->options} WHERE option_name = 'yw_protect_my_infos_options'", ARRAY_A);
+
     // Set up default attributes
     $atts = shortcode_atts(
         array(
@@ -32,17 +37,21 @@ function protect_my_infos_shortcode($atts) {
             'value' => '', // The value to protect (e.g., phone number or email)
         ),
         $atts,
-        'protect_my_infos'
+        'yw_protect_my_infos'
     );
 
     // If no value is provided, return an empty string
     if (empty($atts['value'])) {
-        return '';
+        return esc_html__('No value provided.', 'yw-protect-my-infos');
     }
 
     // Get plugin options from the database
-    $options = get_option('protect_my_infos_options');
+    $options = get_option('yw_protect_my_infos_options', array());
 
+    if (empty($options)) {
+        return esc_html__('Settings not configured.', 'yw-protect-my-infos');
+    }
+    
     // Use the obfuscator class to generate the protected output
-    return Protect_My_Infos_Obfuscator::generate($atts['type'], $atts['value'], $options);
+    return YW_Protect_My_Infos_Obfuscator::generate($atts['type'], $atts['value'], $options);
 }

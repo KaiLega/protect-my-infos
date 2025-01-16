@@ -1,10 +1,10 @@
 === Protect My Infos ===
-Contributors: Kai
+Contributors: yugaweb, kaichi
 Tags: security, privacy, email obfuscation, phone number protection
-Requires at least: 5.0
+
 Tested up to: 6.7
-Requires PHP: 7.2
-Stable tag: 1.3.3
+
+Stable tag: 1.3.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,23 @@ Not yet, but we are working on additional premium features. Stay tuned for updat
 = Does the plugin comply with GDPR? =
 Yes, Protect My Infos does not store or process any user data, ensuring compliance with GDPR and other privacy regulations.
 
+== External Services ==
+
+This plugin integrates with the PayPal Donate API to facilitate donations via PayPal's secure platform.
+
+- **Service Name**: PayPal Donate API
+- **Purpose**: To provide a "Donate" button for collecting user donations securely via PayPal.
+- **Data Sent**: 
+  - Donation amount
+  - Currency
+  - PayPal Merchant ID
+- **When**: Data is sent to PayPal only when a user interacts with the "Donate" button.
+- **Service Links**:
+  - [PayPal Terms of Service](https://www.paypal.com/us/webapps/mpp/ua/legalhub-full)
+  - [PayPal Privacy Policy](https://www.paypal.com/us/webapps/mpp/ua/privacy-full)
+
+Note: This plugin does not store or process sensitive personal information. All payment transactions are handled securely by PayPal's platform.
+
 == Screenshots ==
 1. **Admin Panel**: Configure the plugin settings from the WordPress admin.
 2. **Frontend Protection**: Emails and phone numbers are protected on your site.
@@ -96,6 +113,9 @@ Yes, Protect My Infos does not store or process any user data, ensuring complian
 
 = 1.3.3 =
 * Performance and localization updates
+
+= 1.3.4 =
+* Refactoring and security updates
 
 == Upgrade Notice ==
 = 1.3 =

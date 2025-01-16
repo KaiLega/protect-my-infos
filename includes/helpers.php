@@ -10,23 +10,23 @@ if (!defined('ABSPATH')) {
 }
 
 // Display an admin notice
-function protect_my_infos_admin_notice() {
+function yw_protect_my_infos_admin_notice() {
     echo '<div class="notice notice-info is-dismissible">
-        <p>' . esc_html__('Thank you for using Protect My Infos! ', 'protect-my-infos') . 
-        '<a href="https://yugaweb.com" target="_blank">' . esc_html__('Visit our website for updates.', 'protect-my-infos') . '</a></p>
+        <p>' . esc_html__('Thank you for using Protect My Infos! ', 'yw-protect-my-infos') . 
+        '<a href="https://yugaweb.com/protect-my-infos/" target="_blank">' . esc_html__('Visit our website for updates.', 'yw-protect-my-infos') . '</a></p>
     </div>';
 }
-add_action('admin_notices', 'protect_my_infos_admin_notice');
+add_action('admin_notices', 'yw_protect_my_infos_admin_notice');
 
 // Serve images from a centralized location
-function protect_my_infos_serve_image() {
+function yw_protect_my_infos_serve_image() {
     if (!isset($_GET['image']) || empty($_GET['image'])) {
         return; // Exit if no valid "image" parameter
     }
 
     // Verify the nonce
-    if (!isset($_GET['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['nonce'])), 'protect_my_infos_image_nonce')) {
-        wp_die(esc_html__('Invalid nonce.', 'protect-my-infos'), 403);
+    if (!isset($_GET['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['nonce'])), 'yw_protect_my_infos_image_nonce')) {
+        wp_die(esc_html__('Invalid nonce.', 'yw-protect-my-infos'), 403);
     }
 
     $image_key = sanitize_text_field(wp_unslash($_GET['image']));
@@ -43,7 +43,7 @@ function protect_my_infos_serve_image() {
 
     // Check if the requested image key exists
     if (!array_key_exists($image_key, $allowed_images)) {
-        wp_die(esc_html__('Invalid image parameter.', 'protect-my-infos'), 403);
+        wp_die(esc_html__('Invalid image parameter.', 'yw-protect-my-infos'), 403);
     }
 
     // Generate the full URL
@@ -53,10 +53,10 @@ function protect_my_infos_serve_image() {
     wp_redirect($image_url);
     exit;
 }
-add_action('template_redirect', 'protect_my_infos_serve_image');
+add_action('template_redirect', 'yw_protect_my_infos_serve_image');
 
-
-function protect_my_infos_get_image_url($image_key) {
+// Generate image URL with nonce
+function yw_protect_my_infos_get_image_url($image_key) {
     // Define the root URL for images
     $image_root_url = 'https://www.yugaweb.com/file/protect-my-infos/';
 
@@ -73,7 +73,7 @@ function protect_my_infos_get_image_url($image_key) {
     }
 
     // Generate the nonce
-    $nonce = wp_create_nonce('protect_my_infos_image_nonce');
+    $nonce = wp_create_nonce('yw_protect_my_infos_image_nonce');
 
     // Return the full URL with nonce
     return add_query_arg(
@@ -84,5 +84,3 @@ function protect_my_infos_get_image_url($image_key) {
         $image_root_url . $allowed_images[$image_key]
     );
 }
-add_action('admin_enqueue_scripts', 'protect_my_infos_enqueue_paypal');
-

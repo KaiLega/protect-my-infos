@@ -1,77 +1,59 @@
-/**
- * Copyright (c) 2024 Yuga Web
- * This file is part of the Protect My Infos plugin.
- * License: GPLv2 or later. See LICENSE file for details.
- */
+jQuery(document).ready(function ($) {
 
-jQuery(document).ready(function($) {
-    // Handling "With blurred letters/numbers"
-    $('.protect-info').each(function() {
-        var $this = $(this);
-        var isObfuscated = $this.data('obfuscated') === true;
-        var encodedInfo = $this.data('encoded');
-        var infoType = $this.data('type');
-        var icon = '';
-        var textColor = $this.css('color');
-        
-        // Get icon HTML if present
-        if ($this.find('.dashicons').length > 0) {
-            icon = $this.find('.dashicons')[0].outerHTML + ' ';
-        }
-        
-        // Decode and display the obfuscated data
-        function decodeAndShow() {
-            if (!encodedInfo) {
-                return; // Exit if encodedInfo is undefined or empty
-            }
-            
-            try {
-                var decodedInfo = atob(encodedInfo);
-                var link;
-                if (infoType === 'phone') {
-                    link = '<a href="tel:' + decodedInfo + '" style="color:' + textColor + ';">' + decodedInfo + '</a>';
-                } else {
-                    link = '<a href="mailto:' + decodedInfo + '" style="color:' + textColor + ';">' + decodedInfo + '</a>';
-                }
-                $this.html(icon + link);
-            } catch (e) {
-                // Handle decoding error silently
-            }
-        }
-        
-        if (isObfuscated) {
-            $this.find('.blurred-info').on('mouseover', function() {
-                $(this).css('filter', 'none'); // Remove blur effect on hover
-                decodeAndShow(); // Decode and display the data
-            });
-        } else {
-            decodeAndShow(); // Directly decode and show if not obfuscated
-        }
-    });
-    
-    // Handling "With placeholder text"
-    $('.protect-info[data-obfuscated="true"]').not('.blurred-mode').on('click', function() {
-        var $this = $(this);
-        var encodedInfo = $this.data('encoded');
-        var infoType = $this.data('type');
-        var textColor = $this.css('color');
-        var icon = $this.find('.dashicons').length > 0 ? $this.find('.dashicons')[0].outerHTML + ' ' : '';
-        
+    // Function to decode and show the encoded information
+    function decodeAndShow($element, encodedInfo, infoType, textColor, icon) {
         if (!encodedInfo) {
-            return; // Exit if encodedInfo is undefined or empty
+            console.warn('Missing encoded data for element:', $element);
+            return;
         }
-        
+
         try {
             var decodedInfo = atob(encodedInfo);
             var link;
             if (infoType === 'phone') {
                 link = '<a href="tel:' + decodedInfo + '" style="color:' + textColor + ';">' + decodedInfo + '</a>';
-            } else {
+            } else if (infoType === 'email') {
                 link = '<a href="mailto:' + decodedInfo + '" style="color:' + textColor + ';">' + decodedInfo + '</a>';
             }
-            $this.html(icon + link);
+            $element.html(icon + link);
         } catch (e) {
-            // Handle decoding error silently
+            console.error('Error decoding data:', e);
         }
+    }
+
+    // Function to handle mouseover events
+    $('.yw-protect-info').each(function () {
+        var $this = $(this);
+        var isObfuscated = $this.data('obfuscated') === true;
+        var encodedInfo = $this.data('encoded');
+        var infoType = $this.data('type');
+        var textColor = $this.css('color');
+        var $iconElement = $this.find('.dashicons').clone();
+        var icon = $iconElement.length > 0 ? $iconElement[0].outerHTML + ' ' : '';
+
+        if (isObfuscated && $this.find('.yw-blurred-info').length > 0) {
+            $this.on('mouseover', '.yw-blurred-info', function () {
+                console.log('Mouseover on blurred-info detected:', $this);
+                $(this).css('filter', 'none'); 
+                decodeAndShow($this, encodedInfo, infoType, textColor, icon);
+            });
+        }
+    });
+
+    // Function to handle click events
+    $('.yw-protect-info[data-obfuscated="true"]').not('.yw-blurred-info').on('click', function () {
+        var $this = $(this);
+        var encodedInfo = $this.data('encoded');
+        var infoType = $this.data('type');
+        var textColor = $this.css('color');
+        var $iconElement = $this.find('.dashicons').clone();
+        var icon = $iconElement.length > 0 ? $iconElement[0].outerHTML + ' ' : '';
+
+        if (!encodedInfo) {
+            console.warn('Missing encoded data for placeholder:', $this);
+            return;
+        }
+
+        decodeAndShow($this, encodedInfo, infoType, textColor, icon);
     });
 });
