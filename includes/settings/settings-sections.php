@@ -82,7 +82,7 @@ function yw_protect_my_infos_settings_init() {
     // Register fields for General Settings
     add_settings_field(
         'yw_protect_phone_numbers',
-        esc_html__('Protect Phone Numbers', 'yw-protect-my-infos'),
+        esc_html__('Protect Phone Numbers', 'protect-my-infos'),
         'yw_protect_my_infos_render_phone_numbers',
         'yw_protect_my_infos_general',
         'yw_protect_my_infos_general_section'
@@ -90,7 +90,7 @@ function yw_protect_my_infos_settings_init() {
 
     add_settings_field(
         'protect_emails',
-        esc_html__('Protect Emails', 'yw-protect-my-infos'),
+        esc_html__('Protect Emails', 'protect-my-infos'),
         'yw_protect_my_infos_render_emails',
         'yw_protect_my_infos_general',
         'yw_protect_my_infos_general_section'
@@ -98,7 +98,7 @@ function yw_protect_my_infos_settings_init() {
 
     add_settings_field(
         'show_icons',
-        esc_html__('Show Icons', 'yw-protect-my-infos'),
+        esc_html__('Show Icons', 'protect-my-infos'),
         'yw_protect_my_infos_render_show_icons',
         'yw_protect_my_infos_general',
         'yw_protect_my_infos_general_section'
@@ -106,7 +106,7 @@ function yw_protect_my_infos_settings_init() {
 
     add_settings_field(
         'text_color',
-        esc_html__('Text Color', 'yw-protect-my-infos'),
+        esc_html__('Text Color', 'protect-my-infos'),
         'yw_protect_my_infos_render_text_color',
         'yw_protect_my_infos_general',
         'yw_protect_my_infos_general_section'
@@ -114,7 +114,7 @@ function yw_protect_my_infos_settings_init() {
 
     add_settings_field(
         'icons_color',
-        esc_html__('Icons Color', 'yw-protect-my-infos'),
+        esc_html__('Icons Color', 'protect-my-infos'),
         'yw_protect_my_infos_render_icons_color',
         'yw_protect_my_infos_general',
         'yw_protect_my_infos_general_section'
@@ -132,7 +132,7 @@ function yw_protect_my_infos_settings_init() {
     // Register fields for Obfuscation Settings
     add_settings_field(
         'enable_obfuscation',
-        esc_html__('Enable Obfuscation', 'yw-protect-my-infos'),
+        esc_html__('Enable Obfuscation', 'protect-my-infos'),
         'yw_protect_my_infos_render_enable_obfuscation',
         'yw_protect_my_infos_obfuscation',
         'yw_protect_my_infos_obfuscation_section'
@@ -140,7 +140,7 @@ function yw_protect_my_infos_settings_init() {
 
     add_settings_field(
         'yw-obfuscation_type',
-        esc_html__('Obfuscation Type', 'yw-protect-my-infos'),
+        esc_html__('Obfuscation Type', 'protect-my-infos'),
         'yw_protect_my_infos_render_obfuscation_type',
         'yw_protect_my_infos_obfuscation',
         'yw_protect_my_infos_obfuscation_section'
@@ -153,12 +153,12 @@ add_action('admin_init', 'yw_protect_my_infos_settings_init');
  * Callback for General Settings Section.
  */
 function yw_protect_my_infos_general_section_callback() {
-    echo '<p>' . esc_html__('Configure general settings for Protect My Infos.', 'yw-protect-my-infos') . '</p>';
+    echo '<p>' . esc_html__('Configure general settings for Protect My Infos.', 'protect-my-infos') . '</p>';
 }
 
 /**
  * Callback for Obfuscation Settings Section.
  */
 function yw_protect_my_infos_obfuscation_section_callback() {
-    echo '<p>' . esc_html__('Configure obfuscation settings for Protect My Infos.', 'yw-protect-my-infos') . '</p>';
+    echo '<p>' . esc_html__('Configure obfuscation settings for Protect My Infos.', 'protect-my-infos') . '</p>';
 }

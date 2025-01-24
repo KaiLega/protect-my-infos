@@ -54,8 +54,8 @@ function yw_protect_my_infos_render_obfuscation_type() {
     $selected = isset($options['yw-obfuscation_type']) ? $options['yw-obfuscation_type'] : 'placeholder';
     ?>
     <select name="yw_protect_my_infos_options[yw-obfuscation_type]" id="yw-obfuscation_type">
-        <option value="placeholder" <?php selected($selected, 'placeholder'); ?>><?php esc_html_e('With placeholder text', 'yw-protect-my-infos'); ?></option>
-        <option value="blurred" <?php selected($selected, 'blurred'); ?>><?php esc_html_e('With blurred letters/numbers', 'yw-protect-my-infos'); ?></option>
+        <option value="placeholder" <?php selected($selected, 'placeholder'); ?>><?php esc_html_e('With placeholder text', 'protect-my-infos'); ?></option>
+        <option value="blurred" <?php selected($selected, 'blurred'); ?>><?php esc_html_e('With blurred letters/numbers', 'protect-my-infos'); ?></option>
     </select>
     <?php
 }
@@ -65,10 +65,10 @@ function yw_protect_my_infos_render_blur_mode() {
     $selected = isset($options['blur_mode']) ? $options['blur_mode'] : 'full';
     ?>
     <select name="yw_protect_my_infos_options[blur_mode]" id="blur_mode">
-        <option value="full" <?php selected($selected, 'full'); ?>><?php esc_html_e('Blur entire data', 'yw-protect-my-infos'); ?></option>
-        <option value="center" <?php selected($selected, 'center'); ?>><?php esc_html_e('Blur only the center', 'yw-protect-my-infos'); ?></option>
-        <option value="first_half" <?php selected($selected, 'first_half'); ?>><?php esc_html_e('Blur only the first half', 'yw-protect-my-infos'); ?></option>
-        <option value="second_half" <?php selected($selected, 'second_half'); ?>><?php esc_html_e('Blur only the second half', 'yw-protect-my-infos'); ?></option>
+        <option value="full" <?php selected($selected, 'full'); ?>><?php esc_html_e('Blur entire data', 'protect-my-infos'); ?></option>
+        <option value="center" <?php selected($selected, 'center'); ?>><?php esc_html_e('Blur only the center', 'protect-my-infos'); ?></option>
+        <option value="first_half" <?php selected($selected, 'first_half'); ?>><?php esc_html_e('Blur only the first half', 'protect-my-infos'); ?></option>
+        <option value="second_half" <?php selected($selected, 'second_half'); ?>><?php esc_html_e('Blur only the second half', 'protect-my-infos'); ?></option>
     </select>
     <?php
 }
@@ -80,7 +80,7 @@ function yw_protect_my_infos_render_reveal_option() {
     <input type="text" 
        name="yw_protect_my_infos_options[reveal_option]" 
        value="<?php echo esc_attr($placeholder); ?>" 
-       placeholder="<?php echo esc_attr__('Enter custom text...', 'yw-protect-my-infos'); ?>" />
+       placeholder="<?php echo esc_attr__('Enter custom text...', 'protect-my-infos'); ?>" />
     <?php
 }
 
@@ -92,7 +92,7 @@ function yw_protect_my_infos_render_reveal_phone_text() {
         type="text" 
         name="yw_protect_my_infos_options[reveal_phone_text]" 
         value="<?php echo isset($options['reveal_phone_text']) ? esc_attr($options['reveal_phone_text']) : ''; ?>" 
-        placeholder="<?php echo esc_attr__('- Click to reveal the phone number -', 'yw-protect-my-infos'); ?>"
+        placeholder="<?php echo esc_attr__('- Click to reveal the phone number -', 'protect-my-infos'); ?>"
         class="yw-wide-input"
     >
     <?php
@@ -105,7 +105,7 @@ function yw_protect_my_infos_render_reveal_email_text() {
         type="text" 
         name="yw_protect_my_infos_options[reveal_email_text]" 
         value="<?php echo isset($options['reveal_email_text']) ? esc_attr($options['reveal_email_text']) : ''; ?>" 
-        placeholder="<?php esc_html_e('- Click to reveal the email -', 'yw-protect-my-infos'); ?>" 
+        placeholder="<?php esc_html_e('- Click to reveal the email -', 'protect-my-infos'); ?>" 
         class="yw-wide-input"
     >
     <?php

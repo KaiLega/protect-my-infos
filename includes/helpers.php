@@ -12,8 +12,8 @@ if (!defined('ABSPATH')) {
 // Display an admin notice
 function yw_protect_my_infos_admin_notice() {
     echo '<div class="notice notice-info is-dismissible">
-        <p>' . esc_html__('Thank you for using Protect My Infos! ', 'yw-protect-my-infos') . 
-        '<a href="https://yugaweb.com/protect-my-infos/" target="_blank">' . esc_html__('Visit our website for updates.', 'yw-protect-my-infos') . '</a></p>
+        <p>' . esc_html__('Thank you for using Protect My Infos! ', 'protect-my-infos') . 
+        '<a href="https://yugaweb.com/protect-my-infos/" target="_blank">' . esc_html__('Visit our website for updates.', 'protect-my-infos') . '</a></p>
     </div>';
 }
 add_action('admin_notices', 'yw_protect_my_infos_admin_notice');
@@ -26,7 +26,7 @@ function yw_protect_my_infos_serve_image() {
 
     // Verify the nonce
     if (!isset($_GET['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['nonce'])), 'yw_protect_my_infos_image_nonce')) {
-        wp_die(esc_html__('Invalid nonce.', 'yw-protect-my-infos'), 403);
+        wp_die(esc_html__('Invalid nonce.', 'protect-my-infos'), 403);
     }
 
     $image_key = sanitize_text_field(wp_unslash($_GET['image']));
@@ -43,7 +43,7 @@ function yw_protect_my_infos_serve_image() {
 
     // Check if the requested image key exists
     if (!array_key_exists($image_key, $allowed_images)) {
-        wp_die(esc_html__('Invalid image parameter.', 'yw-protect-my-infos'), 403);
+        wp_die(esc_html__('Invalid image parameter.', 'protect-my-infos'), 403);
     }
 
     // Generate the full URL

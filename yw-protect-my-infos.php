@@ -10,7 +10,7 @@
  Author URI: https://www.yugaweb.com/
  License: GPLv2 or later
  License URI: https://www.gnu.org/licenses/gpl-2.0.html
- Text Domain: yw-protect-my-infos
+ Text Domain: protect-my-infos
  Domain Path: /languages
  */
 
@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 // Load plugin text domain for localization (for WordPress versions < 4.6)
 function yw_protect_my_infos_load_textdomain() {
     if (version_compare(get_bloginfo('version'), '4.6', '<')) {
-        load_plugin_textdomain('yw-protect-my-infos', false, dirname(plugin_basename(__FILE__)) . '/languages');
+        load_plugin_textdomain('protect-my-infos', false, dirname(plugin_basename(__FILE__)) . '/languages');
     }
 }
 add_action('init', 'yw_protect_my_infos_load_textdomain');

@@ -17,19 +17,19 @@ function yw_protect_my_infos_ajax_save_settings() {
             : '');
 
     if (!wp_verify_nonce($nonce, 'yw_protect_my_infos_nonce_action')) {
-        wp_send_json_error(esc_html__('Invalid nonce.', 'yw-protect-my-infos'));
+        wp_send_json_error(esc_html__('Invalid nonce.', 'protect-my-infos'));
         return;
     }
 
     if (!current_user_can('manage_options')) {
-        wp_send_json_error(esc_html__('Permission denied.', 'yw-protect-my-infos'));
+        wp_send_json_error(esc_html__('Permission denied.', 'protect-my-infos'));
         return;
     }
 
     $raw_post_options = filter_input(INPUT_POST, 'options', FILTER_SANITIZE_STRING);
 
     if (!$raw_post_options || !is_string($raw_post_options)) {
-        wp_send_json_error(esc_html__('Invalid options structure.', 'yw-protect-my-infos'));
+        wp_send_json_error(esc_html__('Invalid options structure.', 'protect-my-infos'));
         return;
     }
 
@@ -37,7 +37,7 @@ function yw_protect_my_infos_ajax_save_settings() {
     parse_str($post_options_unescaped, $parsed_options);
 
     if (!is_array($parsed_options) || !isset($parsed_options['yw_protect_my_infos_options'])) {
-        wp_send_json_error(esc_html__('Invalid options structure.', 'yw-protect-my-infos'));
+        wp_send_json_error(esc_html__('Invalid options structure.', 'protect-my-infos'));
         return;
     }
 
@@ -76,11 +76,11 @@ function yw_protect_my_infos_ajax_save_settings() {
     if ($sanitized_options !== $existing_options) {
         $update_result = update_option('yw_protect_my_infos_options', $sanitized_options);
         if (!$update_result) {
-            wp_send_json_error(esc_html__('Failed to save settings.', 'yw-protect-my-infos'));
+            wp_send_json_error(esc_html__('Failed to save settings.', 'protect-my-infos'));
             return;
         }
     }
 
-    wp_send_json_success(esc_html__('Settings saved successfully.', 'yw-protect-my-infos'));
+    wp_send_json_success(esc_html__('Settings saved successfully.', 'protect-my-infos'));
 }
 add_action('wp_ajax_yw_protect_my_infos_save_settings', 'yw_protect_my_infos_ajax_save_settings');

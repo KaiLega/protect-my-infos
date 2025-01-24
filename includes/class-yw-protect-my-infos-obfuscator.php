@@ -62,10 +62,10 @@ class YW_Protect_My_Infos_Obfuscator {
             $output = '<span class="yw-protect-info" data-type="' . esc_attr($type) . '" data-obfuscated="true" data-encoded="' . esc_attr($encodedValue) . '" style="color:' . esc_attr($textColor) . ';">' . $icon . $blurredValue . '</span>';
         } elseif ($enableObfuscation && $obfuscationType === 'placeholder') {
             $customText = ($type === 'phone')
-                ? (isset($options['reveal_phone_text']) && !empty($options['reveal_phone_text']) ? esc_html($options['reveal_phone_text']) : esc_html__('- Click to reveal the phone number -', 'yw-protect-my-infos'))
-                : (isset($options['reveal_email_text']) && !empty($options['reveal_email_text']) ? esc_html($options['reveal_email_text']) : esc_html__('- Click to reveal the email address -', 'yw-protect-my-infos'));
+                ? (isset($options['reveal_phone_text']) && !empty($options['reveal_phone_text']) ? esc_html($options['reveal_phone_text']) : esc_html__('- Click to reveal the phone number -', 'protect-my-infos'))
+                : (isset($options['reveal_email_text']) && !empty($options['reveal_email_text']) ? esc_html($options['reveal_email_text']) : esc_html__('- Click to reveal the email address -', 'protect-my-infos'));
 
-            $output = '<span class="yw-protect-info" data-type="' . esc_attr($type) . '" data-obfuscated="true" data-encoded="' . esc_attr($encodedValue) . '" style="font-style: italic; color:' . esc_attr($textColor) . '; cursor: pointer;" title="' . esc_attr__('Click to reveal', 'yw-protect-my-infos') . '">' . $icon . $customText . '</span>';
+            $output = '<span class="yw-protect-info" data-type="' . esc_attr($type) . '" data-obfuscated="true" data-encoded="' . esc_attr($encodedValue) . '" style="font-style: italic; color:' . esc_attr($textColor) . '; cursor: pointer;" title="' . esc_attr__('Click to reveal', 'protect-my-infos') . '">' . $icon . $customText . '</span>';
         } else {
             $output = '<span class="yw-protect-info" data-type="' . esc_attr($type) . '" data-encoded="' . esc_attr($encodedValue) . '" style="font-style: italic; color:' . esc_attr($textColor) . '; cursor: text;">' . $icon . '<span class="hidden-info"></span></span>';
         }
@@ -94,19 +94,19 @@ class YW_Protect_My_Infos_Obfuscator {
                 $first = substr($value, 0, 1);
                 $last = substr($value, -1);
                 $middle = str_repeat('*', $length - 2);
-                $output = $first . '<span class="yw-blurred-info" style="filter: blur(3px); cursor: pointer;" title="' . esc_attr__('Hover to reveal', 'yw-protect-my-infos') . '">' . $middle . '</span>' . $last;
+                $output = $first . '<span class="yw-blurred-info" style="filter: blur(3px); cursor: pointer;" title="' . esc_attr__('Hover to reveal', 'protect-my-infos') . '">' . $middle . '</span>' . $last;
                 break;
             case 'first_half':
                 $half = floor($length / 2);
-                $output = '<span class="yw-blurred-info" style="filter: blur(3px); cursor: pointer;" title="' . esc_attr__('Hover to reveal', 'yw-protect-my-infos') . '">' . str_repeat('*', $half) . '</span>' . substr($value, $half);
+                $output = '<span class="yw-blurred-info" style="filter: blur(3px); cursor: pointer;" title="' . esc_attr__('Hover to reveal', 'protect-my-infos') . '">' . str_repeat('*', $half) . '</span>' . substr($value, $half);
                 break;
             case 'second_half':
                 $half = floor($length / 2);
-                $output = substr($value, 0, $half) . '<span class="yw-blurred-info" style="filter: blur(3px); cursor: pointer;" title="' . esc_attr__('Hover to reveal', 'yw-protect-my-infos') . '">' . str_repeat('*', $length - $half) . '</span>';
+                $output = substr($value, 0, $half) . '<span class="yw-blurred-info" style="filter: blur(3px); cursor: pointer;" title="' . esc_attr__('Hover to reveal', 'protect-my-infos') . '">' . str_repeat('*', $length - $half) . '</span>';
                 break;
             case 'full':
             default:
-                $output = '<span class="yw-blurred-info" style="filter: blur(3px); cursor: pointer;" title="' . esc_attr__('Hover to reveal', 'yw-protect-my-infos') . '">' . $placeholder . '</span>';
+                $output = '<span class="yw-blurred-info" style="filter: blur(3px); cursor: pointer;" title="' . esc_attr__('Hover to reveal', 'protect-my-infos') . '">' . $placeholder . '</span>';
                 break;
         }
 

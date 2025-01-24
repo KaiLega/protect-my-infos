@@ -38,7 +38,7 @@ function yw_protect_my_infos_shortcode($atts) {
 
     // If no value is provided, return an empty string
     if (empty($atts['value'])) {
-        return esc_html__('No value provided.', 'yw-protect-my-infos');
+        return esc_html__('No value provided.', 'protect-my-infos');
     }
 
     // Get plugin options from the database
@@ -46,7 +46,7 @@ function yw_protect_my_infos_shortcode($atts) {
 
     // Check if options are empty
     if (empty($options)) {
-        return esc_html__('Settings not configured.', 'yw-protect-my-infos');
+        return esc_html__('Settings not configured.', 'protect-my-infos');
     }
 
     // Use the obfuscator class to generate the protected output

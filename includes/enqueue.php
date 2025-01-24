@@ -43,8 +43,8 @@ function yw_protect_my_infos_enqueue_scripts() {
         'protectPhoneNumbers' => isset($options['yw_protect_phone_numbers']) ? intval($options['yw_protect_phone_numbers']) : 0,
         'protectEmails' => isset($options['protect_emails']) ? intval($options['protect_emails']) : 0,
         'enableObfuscation' => isset($options['enable_obfuscation']) ? intval($options['enable_obfuscation']) : 0,
-        'revealPhoneText' => esc_html__('- Click to reveal the phone number -', 'yw-protect-my-infos'),
-        'revealEmailText' => esc_html__('- Click to reveal the email address -', 'yw-protect-my-infos'),
+        'revealPhoneText' => esc_html__('- Click to reveal the phone number -', 'protect-my-infos'),
+        'revealEmailText' => esc_html__('- Click to reveal the email address -', 'protect-my-infos'),
     ));
 }
 add_action('wp_enqueue_scripts', 'yw_protect_my_infos_enqueue_scripts');
@@ -104,8 +104,8 @@ function yw_protect_my_infos_enqueue_admin_scripts($hook_suffix) {
 
         // Localize PayPal script
         wp_localize_script('yw-protect-my-infos-donation-button', 'ywProtectMyInfosLang', array(
-            'altText' => esc_html__('Donate with PayPal button', 'yw-protect-my-infos'),
-            'titleText' => esc_html__('PayPal - The safer, easier way to pay online!', 'yw-protect-my-infos'),
+            'altText' => esc_html__('Donate with PayPal button', 'protect-my-infos'),
+            'titleText' => esc_html__('PayPal - The safer, easier way to pay online!', 'protect-my-infos'),
             'locale' => get_locale()
         ));
     }

@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
                 'image' => 'logo',
                 'nonce' => wp_create_nonce('yw_protect_my_infos_image_nonce')
             ), home_url('/'))); ?>" 
-            alt="<?php esc_attr_e('Protect My Infos Logo', 'yw-protect-my-infos'); ?>" 
+            alt="<?php esc_attr_e('Protect My Infos Logo', 'protect-my-infos'); ?>" 
             width="266"
         />
     </div>

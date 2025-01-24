@@ -9,8 +9,8 @@
 // Add admin menu for the plugin
 function yw_protect_my_infos_add_admin_menu() {
     add_menu_page(
-        esc_html__('Protect My Infos', 'yw-protect-my-infos'),
-        esc_html__('Protect My Infos', 'yw-protect-my-infos'),
+        esc_html__('Protect My Infos', 'protect-my-infos'),
+        esc_html__('Protect My Infos', 'protect-my-infos'),
         'manage_options',
         'yw-protect-my-infos',
         'yw_protect_my_infos_options_page',
@@ -41,7 +41,7 @@ function yw_protect_my_infos_options_page() {
         <div class="yw-admin-notifications">
             <?php if (function_exists('get_plugin_updates') && $updates = get_plugin_updates()) : ?>
                 <div class="update-nag">
-                    <?php esc_html_e('Plugin updates are available.', 'yw-protect-my-infos'); ?>
+                    <?php esc_html_e('Plugin updates are available.', 'protect-my-infos'); ?>
                 </div>
             <?php endif; ?>
         </div>
@@ -51,11 +51,11 @@ function yw_protect_my_infos_options_page() {
             <!-- Sidebar Navigation -->
             <div class="yw-sidebar-menu">
                 <ul>
-                    <li class="active"><a href="#yw-general-settings"><?php esc_html_e('General Settings', 'yw-protect-my-infos'); ?></a></li>
-                    <li><a href="#yw-obfuscation-settings"><?php esc_html_e('Obfuscation', 'yw-protect-my-infos'); ?></a></li>
-                    <li><a href="#yw-advanced-settings"><?php esc_html_e('Advanced Settings', 'yw-protect-my-infos'); ?></a></li>
-                    <li><a href="#yw-how-to-use"><?php esc_html_e('How to use it', 'yw-protect-my-infos'); ?></a></li>
-                    <li><a href="#yw-support-author"><?php esc_html_e('Support the Author', 'yw-protect-my-infos'); ?></a></li>
+                    <li class="active"><a href="#yw-general-settings"><?php esc_html_e('General Settings', 'protect-my-infos'); ?></a></li>
+                    <li><a href="#yw-obfuscation-settings"><?php esc_html_e('Obfuscation', 'protect-my-infos'); ?></a></li>
+                    <li><a href="#yw-advanced-settings"><?php esc_html_e('Advanced Settings', 'protect-my-infos'); ?></a></li>
+                    <li><a href="#yw-how-to-use"><?php esc_html_e('How to use it', 'protect-my-infos'); ?></a></li>
+                    <li><a href="#yw-support-author"><?php esc_html_e('Support the Author', 'protect-my-infos'); ?></a></li>
                 </ul>
             </div>
 
@@ -66,52 +66,52 @@ function yw_protect_my_infos_options_page() {
 
                  <!-- General Settings -->
                 <div id="yw-general-settings" class="yw-settings-section active">
-                    <h2><?php esc_html_e('General Settings', 'yw-protect-my-infos'); ?></h2>
+                    <h2><?php esc_html_e('General Settings', 'protect-my-infos'); ?></h2>
                     <table class="form-table">
                         <tr>
-                            <th scope="row"><?php esc_html_e('Protect Phone Numbers', 'yw-protect-my-infos'); ?></th>
+                            <th scope="row"><?php esc_html_e('Protect Phone Numbers', 'protect-my-infos'); ?></th>
                             <td>
                                 <input type="checkbox" name="yw_protect_my_infos_options[protect_phone_numbers]" value="1" <?php checked(1, $options['protect_phone_numbers'], true); ?> />
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e('Protect Emails', 'yw-protect-my-infos'); ?></th>
+                            <th scope="row"><?php esc_html_e('Protect Emails', 'protect-my-infos'); ?></th>
                             <td>
                                 <input type="checkbox" name="yw_protect_my_infos_options[protect_emails]" value="1" <?php checked(1, $options['protect_emails'], true); ?> />
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e('Show Icons', 'yw-protect-my-infos'); ?></th>
+                            <th scope="row"><?php esc_html_e('Show Icons', 'protect-my-infos'); ?></th>
                             <td>
                                 <input type="checkbox" name="yw_protect_my_infos_options[show_icons]" value="1" <?php checked(1, $options['show_icons'], true); ?> />
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e('Text Color', 'yw-protect-my-infos'); ?></th>
+                            <th scope="row"><?php esc_html_e('Text Color', 'protect-my-infos'); ?></th>
                             <td>
                                 <input type="text" name="yw_protect_my_infos_options[text_color]" value="<?php echo esc_attr($options['text_color']); ?>" class="yw-color-field" />
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e('Icons Color', 'yw-protect-my-infos'); ?></th>
+                            <th scope="row"><?php esc_html_e('Icons Color', 'protect-my-infos'); ?></th>
                             <td>
                                 <input type="text" name="yw_protect_my_infos_options[icons_color]" value="<?php echo esc_attr($options['icons_color']); ?>" class="yw-color-field" />
                             </td>
                         </tr>
                     </table>
-                    <?php submit_button(__('Save Settings', 'yw-protect-my-infos'), 'primary', 'submit', true); ?>
+                    <?php submit_button(__('Save Settings', 'protect-my-infos'), 'primary', 'submit', true); ?>
                 </div>
 
                 <!-- Obfuscation Settings -->
                 <div id="yw-obfuscation-settings" class="yw-settings-section">
-                    <h2><?php esc_html_e('Obfuscation Settings', 'yw-protect-my-infos'); ?></h2>
+                    <h2><?php esc_html_e('Obfuscation Settings', 'protect-my-infos'); ?></h2>
                     <?php do_settings_sections('yw_protect_my_infos_obfuscation'); ?>
 
                     <!-- Blur Mode Field -->
                     <table class="form-table">
                         <tbody>
                             <tr class="yw-blur-mode-option" style="display: none;">
-                                <th scope="row"><?php esc_html_e('Blur Mode', 'yw-protect-my-infos'); ?></th>
+                                <th scope="row"><?php esc_html_e('Blur Mode', 'protect-my-infos'); ?></th>
                                 <td><?php yw_protect_my_infos_render_blur_mode(); ?></td>
                             </tr>
                         </tbody>
@@ -120,50 +120,50 @@ function yw_protect_my_infos_options_page() {
                     <table class="form-table">
                         <tbody>
                             <tr class="yw-reveal-option" style="display: none;">
-                                <th scope="row"><?php esc_html_e('Custom Phone Reveal Text', 'yw-protect-my-infos'); ?></th>
+                                <th scope="row"><?php esc_html_e('Custom Phone Reveal Text', 'protect-my-infos'); ?></th>
                                 <td><?php yw_protect_my_infos_render_reveal_phone_text(); ?></td>
                             </tr>
                             <tr class="yw-reveal-option" style="display: none;">
-                                <th scope="row"><?php esc_html_e('Custom Email Reveal Text', 'yw-protect-my-infos'); ?></th>
+                                <th scope="row"><?php esc_html_e('Custom Email Reveal Text', 'protect-my-infos'); ?></th>
                                 <td><?php yw_protect_my_infos_render_reveal_email_text(); ?></td>
                             </tr>
                         </tbody>
                     </table>
 
 
-                    <?php submit_button(__('Save Settings', 'yw-protect-my-infos'), 'primary', 'submit', true); ?>
+                    <?php submit_button(__('Save Settings', 'protect-my-infos'), 'primary', 'submit', true); ?>
                 </div>
 
                 <!-- Advanced-settings section -->
                 <div id="yw-advanced-settings" class="yw-settings-section">
-                    <h2><?php esc_html_e('Advanced Settings', 'yw-protect-my-infos'); ?></h2>
-                    <p><?php esc_html_e('New features coming soon...', 'yw-protect-my-infos'); ?></p>
+                    <h2><?php esc_html_e('Advanced Settings', 'protect-my-infos'); ?></h2>
+                    <p><?php esc_html_e('New features coming soon...', 'protect-my-infos'); ?></p>
                 </div>
 
                 <!-- How to use it section -->
                 <div id="yw-how-to-use" class="yw-settings-section">
-                    <h2><?php esc_html_e('How to use Protect My Infos', 'yw-protect-my-infos'); ?></h2>
-                    <p><?php esc_html_e('To use Protect My Infos, follow these steps:', 'yw-protect-my-infos'); ?></p>
+                    <h2><?php esc_html_e('How to use Protect My Infos', 'protect-my-infos'); ?></h2>
+                    <p><?php esc_html_e('To use Protect My Infos, follow these steps:', 'protect-my-infos'); ?></p>
                     <ol>
-                        <li><?php esc_html_e('In General Settings, choose the data you want to protect: phone numbers, email addresses, or both.', 'yw-protect-my-infos'); ?></li>
-                        <li><?php esc_html_e('In Obfuscation, set your preferred obfuscation type and customization options.', 'yw-protect-my-infos'); ?></li>
-                        <li><?php esc_html_e('Use the shortcode in your posts or pages to protect specific information:', 'yw-protect-my-infos'); ?></li>
+                        <li><?php esc_html_e('In General Settings, choose the data you want to protect: phone numbers, email addresses, or both.', 'protect-my-infos'); ?></li>
+                        <li><?php esc_html_e('In Obfuscation, set your preferred obfuscation type and customization options.', 'protect-my-infos'); ?></li>
+                        <li><?php esc_html_e('Use the shortcode in your posts or pages to protect specific information:', 'protect-my-infos'); ?></li>
                         <pre>
 [protect_my_infos type="email" value="youremail@example.com"]
 [protect_my_infos type="phone" value="+1234567890"]
                         </pre>
-                        <li><?php esc_html_e('Save your settings and test on your site to ensure proper functionality.', 'yw-protect-my-infos'); ?></li>
+                        <li><?php esc_html_e('Save your settings and test on your site to ensure proper functionality.', 'protect-my-infos'); ?></li>
                     </ol>
                 </div>
 
                 <!-- Support Author section -->
                 <div id="yw-support-author" class="yw-settings-section">
-                    <h2><?php esc_html_e('Support the Author', 'yw-protect-my-infos'); ?></h2>
-                    <p><?php esc_html_e('If you like this plugin and would like to support me, please consider making a donation!', 'yw-protect-my-infos'); ?></p>
+                    <h2><?php esc_html_e('Support the Author', 'protect-my-infos'); ?></h2>
+                    <p><?php esc_html_e('If you like this plugin and would like to support me, please consider making a donation!', 'protect-my-infos'); ?></p>
 
                     <!-- PayPal Donation -->
                     <div class="yw-donation-option">
-                        <h3><?php esc_html_e('Donate with PayPal', 'yw-protect-my-infos'); ?></h3>
+                        <h3><?php esc_html_e('Donate with PayPal', 'protect-my-infos'); ?></h3>
                         <div id="yw-donate-button-container">
                             <div id="yw-donate-button"></div>
                         </div>
@@ -171,8 +171,8 @@ function yw_protect_my_infos_options_page() {
 
                     <!-- Bitcoin Donation -->
                     <div class="yw-donation-option">
-                        <h3><?php esc_html_e('Donate with Bitcoin', 'yw-protect-my-infos'); ?></h3>
-                        <p><?php esc_html_e('Scan the QR code or use this address to donate:', 'yw-protect-my-infos'); ?></p>
+                        <h3><?php esc_html_e('Donate with Bitcoin', 'protect-my-infos'); ?></h3>
+                        <p><?php esc_html_e('Scan the QR code or use this address to donate:', 'protect-my-infos'); ?></p>
                         <p><strong>1CCR8p61GnGQaeKGfrhneewnxAqKDgxEZp</strong></p>
                         <div class="yw-qr-code">
                             <img 
@@ -180,7 +180,7 @@ function yw_protect_my_infos_options_page() {
                                     'image' => 'qr-code',
                                     'nonce' => wp_create_nonce('yw_protect_my_infos_image_nonce')
                                 ), home_url('/'))); ?>" 
-                                alt="<?php esc_attr_e('Bitcoin QR Code', 'yw-protect-my-infos'); ?>" 
+                                alt="<?php esc_attr_e('Bitcoin QR Code', 'protect-my-infos'); ?>" 
                                 style="width: 80px; height: 80px;"
                             >
                         </div>
@@ -198,7 +198,7 @@ function yw_protect_my_infos_options_page() {
                                 'image' => 'banner',
                                 'nonce' => wp_create_nonce('yw_protect_my_infos_image_nonce')
                             ), home_url('/'))); ?>" 
-                            alt="<?php esc_attr_e('Yuga Web Design banner', 'yw-protect-my-infos'); ?>" 
+                            alt="<?php esc_attr_e('Yuga Web Design banner', 'protect-my-infos'); ?>" 
                             style="width: 100%;"
                         />
                     </a>
