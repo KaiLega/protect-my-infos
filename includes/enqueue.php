@@ -5,6 +5,10 @@
  * License: GPLv2 or later. See LICENSE file for details.
  */
 
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}
+
 // Retrieve the plugin version
 function yw_protect_my_infos_get_plugin_version() {
     if (!function_exists('get_plugin_data')) {

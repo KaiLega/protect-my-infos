@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Protect My Infos\n"
-"POT-Creation-Date: 2025-01-16 10:53+0100\n"
+"POT-Creation-Date: 2025-01-24 21:29+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Yuga Web\n"
@@ -22,12 +22,12 @@ msgstr ""
 "X-Poedit-SearchPath-6: css\n"
 "X-Poedit-SearchPath-7: .\n"
 
-#: includes/class-yw-protect-my-infos-obfuscator.php:65 includes/enqueue.php:45
-#: includes/settings/helpers.php:91
+#: includes/class-yw-protect-my-infos-obfuscator.php:65 includes/enqueue.php:46
+#: includes/settings/helpers.php:95
 msgid "- Click to reveal the phone number -"
 msgstr "- Clicca qui per rivelare il telefono -"
 
-#: includes/class-yw-protect-my-infos-obfuscator.php:66 includes/enqueue.php:46
+#: includes/class-yw-protect-my-infos-obfuscator.php:66 includes/enqueue.php:47
 msgid "- Click to reveal the email address -"
 msgstr "- Clicca qui per rivelare l'email -"
 
@@ -42,11 +42,11 @@ msgstr "- Clicca qui per rivelare"
 msgid "Hover to reveal"
 msgstr "Passa qui il mouse per rivelare"
 
-#: includes/enqueue.php:120
+#: includes/enqueue.php:107
 msgid "Donate with PayPal button"
 msgstr "Dona con Paypal"
 
-#: includes/enqueue.php:121
+#: includes/enqueue.php:108
 msgid "PayPal - The safer, easier way to pay online!"
 msgstr "PayPal - Il modo più sicuro e facile per pagare online!"
 
@@ -58,7 +58,7 @@ msgstr "Grazie per aver utilizzato Protect My Infos! "
 msgid "Visit our website for updates."
 msgstr "Visitate il nostro sito web per gli aggiornamenti."
 
-#: includes/helpers.php:29 includes/settings/ajax.php:21
+#: includes/helpers.php:29 includes/settings/ajax.php:20
 msgid "Invalid nonce."
 msgstr "Nonce non valido."
 
@@ -210,19 +210,19 @@ msgstr "QR Code per Bitcoin"
 msgid "Yuga Web Design banner"
 msgstr "Yuga Web Design banner"
 
-#: includes/settings/ajax.php:27
+#: includes/settings/ajax.php:25
 msgid "Permission denied."
 msgstr "Permesso negato."
 
-#: includes/settings/ajax.php:34 includes/settings/ajax.php:42
+#: includes/settings/ajax.php:32 includes/settings/ajax.php:40
 msgid "Invalid options structure."
 msgstr "Struttura delle opzioni non valida."
 
-#: includes/settings/ajax.php:81
+#: includes/settings/ajax.php:79
 msgid "Failed to save settings."
 msgstr "Errore nel salvataggio delle impostazioni."
 
-#: includes/settings/ajax.php:86
+#: includes/settings/ajax.php:84
 msgid "Settings saved successfully."
 msgstr "Impostazioni salvate con successo."
 
@@ -254,11 +254,11 @@ msgstr "Offusca solo la prima metà"
 msgid "Blur only the second half"
 msgstr "Offusca solo la seconda metà"
 
-#: includes/settings/helpers.php:80
+#: includes/settings/helpers.php:83
 msgid "Enter custom text..."
 msgstr "Inserisci custom text..."
 
-#: includes/settings/helpers.php:104
+#: includes/settings/helpers.php:108
 msgid "- Click to reveal the email -"
 msgstr "- Clicca qui per rivelare l'email -"
 
@@ -278,11 +278,11 @@ msgstr "Configura le impostazioni generali per Protect My Infos."
 msgid "Configure obfuscation settings for Protect My Infos."
 msgstr "Configura le impostazioni di offuscamento per Protect My Infos."
 
-#: includes/shortcode.php:45
+#: includes/shortcode.php:41
 msgid "No value provided."
 msgstr "Nessun valore fornito."
 
-#: includes/shortcode.php:52
+#: includes/shortcode.php:49
 msgid "Settings not configured."
 msgstr "Impostazioni non configurate."
 

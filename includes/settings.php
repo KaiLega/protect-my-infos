@@ -6,6 +6,10 @@
  * License: GPLv2 or later. See LICENSE file for details.
  */
 
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}
+
  require_once plugin_dir_path(__FILE__) . 'settings/ajax.php';
  require_once plugin_dir_path(__FILE__) . 'settings/admin-menu.php';
  require_once plugin_dir_path(__FILE__) . 'settings/settings-sections.php';

@@ -5,6 +5,10 @@
  * This file is part of the Protect My Infos plugin.
  * License: GPLv2 or later. See LICENSE file for details.
  */
+ 
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}
 
 // Handles AJAX save settings request
 function yw_protect_my_infos_ajax_save_settings() {

@@ -6,3 +6,7 @@
  */
 
 // File used for future development
+
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}

@@ -6,6 +6,10 @@
  * License: GPLv2 or later. See LICENSE file for details.
  */
 
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}
+
 // Add admin menu for the plugin
 function yw_protect_my_infos_add_admin_menu() {
     add_menu_page(

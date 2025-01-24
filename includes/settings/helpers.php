@@ -6,6 +6,10 @@
  * License: GPLv2 or later. See LICENSE file for details.
  */
 
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}
+
 // Render functions for individual settings fields
 function yw_protect_my_infos_render_phone_numbers() {
     $options = get_option('yw_protect_my_infos_options');

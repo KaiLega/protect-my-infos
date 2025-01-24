@@ -6,6 +6,10 @@
  * License: GPLv2 or later. See LICENSE file for details.
  */
 
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}
+
 /**
  * Sanitization callback for plugin options.
  */
