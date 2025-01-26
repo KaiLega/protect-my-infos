@@ -16,7 +16,7 @@ require_once plugin_dir_path(__FILE__) . 'class-yw-protect-my-infos-obfuscator.p
 /**
  * Register the shortcode [yw_protect_my_infos].
  */
-add_shortcode('yw_protect_my_infos', 'yw_protect_my_infos_shortcode');
+add_shortcode('protect_my_infos', 'yw_protect_my_infos_shortcode');
 
 /**
  * Shortcode handler for [yw_protect_my_infos].
