@@ -1,6 +1,6 @@
 === Protect My Infos ===
 Contributors: yugaweb, kaichi
-Tags: security, privacy, email obfuscation, anti-spam, phone number protection, encryption, spam prevention
+Tags: security, privacy, email obfuscation, anti-spam, phone number protection
 
 Tested up to: 6.7
 

@@ -9,14 +9,95 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Display an admin notice
+// Load get_plugin_version() function
+if (!function_exists('yw_protect_my_infos_get_plugin_version')) {
+    require_once plugin_dir_path(__FILE__) . 'includes/enqueue.php';
+}
+
+/**
+ * Display an admin notice 
+ */
 function yw_protect_my_infos_admin_notice() {
-    echo '<div class="notice notice-info is-dismissible">
-        <p>' . esc_html__('Thank you for using Protect My Infos! ', 'protect-my-infos') . 
-        '<a href="https://yugaweb.com/protect-my-infos/" target="_blank">' . esc_html__('Visit our website for updates.', 'protect-my-infos') . '</a></p>
-    </div>';
+    // Check if the user has dismissed the notice
+    $user_id = get_current_user_id();
+    if (get_user_meta($user_id, 'yw_protect_my_infos_dismissed_notice', true)) {
+        return; // Exit if the notice has been dismissed
+    }
+
+    // Prepare the notice content
+    $notice_text = __('Thank you for installing Protect My Infos!', 'protect-my-infos');
+    $visit_link_text = __('Visit our website for updates.', 'protect-my-infos');
+    $dismiss_button_text = __('Do not show again', 'protect-my-infos');
+    $dismiss_button_label = __('Do not show this notice again', 'protect-my-infos');
+    $website_url = 'https://yugaweb.com/protect-my-infos/';
+
+    // Generate the notice
+    echo '<div class="notice notice-info is-dismissible yw-protect-my-infos-notice" style="display: flex; justify-content: space-between; align-items: center;">';
+    echo '<p style="margin: 0;">' . esc_html($notice_text) . ' <a href="' . esc_url($website_url) . '" target="_blank">' . esc_html($visit_link_text) . '</a></p>';
+    echo '<button type="button" class="button-link yw-dismiss-notice" aria-label="' . esc_attr($dismiss_button_label) . '" style="margin-left: auto;">' . esc_html($dismiss_button_text) . '</button>';
+    echo '</div>';
 }
 add_action('admin_notices', 'yw_protect_my_infos_admin_notice');
+
+
+
+/**
+ * Handle the AJAX request to dismiss the admin notice.
+ */
+function yw_protect_my_infos_dismiss_notice() {
+    // Check if it's an AJAX request
+    if (!defined('DOING_AJAX') || !DOING_AJAX) {
+        wp_die(esc_html__('Unauthorized request.', 'protect-my-infos'), 403);
+    }
+
+    // Check the nonce
+    $nonce = isset($_POST['nonce']) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : '';
+    if (!wp_verify_nonce($nonce, 'yw_protect_my_infos_dismiss_notice')) {
+        wp_send_json_error(esc_html__('Invalid nonce.', 'protect-my-infos'));
+        return;
+    }
+
+    // Check if the user has the required capability
+    if (!current_user_can('manage_options')) {
+        wp_send_json_error(esc_html__('Permission denied.', 'protect-my-infos'));
+        return;
+    }
+
+    // Update the user meta to dismiss the notice
+    $user_id = get_current_user_id();
+    $updated = update_user_meta($user_id, 'yw_protect_my_infos_dismissed_notice', true);
+
+    if (!$updated) {
+        wp_send_json_error(esc_html__('Failed to update user meta.', 'protect-my-infos'));
+        return;
+    }
+
+    wp_send_json_success(esc_html__('Notice dismissed.', 'protect-my-infos'));
+}
+
+add_action('wp_ajax_yw_dismiss_notice', 'yw_protect_my_infos_dismiss_notice');
+
+
+/**
+ * Enqueue the JavaScript for the admin notice.
+ */
+function yw_protect_my_infos_enqueue_admin_notice_scripts($hook) {
+    $plugin_version = yw_protect_my_infos_get_plugin_version();
+
+    wp_enqueue_script(
+        'yw-protect-my-infos-notice',
+        plugin_dir_url(__FILE__) . '../js/protect-my-infos-notice.js',
+        array('jquery'),
+        $plugin_version,
+        true
+    );
+
+    wp_localize_script('yw-protect-my-infos-notice', 'ywProtectMyInfosNotice', array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('yw_protect_my_infos_dismiss_notice'),
+    ));
+}
+add_action('admin_enqueue_scripts', 'yw_protect_my_infos_enqueue_admin_notice_scripts');
 
 // Serve images from a centralized location
 function yw_protect_my_infos_serve_image() {
@@ -29,7 +110,8 @@ function yw_protect_my_infos_serve_image() {
         wp_die(esc_html__('Invalid nonce.', 'protect-my-infos'), 403);
     }
 
-    $image_key = sanitize_text_field(wp_unslash($_GET['image']));
+    // Safely retrieve the image key
+    $image_key = isset($_GET['image']) ? sanitize_text_field(wp_unslash($_GET['image'])) : '';
 
     // Define the root URL for images
     $image_root_url = 'https://www.yugaweb.com/file/protect-my-infos/';
