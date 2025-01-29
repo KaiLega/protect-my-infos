@@ -32,9 +32,9 @@ function yw_protect_my_infos_admin_notice() {
     $website_url = 'https://yugaweb.com/protect-my-infos/';
 
     // Generate the notice
-    echo '<div class="notice notice-info is-dismissible yw-protect-my-infos-notice" style="display: flex; justify-content: space-between; align-items: center;">';
+    echo '<div class="yw-protect-my-infos-notice is-dismissible notice notice-info" style="display: flex; justify-content: space-between; align-items: center;">';
     echo '<p style="margin: 0;">' . esc_html($notice_text) . ' <a href="' . esc_url($website_url) . '" target="_blank">' . esc_html($visit_link_text) . '</a></p>';
-    echo '<button type="button" class="button-link yw-dismiss-notice" aria-label="' . esc_attr($dismiss_button_label) . '" style="margin-left: auto;">' . esc_html($dismiss_button_text) . '</button>';
+    echo '<button type="button" class="yw-dismiss-notice button-link" aria-label="' . esc_attr($dismiss_button_label) . '" style="margin-left: auto;">' . esc_html($dismiss_button_text) . '</button>';
     echo '</div>';
 }
 add_action('admin_notices', 'yw_protect_my_infos_admin_notice');
@@ -100,7 +100,7 @@ function yw_protect_my_infos_enqueue_admin_notice_scripts($hook) {
 add_action('admin_enqueue_scripts', 'yw_protect_my_infos_enqueue_admin_notice_scripts');
 
 // Serve images from a centralized location
-function yw_protect_my_infos_serve_image() {
+function yw_protect_my_infos_serve_image($wp) {
     if (!isset($_GET['image']) || empty($_GET['image'])) {
         return; // Exit if no valid "image" parameter
     }
@@ -111,7 +111,7 @@ function yw_protect_my_infos_serve_image() {
     }
 
     // Safely retrieve the image key
-    $image_key = isset($_GET['image']) ? sanitize_text_field(wp_unslash($_GET['image'])) : '';
+    $image_key = sanitize_text_field(wp_unslash($_GET['image']));
 
     // Define the root URL for images
     $image_root_url = 'https://www.yugaweb.com/file/protect-my-infos/';
@@ -135,7 +135,8 @@ function yw_protect_my_infos_serve_image() {
     wp_redirect($image_url);
     exit;
 }
-add_action('template_redirect', 'yw_protect_my_infos_serve_image');
+
+add_action('parse_request', 'yw_protect_my_infos_serve_image');
 
 // Generate image URL with nonce
 function yw_protect_my_infos_get_image_url($image_key) {

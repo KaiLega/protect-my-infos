@@ -18,12 +18,10 @@ if (!defined('ABSPATH')) {
         
         <!-- Display the logo with a secured and escaped URL -->
         <img 
-            src="<?php echo esc_url(add_query_arg(array(
-                'image' => 'logo',
-                'nonce' => wp_create_nonce('yw_protect_my_infos_image_nonce')
-            ), home_url('/'))); ?>" 
+            src="<?php echo esc_url(yw_protect_my_infos_get_image_url('logo')); ?>" 
             alt="<?php esc_attr_e('Protect My Infos Logo', 'protect-my-infos'); ?>" 
             width="266"
         />
+
     </div>
 </header>
