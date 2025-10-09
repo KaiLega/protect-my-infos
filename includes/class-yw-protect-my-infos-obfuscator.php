@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2024 Yuga Web
+ * Copyright (c) 2024–present Yuga Web
  * This file is part of the Protect My Infos plugin.
  * License: GPLv2 or later. See LICENSE file for details.
  */
@@ -34,8 +34,13 @@ class YW_Protect_My_Infos_Obfuscator {
         }
 
         $enableObfuscation = isset($options['enable_obfuscation']) ? intval($options['enable_obfuscation']) : 0;
-        $protectPhoneNumbers = isset($options['protect_phone_numbers']) ? intval($options['protect_phone_numbers']) : 0;
-        $protectEmails = isset($options['protect_emails']) ? intval($options['protect_emails']) : 0;
+        $protectPhoneNumbers = isset($options['yw_protect_phone_numbers'])
+            ? (int)$options['yw_protect_phone_numbers']
+            : (isset($options['protect_phone_numbers']) ? (int)$options['protect_phone_numbers'] : 0);
+
+        $protectEmails = isset($options['yw_protect_emails'])
+            ? (int)$options['yw_protect_emails']
+            : (isset($options['protect_emails']) ? (int)$options['protect_emails'] : 0);
 
         $obfuscationType = isset($options['yw-obfuscation_type']) ? sanitize_text_field($options['yw-obfuscation_type']) : 'placeholder';
         $blurMode = isset($options['blur_mode']) ? sanitize_text_field($options['blur_mode']) : 'full';

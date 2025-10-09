@@ -15,13 +15,21 @@ if (!defined('ABSPATH')) {
 
 <header class="yw-protect-my-infos-settings-header">
     <div class="yw-protect-my-infos-settings__wrapper">
-        
-        <!-- Display the logo with a secured and escaped URL -->
-        <img 
-            src="<?php echo esc_url(yw_protect_my_infos_get_image_url('logo')); ?>" 
-            alt="<?php esc_attr_e('Protect My Infos Logo', 'protect-my-infos'); ?>" 
-            width="266"
-        />
+
+        <?php
+        // Get the logo URL using the helper function
+        $logo_url = yw_protect_my_infos_get_image_url('logo');
+        if (!empty($logo_url)) : ?>
+            <!-- Display the logo with a secured and escaped URL -->
+            <img
+                class="yw-protect-my-infos-logo"
+                src="<?php echo esc_url($logo_url); ?>"
+                alt="<?php echo esc_attr__('Protect My Infos Logo', 'protect-my-infos'); ?>"
+                width="266"
+                loading="lazy"
+                decoding="async"
+            />
+        <?php endif; ?>
 
     </div>
 </header>

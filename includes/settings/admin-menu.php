@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2024 Yuga Web
+ * Copyright (c) 2024–present Yuga Web
  * This file is part of the Protect My Infos plugin.
  * License: GPLv2 or later. See LICENSE file for details.
  */
@@ -26,17 +26,28 @@ add_action('admin_menu', 'yw_protect_my_infos_add_admin_menu');
 
 // Render the settings page
 function yw_protect_my_infos_options_page() {
-    $options = get_option('yw_protect_my_infos_options', array(
-        'protect_phone_numbers' => 0,
-        'protect_emails' => 0,
-        'show_icons' => 0,
-        'text_color' => '#000000',
-        'icons_color' => '#000000',
-        'enable_obfuscation' => 0,
+     // Retrieve existing options from the database
+    $opts = get_option('yw_protect_my_infos_options', []);
+
+    // Values with fallback
+    $phone = isset($opts['yw_protect_phone_numbers'])
+        ? (int) $opts['yw_protect_phone_numbers']
+        : (isset($opts['protect_phone_numbers']) ? (int) $opts['protect_phone_numbers'] : 0);
+
+    $email = isset($opts['yw_protect_emails'])
+        ? (int) $opts['yw_protect_emails']
+        : (isset($opts['protect_emails']) ? (int) $opts['protect_emails'] : 0);
+
+    // Defaults for other options
+    $options = wp_parse_args($opts, [
+        'show_icons'          => 0,
+        'text_color'          => '#000000',
+        'icons_color'         => '#000000',
+        'enable_obfuscation'  => 0,
         'yw-obfuscation_type' => 'placeholder',
-    ));
+    ]);
     ?>
-    <div class="wrap yw-protect-my-infos-settings-page">
+    <div class="yw-protect-my-infos-settings-page wrap">
 
         <!-- Include the header -->
         <?php include plugin_dir_path(__FILE__) . 'header.php'; ?>
@@ -64,9 +75,8 @@ function yw_protect_my_infos_options_page() {
             </div>
 
             <!-- Single Form for All Settings -->
-            <form id="yw-protect-my-infos-settings-form" method="post" class="yw-settings-content">
-                <input type="hidden" name="option_page" value="yw_protect_my_infos_options_group">
-                <?php wp_nonce_field('yw_protect_my_infos_nonce_action', 'yw_protect_my_infos_nonce_field'); ?>
+            <form id="yw-protect-my-infos-settings-form" method="post" action="options.php" class="yw-settings-content">
+                <?php settings_fields('yw_protect_my_infos_options_group'); ?>
 
                  <!-- General Settings -->
                 <div id="yw-general-settings" class="yw-settings-section active">
@@ -75,13 +85,21 @@ function yw_protect_my_infos_options_page() {
                         <tr>
                             <th scope="row"><?php esc_html_e('Protect Phone Numbers', 'protect-my-infos'); ?></th>
                             <td>
-                                <input type="checkbox" name="yw_protect_my_infos_options[protect_phone_numbers]" value="1" <?php checked(1, $options['protect_phone_numbers'], true); ?> />
+                                <input type="checkbox"
+                                    name="yw_protect_my_infos_options[yw_protect_phone_numbers]"
+                                    value="1"
+                                    <?php checked(1, $phone, true); ?> 
+                                />
                             </td>
                         </tr>
                         <tr>
                             <th scope="row"><?php esc_html_e('Protect Emails', 'protect-my-infos'); ?></th>
                             <td>
-                                <input type="checkbox" name="yw_protect_my_infos_options[protect_emails]" value="1" <?php checked(1, $options['protect_emails'], true); ?> />
+                                <input type="checkbox"
+                                    name="yw_protect_my_infos_options[yw_protect_emails]"
+                                    value="1"
+                                    <?php checked(1, $email, true); ?> 
+                                />
                             </td>
                         </tr>
                         <tr>
@@ -179,13 +197,10 @@ function yw_protect_my_infos_options_page() {
                         <p><?php esc_html_e('Scan the QR code or use this address to donate:', 'protect-my-infos'); ?></p>
                         <p><strong>1CCR8p61GnGQaeKGfrhneewnxAqKDgxEZp</strong></p>
                         <div class="yw-qr-code">
-                            <img 
-                                src="<?php echo esc_url(add_query_arg(array(
-                                    'image' => 'qr-code',
-                                    'nonce' => wp_create_nonce('yw_protect_my_infos_image_nonce')
-                                ), home_url('/'))); ?>" 
-                                alt="<?php esc_attr_e('Bitcoin QR Code', 'protect-my-infos'); ?>" 
-                                style="width: 80px; height: 80px;"
+                            <img
+                            src="<?php echo esc_url( yw_protect_my_infos_get_image_url('qr-code') ); ?>"
+                            alt="<?php esc_attr_e('Bitcoin QR Code', 'protect-my-infos'); ?>"
+                            style="width: 80px; height: 80px;"
                             >
                         </div>
                     </div>
@@ -197,12 +212,9 @@ function yw_protect_my_infos_options_page() {
             <div class="yw-column-right">
                 <div class="yw-right-image">
                     <a href="https://www.yugaweb.com/" target="_blank">
-                        <img 
-                            src="<?php echo esc_url(add_query_arg(array(
-                                'image' => 'banner',
-                                'nonce' => wp_create_nonce('yw_protect_my_infos_image_nonce')
-                            ), home_url('/'))); ?>" 
-                            alt="<?php esc_attr_e('Yuga Web Design banner', 'protect-my-infos'); ?>" 
+                        <img
+                            src="<?php echo esc_url( yw_protect_my_infos_get_image_url('banner') ); ?>"
+                            alt="<?php esc_attr_e('Yuga Web Design banner', 'protect-my-infos'); ?>"
                             style="width: 100%;"
                         />
                     </a>

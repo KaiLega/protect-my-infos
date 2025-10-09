@@ -1,10 +1,10 @@
 === Protect My Infos ===
 Contributors: yugaweb, kaichi
 Tags: security, privacy, email obfuscation, anti-spam, phone number protection
-
+Requires at least: 5.0
 Tested up to: 6.7
-
-Stable tag: 1.3.5
+Requires PHP: 7.2
+Stable tag: 1.3.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -120,7 +120,12 @@ Note: This plugin does not store or process sensitive personal information. All 
 = 1.3.5 =
 * Performance and localization updates
 
-== Upgrade Notice ==
-= 1.3 =
-Review your settings after updating to ensure compatibility with the new features.
+= 1.3.6 =
+Serve images locally from /assets (removed external CDN).
+Settings saved via AJAX with nonce; sanitization through the Settings API.
+Standardized option keys with fallbacks for prior versions.
+Refactored asset structure (css/js/img) and minor optimizations.
 
+== Upgrade Notice ==
+= 1.3.6 =
+Images are now served locally by the plugin; no action required. If you use a caching plugin, please clear your cache after updating.

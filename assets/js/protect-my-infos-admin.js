@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2024 Yuga Web
+ * Copyright (c) 2024–present Yuga Web
  * This file is part of the Protect My Infos plugin.
  * License: GPLv2 or later. See LICENSE file for details.
  */
@@ -40,7 +40,8 @@ jQuery(document).ready(function ($) {
 
     // Toggle visibility of reveal options based on the selected obfuscation type
     function toggleRevealOptions() {
-        var obfuscationType = $('#yw-obfuscation_type').val();
+        var $sel = $('#yw-obfuscation_type');
+        var obfuscationType = $sel.length ? $sel.val() : '';
     
         if (obfuscationType === 'placeholder') {
             $('.yw-blur-mode-option').hide();
@@ -53,41 +54,58 @@ jQuery(document).ready(function ($) {
         }
     }
 
-    // Run the function on page load to set initial visibility
-    $(document).ready(function () {
+    // Initial call to set the correct visibility on page load
+    if ($('#yw-obfuscation_type').length) {
         toggleRevealOptions();
-    
         $('#yw-obfuscation_type').on('change', toggleRevealOptions);
-    });
+    }
     
     // Handle form submission via AJAX
     $('#yw-protect-my-infos-settings-form').on('submit', function (e) {
         e.preventDefault();
     
-        var formData = $(this).serialize();
-     
+        var $form = $(this);
+        var formData = $form.serialize();
         var statusMessage = $('#yw-save-status');
-    
+        var $submit = $form.find('button[type="submit"], input[type="submit"]');
+
+        // Disable the submit button and show a loading state
+        $submit.prop('disabled', true).addClass('is-busy');
+
+        // fallback ajaxUrl 
+        var ajaxUrl = (window.ywProtectMyInfos && ywProtectMyInfos.ajaxUrl) ? ywProtectMyInfos.ajaxUrl
+                    : (typeof ajaxurl !== 'undefined' ? ajaxurl : '');
+
+        // Check if ajaxUrl is available
+        if (!ajaxUrl) {
+            statusMessage.text('AJAX endpoint not available.').css('color', 'red').show();
+            $submit.prop('disabled', false).removeClass('is-busy');
+            return;
+        }
+
         $.ajax({
             type: 'POST',
-            url: ywProtectMyInfos.ajaxUrl,
+            url: ajaxUrl,
             data: {
                 action: 'yw_protect_my_infos_save_settings',
-                security: ywProtectMyInfos.nonce,
+                security: (window.ywProtectMyInfos && ywProtectMyInfos.nonce) ? ywProtectMyInfos.nonce : '',
                 options: formData
             },
             success: function (response) {
-                if (response.success) {
+                if (response && response.success) {
                     statusMessage.text(response.data).css('color', 'green').show();
                     setTimeout(function () {
                         statusMessage.fadeOut('slow');
                     }, 3000);
                 } else {
-                    statusMessage.text(response.data || 'Error saving settings.').css('color', 'red').show();
+                    statusMessage.text((response && response.data) || 'Error saving settings.').css('color', 'red').show();
                 }
             },
             error: function () {
                 statusMessage.text('AJAX request failed. Please try again.').css('color', 'red').show();
+            },
+            complete: function () {
+                $submit.prop('disabled', false).removeClass('is-busy');
             }
         });
     });

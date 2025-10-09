@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2024 Yuga Web
+ * Copyright (c) 2024–present Yuga Web
  * This file is part of the Protect My Infos plugin.
  * License: GPLv2 or later. See LICENSE file for details.
  */
@@ -17,15 +17,21 @@ function yw_protect_my_infos_sanitize_options($input) {
     // Define an empty array for sanitized values
     $sanitized = array();
 
+    // Phone
+    if (isset($input['yw_protect_phone_numbers'])) {
+        $sanitized['yw_protect_phone_numbers'] = (int)$input['yw_protect_phone_numbers'];
+    } elseif (isset($input['protect_phone_numbers'])) {
+        $sanitized['yw_protect_phone_numbers'] = (int)$input['protect_phone_numbers'];
+    }
+
+    // Email
+    if (isset($input['yw_protect_emails'])) {
+        $sanitized['yw_protect_emails'] = (int)$input['yw_protect_emails'];
+    } elseif (isset($input['protect_emails'])) {
+        $sanitized['yw_protect_emails'] = (int)$input['protect_emails'];
+    }
+
     // Sanitize each option individually
-    if (isset($input['protect_phone_numbers'])) {
-        $sanitized['protect_phone_numbers'] = intval($input['protect_phone_numbers']);
-    }
-
-    if (isset($input['protect_emails'])) {
-        $sanitized['protect_emails'] = intval($input['protect_emails']);
-    }
-
     if (isset($input['show_icons'])) {
         $sanitized['show_icons'] = intval($input['show_icons']);
     }
@@ -93,7 +99,7 @@ function yw_protect_my_infos_settings_init() {
     );
 
     add_settings_field(
-        'protect_emails',
+        'yw_protect_emails',
         esc_html__('Protect Emails', 'protect-my-infos'),
         'yw_protect_my_infos_render_emails',
         'yw_protect_my_infos_general',
@@ -152,6 +158,26 @@ function yw_protect_my_infos_settings_init() {
 
 }
 add_action('admin_init', 'yw_protect_my_infos_settings_init');
+
+add_action('admin_init', function () {
+    $opts = get_option('yw_protect_my_infos_options', []);
+    $changed = false;
+
+    if (!isset($opts['yw_protect_phone_numbers']) && isset($opts['protect_phone_numbers'])) {
+        $opts['yw_protect_phone_numbers'] = intval($opts['protect_phone_numbers']);
+        $changed = true;
+    }
+    if (!isset($opts['yw_protect_emails']) && isset($opts['protect_emails'])) {
+        $opts['yw_protect_emails'] = intval($opts['protect_emails']);
+        $changed = true;
+    }
+
+    if ($changed) {
+        // opzionale “pulizia”:
+        // unset($opts['protect_phone_numbers'], $opts['protect_emails']);
+        update_option('yw_protect_my_infos_options', $opts);
+    }
+});
 
 /**
  * Callback for General Settings Section.

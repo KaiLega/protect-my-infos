@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2024 Yuga Web
+ * Copyright (c) 2024–present Yuga Web
  * This file is part of the Protect My Infos plugin.
  * License: GPLv2 or later. See LICENSE file for details.
  */
@@ -134,3 +134,6 @@
     border-radius: 5px;
 }
 
+.yw-protect-my-infos-logo { 
+    background: transparent !important; box-shadow: none !important; outline: 0 !important; 
+}

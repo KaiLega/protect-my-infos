@@ -1,7 +1,7 @@
 <?php
 /**
  * Helper functions for Protect My Infos plugin.
- * Copyright (c) 2024 Yuga Web
+ * Copyright (c) 2024–present Yuga Web
  */
 
 // Ensure this file is only accessed through WordPress
@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
 
 // Load get_plugin_version() function
 if (!function_exists('yw_protect_my_infos_get_plugin_version')) {
-    require_once plugin_dir_path(__FILE__) . 'includes/enqueue.php';
+    require_once __DIR__ . '/enqueue.php';
 }
 
 /**
@@ -86,7 +86,7 @@ function yw_protect_my_infos_enqueue_admin_notice_scripts($hook) {
 
     wp_enqueue_script(
         'yw-protect-my-infos-notice',
-        plugin_dir_url(__FILE__) . '../js/protect-my-infos-notice.js',
+        plugin_dir_url(__FILE__) . '../assets/js/protect-my-infos-notice.js',
         array('jquery'),
         $plugin_version,
         true
@@ -99,71 +99,26 @@ function yw_protect_my_infos_enqueue_admin_notice_scripts($hook) {
 }
 add_action('admin_enqueue_scripts', 'yw_protect_my_infos_enqueue_admin_notice_scripts');
 
-// Serve images from a centralized location
-function yw_protect_my_infos_serve_image($wp) {
-    if (!isset($_GET['image']) || empty($_GET['image'])) {
-        return; // Exit if no valid "image" parameter
-    }
-
-    // Verify the nonce
-    if (!isset($_GET['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['nonce'])), 'yw_protect_my_infos_image_nonce')) {
-        wp_die(esc_html__('Invalid nonce.', 'protect-my-infos'), 403);
-    }
-
-    // Safely retrieve the image key
-    $image_key = sanitize_text_field(wp_unslash($_GET['image']));
-
-    // Define the root URL for images
-    $image_root_url = 'https://www.yugaweb.com/file/protect-my-infos/';
-
-    // Define allowed images with relative paths
-    $allowed_images = [
-        'banner' => 'banner.png',
-        'logo' => 'protect-my-infos_logo.png',
-        'qr-code' => 'qr-code.svg',
-    ];
-
-    // Check if the requested image key exists
-    if (!array_key_exists($image_key, $allowed_images)) {
-        wp_die(esc_html__('Invalid image parameter.', 'protect-my-infos'), 403);
-    }
-
-    // Generate the full URL
-    $image_url = $image_root_url . $allowed_images[$image_key];
-
-    // Redirect to the external URL
-    wp_redirect($image_url);
-    exit;
-}
-
-add_action('parse_request', 'yw_protect_my_infos_serve_image');
-
-// Generate image URL with nonce
+// Get image URL by key
 function yw_protect_my_infos_get_image_url($image_key) {
-    // Define the root URL for images
-    $image_root_url = 'https://www.yugaweb.com/file/protect-my-infos/';
-
-    // Allowed images
-    $allowed_images = [
-        'banner' => 'banner.png',
-        'logo' => 'protect-my-infos_logo.png',
+    $map = [
+        'banner'  => 'admin-side.svg',
+        'logo'    => 'protect_my_infos-logo.svg',
         'qr-code' => 'qr-code.svg',
     ];
 
-    // Check if the key exists in the allowed list
-    if (!array_key_exists($image_key, $allowed_images)) {
-        return ''; // Return an empty string for invalid keys
+    if (!isset($map[$image_key])) {
+        return '';
     }
 
-    // Generate the nonce
-    $nonce = wp_create_nonce('yw_protect_my_infos_image_nonce');
+    // Determine the base file for plugins_url
+    $base_file = defined('YW_PLUGIN_FILE') ? YW_PLUGIN_FILE : dirname(__DIR__) . '/protect-my-infos.php';
 
-    // Return the full URL with nonce
-    return add_query_arg(
-        array(
-            'image' => $image_key,
-            'nonce' => $nonce,
-        ),
-        $image_root_url . $allowed_images[$image_key]
-    );
+    $url = plugins_url('assets/img/' . $map[$image_key], $base_file);
+
+    if (function_exists('yw_protect_my_infos_get_plugin_version')) {
+        $url = add_query_arg('ver', yw_protect_my_infos_get_plugin_version(), $url);
+    }
+
+    return $url;
 }
