@@ -2,7 +2,7 @@
 Contributors: yugaweb, kaichi
 Tags: security, privacy, email obfuscation, anti-spam, phone number protection
 Requires at least: 5.0
-Tested up to: 6.7
+Tested up to: 6.8.3
 Requires PHP: 7.2
 Stable tag: 1.3.6
 License: GPLv2 or later
@@ -121,11 +121,15 @@ Note: This plugin does not store or process sensitive personal information. All 
 * Performance and localization updates
 
 = 1.3.6 =
-Serve images locally from /assets (removed external CDN).
-Settings saved via AJAX with nonce; sanitization through the Settings API.
-Standardized option keys with fallbacks for prior versions.
-Refactored asset structure (css/js/img) and minor optimizations.
+* Serve images locally from /assets (removed external CDN).
+* Settings saved via AJAX with nonce; sanitization through the Settings API.
+* Standardized option keys with fallbacks for prior versions.
+* Refactored asset structure (css/js/img) and minor optimizations.
+
+= 1.3.7 =
+* Fix: two-tap reveal behavior on mobile for obfuscated emails/phones (first tap reveals, second tap opens link).
+
 
 == Upgrade Notice ==
-= 1.3.6 =
-Images are now served locally by the plugin; no action required. If you use a caching plugin, please clear your cache after updating.
+= 1.3.7 =
+Fix mobile reveal behavior: first tap reveals, second tap opens the link. No action required; clear cache if you use a caching plugin.

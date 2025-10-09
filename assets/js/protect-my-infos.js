@@ -22,38 +22,66 @@ jQuery(document).ready(function ($) {
     }
 
     // Function to handle mouseover events
-    $('.yw-protect-info').each(function () {
-        var $this = $(this);
-        var isObfuscated = $this.data('obfuscated') === true;
-        var encodedInfo = $this.data('encoded');
-        var infoType = $this.data('type');
-        var textColor = $this.css('color');
-        var $iconElement = $this.find('.dashicons').clone();
-        var icon = $iconElement.length > 0 ? $iconElement[0].outerHTML + ' ' : '';
+    $(document).on('mouseover click touchend', '.yw-protect-info[data-obfuscated="true"] .yw-blurred-info', function (e) {
+        var $container   = $(this).closest('.yw-protect-info');
+        var revealed     = $container.data('revealed') === true;
+        var encodedInfo  = $container.data('encoded');
+        var infoType     = $container.data('type');
+        var textColor    = $container.css('color');
+        var $iconElement = $container.find('.dashicons').first().clone();
+        var icon         = $iconElement.length > 0 ? $iconElement[0].outerHTML + ' ' : '';
 
-        if (isObfuscated && $this.find('.yw-blurred-info').length > 0) {
-            $this.on('mouseover', '.yw-blurred-info', function () {
-                console.log('Mouseover on blurred-info detected:', $this);
-                $(this).css('filter', 'none'); 
-                decodeAndShow($this, encodedInfo, infoType, textColor, icon);
-            });
+        if (!revealed) {
+            // Prevent default action for non-mouseover events
+            if (e.type !== 'mouseover') {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            }
+
+            // Reveal the information after a short delay
+            setTimeout(function () {
+                decodeAndShow($container, encodedInfo, infoType, textColor, icon);
+                $container.data('revealed', true);
+            }, 0);
+
+            return false;
         }
+
     });
 
     // Function to handle click events
-    $('.yw-protect-info[data-obfuscated="true"]').not('.yw-blurred-info').on('click', function () {
+    // (First tap reveals, second tap follows the link)
+    $(document).on('click touchend', '.yw-protect-info[data-obfuscated="true"]', function (e) {
         var $this = $(this);
-        var encodedInfo = $this.data('encoded');
-        var infoType = $this.data('type');
-        var textColor = $this.css('color');
+
+        // If already revealed, do nothing (let the link be followed)
+        if ($this.find('.yw-blurred-info').length) {
+            return;
+        }
+
+        var revealed     = $this.data('revealed') === true;
+        var encodedInfo  = $this.data('encoded');
+        var infoType     = $this.data('type');
+        var textColor    = $this.css('color');
         var $iconElement = $this.find('.dashicons').clone();
-        var icon = $iconElement.length > 0 ? $iconElement[0].outerHTML + ' ' : '';
+        var icon         = $iconElement.length > 0 ? $iconElement[0].outerHTML + ' ' : '';
 
         if (!encodedInfo) {
             console.warn('Missing encoded data for placeholder:', $this);
             return;
         }
 
-        decodeAndShow($this, encodedInfo, infoType, textColor, icon);
+        if (!revealed) {
+            // Prevent default action for non-mouseover events
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            setTimeout(function () {
+                decodeAndShow($this, encodedInfo, infoType, textColor, icon);
+                $this.data('revealed', true);
+            }, 0);
+
+            return false;
+        }
     });
 });
