@@ -57,6 +57,14 @@ class YW_Protect_My_Infos_Obfuscator {
 
         $output = '';
 
+        // If obfuscation is disabled, show direct link
+        if (!$enableObfuscation) {
+            $link = ($type === 'phone')
+                ? '<a href="tel:' . esc_attr($value) . '" style="color:' . esc_attr($textColor) . ';">' . esc_html($value) . '</a>'
+                : '<a href="mailto:' . esc_attr($value) . '" style="color:' . esc_attr($textColor) . ';">' . esc_html($value) . '</a>';
+            return '<span class="yw-protect-info" data-type="' . esc_attr($type) . '" style="font-style: italic; color:' . esc_attr($textColor) . '; cursor: text;">' . $icon . $link . '</span>';
+        }
+
         if (($type === 'phone' && !$protectPhoneNumbers) || ($type === 'email' && !$protectEmails)) {
             $output = '<span class="yw-protect-info" data-type="' . esc_attr($type) . '" style="font-style: italic; color:' . esc_attr($textColor) . '; cursor: text;">' . $icon . esc_html($value) . '</span>';
             return $output;
@@ -73,10 +81,6 @@ class YW_Protect_My_Infos_Obfuscator {
             $output = '<span class="yw-protect-info" data-type="' . esc_attr($type) . '" data-obfuscated="true" data-encoded="' . esc_attr($encodedValue) . '" style="font-style: italic; color:' . esc_attr($textColor) . '; cursor: pointer;" title="' . esc_attr__('Click to reveal', 'protect-my-infos') . '">' . $icon . $customText . '</span>';
         } else {
             $output = '<span class="yw-protect-info" data-type="' . esc_attr($type) . '" data-encoded="' . esc_attr($encodedValue) . '" style="font-style: italic; color:' . esc_attr($textColor) . '; cursor: text;">' . $icon . '<span class="hidden-info"></span></span>';
-        }
-        
-        if (!$enableObfuscation) {
-            $output = '<span class="yw-protect-info" data-type="' . esc_attr($type) . '" data-encoded="' . esc_attr($encodedValue) . '" style="font-style: italic; color:' . esc_attr($textColor) . '; cursor: text;">' . $icon . esc_html($value) . '</span>';
         }
         
         return $output;

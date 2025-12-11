@@ -15,7 +15,13 @@
 }
 
 .yw-protect-info {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center; /* vertically center icon and text */
+  gap: 4px;
   margin: 0;
   padding: 0;
+}
+
+.yw-protect-info .dashicons {
+  line-height: 1;
 }
