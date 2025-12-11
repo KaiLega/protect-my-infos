@@ -2,7 +2,7 @@
 Contributors: yugaweb, kaichi
 Tags: security, privacy, email obfuscation, anti-spam, phone number protection
 Requires at least: 5.0
-Tested up to: 6.8.3
+Tested up to: 6.9
 Requires PHP: 7.2
 Stable tag: 1.3.7
 License: GPLv2 or later

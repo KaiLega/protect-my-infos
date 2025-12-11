@@ -36,16 +36,18 @@ You can use the `[protect_my_infos]` shortcode to protect your sensitive data. E
 [protect_my_infos type="email" value="youremail@example.com"]
 
 [protect_my_infos type="phone" value="+1234567890"]
+```
 
 ## Options
-Enable Obfuscation: Turn on or off the data obfuscation.
-Obfuscation Type: Choose between placeholder text or blurred letters/numbers for obfuscation.
-Reveal Phone Text: Custom text to reveal the phone number (if placeholder is selected).
-Reveal Email Text: Custom text to reveal the email address (if placeholder is selected).
-Show Icons: Display an icon next to obfuscated data.
-Text Color: Choose the text color for protected data.
-Icons Color: Choose the icon color for protected data.
-Example Configuration
+- Enable Obfuscation: Turn on or off the data obfuscation.
+- Obfuscation Type: Choose between placeholder text or blurred letters/numbers for obfuscation.
+- Reveal Phone Text: Custom text to reveal the phone number (if placeholder is selected).
+- Reveal Email Text: Custom text to reveal the email address (if placeholder is selected).
+- Show Icons: Display an icon next to obfuscated data.
+- Text Color: Choose the text color for protected data.
+- Icons Color: Choose the icon color for protected data.
+
+### Example Configuration
 You can configure the plugin settings from the WordPress admin panel by going to Settings > Protect My Infos. Here, you can select the obfuscation type, set custom reveal texts, and define the behavior of the plugin.
 
 ## Contributing
