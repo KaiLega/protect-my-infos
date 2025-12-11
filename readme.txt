@@ -4,7 +4,7 @@ Tags: security, privacy, email obfuscation, anti-spam, phone number protection
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.2
-Stable tag: 1.3.7
+Stable tag: 1.3.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,34 +91,11 @@ Note: This plugin does not store or process sensitive personal information. All 
 2. **Frontend Protection**: Emails and phone numbers are protected on your site.
 
 == Changelog ==
-= 1.0 =
-* Initial release with email and phone number protection.
+= 1.3.8 =
+* Declare compatibility with WordPress 6.9 and update documentation.
 
-= 1.1 =
-* Added shortcode support.
-
-= 1.2 =
-* Added obfuscation functionality.
-* Added different types of obfuscation.
-* Added icons.
-
-= 1.3 =
-* Added customizable settings for obfuscation type, reveal texts, and colors.
-
-= 1.3.1 =
-* Added How to use section
-
-= 1.3.2 =
-* Security updates
-
-= 1.3.3 =
-* Performance and localization updates
-
-= 1.3.4 =
-* Refactoring and security updates
-
-= 1.3.5 =
-* Performance and localization updates
+= 1.3.7 =
+* Fix: two-tap reveal behavior on mobile for obfuscated emails/phones (first tap reveals, second tap opens link).
 
 = 1.3.6 =
 * Serve images locally from /assets (removed external CDN).
@@ -126,10 +103,39 @@ Note: This plugin does not store or process sensitive personal information. All 
 * Standardized option keys with fallbacks for prior versions.
 * Refactored asset structure (css/js/img) and minor optimizations.
 
-= 1.3.7 =
-* Fix: two-tap reveal behavior on mobile for obfuscated emails/phones (first tap reveals, second tap opens link).
+= 1.3.5 =
+* Performance and localization updates
+
+= 1.3.4 =
+* Refactoring and security updates
+
+= 1.3.3 =
+* Performance and localization updates
+
+= 1.3.2 =
+* Security updates
+
+= 1.3.1 =
+* Added How to use section
+
+= 1.3 =
+* Added customizable settings for obfuscation type, reveal texts, and colors.
+
+= 1.2 =
+* Added obfuscation functionality.
+* Added different types of obfuscation.
+* Added icons.
+
+= 1.1 =
+* Added shortcode support.
+
+= 1.0 =
+* Initial release with email and phone number protection.
 
 
 == Upgrade Notice ==
+= 1.3.8 =
+Declared compatibility with WordPress 6.9 and refreshed documentation. No action required; clear cache if you use a caching plugin.
+
 = 1.3.7 =
 Fix mobile reveal behavior: first tap reveals, second tap opens the link. No action required; clear cache if you use a caching plugin.
