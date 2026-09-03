@@ -1,0 +1,11 @@
+/.git
+/.github
+/.gitattributes
+/.gitignore
+/.wp-env.json
+/composer.json
+/composer.lock
+/package.json
+/package-lock.json
+/phpunit.xml.dist
+/tests

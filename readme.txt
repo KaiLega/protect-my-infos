@@ -4,19 +4,19 @@ Tags: security, privacy, email obfuscation, anti-spam, phone number protection
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.9
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Protect sensitive information like emails and phone numbers from bots with advanced obfuscation techniques.
 
 == Description ==
-**Protect My Infos** is a WordPress plugin designed to protect sensitive information, such as phone numbers and email addresses, by obfuscating or hiding them on the frontend of your site.
+**Protect My Infos** is a WordPress plugin designed to help protect sensitive contact information, such as phone numbers and email addresses, from basic automated harvesting through configurable client-side obfuscation.
 
 Emails and phone numbers are encoded and hidden from bots, while visitors can interact with placeholders to reveal the information.
 
 = Features =
-- Obfuscate sensitive information with placeholders, blur effects, or base64 encoding.
+- Obfuscate contact information with placeholders, blur effects, and Base64 encoding.
 - Use the `[protect_my_infos]` shortcode for integration in posts or pages.
 - Fully customizable settings for icons, colors, and reveal texts.
 - Easy-to-use admin interface.
@@ -28,7 +28,7 @@ Emails and phone numbers are encoded and hidden from bots, while visitors can in
 
 == Frequently Asked Questions ==
 = How does the obfuscation work? =
-The plugin uses base64 encoding combined with JavaScript to hide sensitive information, making it inaccessible to bots while keeping it accessible to human users.
+The plugin uses Base64 encoding combined with JavaScript to discourage basic address-harvesting bots. Base64 is encoding, not encryption, and sophisticated crawlers may still recover the original value.
 
 = Can I customize the icons and colors? =
 Yes, the plugin allows you to change the icon style and colors for both text and icons directly from the settings page.
@@ -37,13 +37,13 @@ Yes, the plugin allows you to change the icon style and colors for both text and
 Yes, you can set custom reveal texts for both emails and phone numbers.
 
 = Is the plugin compatible with all themes? =
-Yes, it works with most WordPress themes.
+It works with most WordPress themes. Theme-specific CSS can occasionally require small styling adjustments.
 
 = Is the plugin compatible with caching plugins? =
 Yes, the plugin works with most caching plugins. If you encounter any issues, try clearing your cache after activating Protect My Infos.
 
 = Does this plugin slow down my website? =
-No, Protect My Infos is lightweight and optimized for performance. It uses minimal resources and doesn’t impact page load speed significantly.
+The frontend assets are small and are loaded only on pages where the shortcode is detected or rendered. Actual performance depends on the site, theme, and other plugins.
 
 = Can I protect other types of sensitive data? =
 Currently, the plugin is designed to protect email addresses and phone numbers. Future updates may include support for additional types of data.
@@ -55,7 +55,7 @@ You can use the shortcode `[protect_my_infos type="email" value="youremail@examp
 Yes, you can disable the obfuscation in the plugin settings. However, this may expose your data to bots.
 
 = Does the plugin work with all WordPress themes? =
-Yes, Protect My Infos is compatible with most WordPress themes. If you experience layout issues, check your theme's custom styles or contact support.
+Protect My Infos is compatible with most WordPress themes. If you experience layout issues, check your theme's custom styles or contact support.
 
 = What happens if JavaScript is disabled in the browser? =
 If JavaScript is disabled, the obfuscated data will not be revealed to users. Ensure your audience has JavaScript enabled for the best experience.
@@ -67,30 +67,39 @@ Yes, Protect My Infos is translation-ready. You can use tools like Loco Translat
 Not yet, but we are working on additional premium features. Stay tuned for updates!
 
 = Does the plugin comply with GDPR? =
-Yes, Protect My Infos does not store or process any user data, ensuring compliance with GDPR and other privacy regulations.
+The plugin stores its configuration in the WordPress database and does not transmit protected email addresses or phone numbers to Yuga Web. Clicking the PayPal donation button loads PayPal resources and is subject to PayPal's privacy terms. Compliance depends on how the site owner configures and uses the website.
 
 == External Services ==
 
-This plugin integrates with the PayPal Donate API to facilitate donations via PayPal's secure platform.
+This plugin optionally integrates with PayPal Donate to facilitate donations. No PayPal resource is loaded until an administrator explicitly clicks the "Donate with PayPal" button on the plugin settings page.
 
 - **Service Name**: PayPal Donate API
 - **Purpose**: To provide a "Donate" button for collecting user donations securely via PayPal.
-- **Data Sent**: 
-  - Donation amount
-  - Currency
-  - PayPal Merchant ID
-- **When**: Data is sent to PayPal only when a user interacts with the "Donate" button.
+- **Data Sent**:
+  - Network and device information normally included in web requests, such as IP address and user agent
+  - WordPress locale and the hosted PayPal button identifier
+  - Any payment information the administrator subsequently enters on PayPal
+- **When**: The PayPal SDK is requested only after an administrator clicks the "Donate with PayPal" button.
 - **Service Links**:
   - [PayPal Terms of Service](https://www.paypal.com/us/webapps/mpp/ua/legalhub-full)
   - [PayPal Privacy Policy](https://www.paypal.com/us/webapps/mpp/ua/privacy-full)
 
-Note: This plugin does not store or process sensitive personal information. All payment transactions are handled securely by PayPal's platform.
+Protected phone numbers and email addresses are not sent to PayPal. Payment transactions are handled by PayPal under its own terms and privacy policy.
 
 == Screenshots ==
 1. **Admin Panel**: Configure the plugin settings from the WordPress admin.
 2. **Frontend Protection**: Emails and phone numbers are protected on your site.
 
 == Changelog ==
+= 1.4.0 =
+* Add allowlist validation and accessible keyboard reveal controls.
+* Load frontend assets only when needed and enqueue Dashicons when enabled.
+* Load PayPal resources only after explicit administrator interaction.
+* Scope administrative notices and update messages to the plugin.
+* Correct security and privacy claims in the documentation.
+* Add automated PHP, JavaScript, WordPress compatibility, and Plugin Check workflows.
+* Add consistent Git line-ending rules and remove duplicate generic Italian catalogs.
+
 = 1.3.9 =
 * Fix secure rendering of revealed email addresses and phone numbers.
 * Fix fatal errors for one-character values in center blur mode.
@@ -140,6 +149,9 @@ Note: This plugin does not store or process sensitive personal information. All 
 
 
 == Upgrade Notice ==
+= 1.4.0 =
+Improves validation, accessibility, privacy, and frontend performance, and adds automated compatibility checks. Clear all caches after updating.
+
 = 1.3.9 =
 Improves output security and UTF-8 support, fixes short-value blur errors, and adds WordPress 7.1 compatibility. Clear all caches after updating.
 

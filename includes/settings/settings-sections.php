@@ -48,13 +48,15 @@ function yw_protect_my_infos_sanitize_options($input) {
         $sanitized['enable_obfuscation'] = intval($input['enable_obfuscation']);
     }
 
-    if (isset($input['yw-obfuscation_type'])) {
-        $sanitized['yw-obfuscation_type'] = sanitize_text_field($input['yw-obfuscation_type']);
-    }
+    $obfuscation_type = isset($input['yw-obfuscation_type']) ? sanitize_key($input['yw-obfuscation_type']) : 'placeholder';
+    $sanitized['yw-obfuscation_type'] = in_array($obfuscation_type, array('placeholder', 'blurred'), true)
+        ? $obfuscation_type
+        : 'placeholder';
 
-    if (isset($input['blur_mode'])) {
-        $sanitized['blur_mode'] = sanitize_text_field($input['blur_mode']);
-    }
+    $blur_mode = isset($input['blur_mode']) ? sanitize_key($input['blur_mode']) : 'full';
+    $sanitized['blur_mode'] = in_array($blur_mode, array('full', 'center', 'first_half', 'second_half'), true)
+        ? $blur_mode
+        : 'full';
 
     if (isset($input['reveal_phone_text'])) {
         $sanitized['reveal_phone_text'] = sanitize_text_field($input['reveal_phone_text']);

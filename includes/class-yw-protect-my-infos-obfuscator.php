@@ -45,8 +45,17 @@ class YW_Protect_My_Infos_Obfuscator {
             ? (int)$options['yw_protect_emails']
             : (isset($options['protect_emails']) ? (int)$options['protect_emails'] : 0);
 
-        $obfuscationType = isset($options['yw-obfuscation_type']) ? sanitize_text_field($options['yw-obfuscation_type']) : 'placeholder';
-        $blurMode = isset($options['blur_mode']) ? sanitize_text_field($options['blur_mode']) : 'full';
+        $allowedObfuscationTypes = array('placeholder', 'blurred');
+        $obfuscationType = isset($options['yw-obfuscation_type']) ? sanitize_key($options['yw-obfuscation_type']) : 'placeholder';
+        if (!in_array($obfuscationType, $allowedObfuscationTypes, true)) {
+            $obfuscationType = 'placeholder';
+        }
+
+        $allowedBlurModes = array('full', 'center', 'first_half', 'second_half');
+        $blurMode = isset($options['blur_mode']) ? sanitize_key($options['blur_mode']) : 'full';
+        if (!in_array($blurMode, $allowedBlurModes, true)) {
+            $blurMode = 'full';
+        }
         $showIcons = isset($options['show_icons']) ? intval($options['show_icons']) : 0;
         $textColor = isset($options['text_color']) ? esc_attr($options['text_color']) : '#000000';
         $iconsColor = isset($options['icons_color']) ? esc_attr($options['icons_color']) : '#000000';
@@ -54,8 +63,8 @@ class YW_Protect_My_Infos_Obfuscator {
         $icon = '';
         if ($showIcons) {
             $icon = ($type === 'phone')
-                ? '<span class="dashicons dashicons-phone" style="color: ' . $iconsColor . ';"></span> '
-                : '<span class="dashicons dashicons-email" style="color: ' . $iconsColor . ';"></span> ';
+                ? '<span class="dashicons dashicons-phone" style="color: ' . $iconsColor . ';" aria-hidden="true"></span> '
+                : '<span class="dashicons dashicons-email" style="color: ' . $iconsColor . ';" aria-hidden="true"></span> ';
         }
 
         $output = '';
@@ -75,13 +84,19 @@ class YW_Protect_My_Infos_Obfuscator {
         
         if ($enableObfuscation && $obfuscationType === 'blurred') {
             $blurredValue = self::apply_blur_mode($value, $blurMode);
-            $output = '<span class="yw-protect-info" data-type="' . esc_attr($type) . '" data-obfuscated="true" data-encoded="' . esc_attr($encodedValue) . '" style="color:' . esc_attr($textColor) . ';">' . $icon . $blurredValue . '</span>';
+            $buttonLabel = ($type === 'phone')
+                ? esc_attr__('Reveal phone number', 'protect-my-infos')
+                : esc_attr__('Reveal email address', 'protect-my-infos');
+            $output = '<button type="button" class="yw-protect-info yw-protect-info-button" data-type="' . esc_attr($type) . '" data-obfuscated="true" data-encoded="' . esc_attr($encodedValue) . '" aria-expanded="false" aria-label="' . $buttonLabel . '" style="color:' . esc_attr($textColor) . ';">' . $icon . $blurredValue . '</button>';
         } elseif ($enableObfuscation && $obfuscationType === 'placeholder') {
             $customText = ($type === 'phone')
                 ? (isset($options['reveal_phone_text']) && !empty($options['reveal_phone_text']) ? esc_html($options['reveal_phone_text']) : esc_html__('- Click to reveal the phone number -', 'protect-my-infos'))
                 : (isset($options['reveal_email_text']) && !empty($options['reveal_email_text']) ? esc_html($options['reveal_email_text']) : esc_html__('- Click to reveal the email address -', 'protect-my-infos'));
 
-            $output = '<span class="yw-protect-info" data-type="' . esc_attr($type) . '" data-obfuscated="true" data-encoded="' . esc_attr($encodedValue) . '" style="font-style: italic; color:' . esc_attr($textColor) . '; cursor: pointer;" title="' . esc_attr__('Click to reveal', 'protect-my-infos') . '">' . $icon . $customText . '</span>';
+            $buttonLabel = ($type === 'phone')
+                ? esc_attr__('Reveal phone number', 'protect-my-infos')
+                : esc_attr__('Reveal email address', 'protect-my-infos');
+            $output = '<button type="button" class="yw-protect-info yw-protect-info-button" data-type="' . esc_attr($type) . '" data-obfuscated="true" data-encoded="' . esc_attr($encodedValue) . '" aria-expanded="false" aria-label="' . $buttonLabel . '" style="font-style: italic; color:' . esc_attr($textColor) . ';" title="' . esc_attr__('Click to reveal', 'protect-my-infos') . '">' . $icon . $customText . '</button>';
         } else {
             $output = '<span class="yw-protect-info" data-type="' . esc_attr($type) . '" data-encoded="' . esc_attr($encodedValue) . '" style="font-style: italic; color:' . esc_attr($textColor) . '; cursor: text;">' . $icon . '<span class="hidden-info"></span></span>';
         }
@@ -97,6 +112,11 @@ class YW_Protect_My_Infos_Obfuscator {
      * @return string The blurred value.
      */
     public static function apply_blur_mode($value, $blurMode) {
+        $allowedBlurModes = array('full', 'center', 'first_half', 'second_half');
+        if (!in_array($blurMode, $allowedBlurModes, true)) {
+            $blurMode = 'full';
+        }
+
         $characters = preg_split('//u', (string) $value, -1, PREG_SPLIT_NO_EMPTY);
         if ($characters === false) {
             $characters = str_split((string) $value);

@@ -54,9 +54,13 @@ function yw_protect_my_infos_options_page() {
 
         <!-- Admin Notifications -->
         <div class="yw-admin-notifications">
-            <?php if (function_exists('get_plugin_updates') && $updates = get_plugin_updates()) : ?>
+            <?php
+            $plugin_updates = function_exists('get_plugin_updates') ? get_plugin_updates() : array();
+            $plugin_basename = plugin_basename(YW_PLUGIN_FILE);
+            if (isset($plugin_updates[$plugin_basename])) :
+            ?>
                 <div class="update-nag">
-                    <?php esc_html_e('Plugin updates are available.', 'protect-my-infos'); ?>
+                    <?php esc_html_e('An update for Protect My Infos is available.', 'protect-my-infos'); ?>
                 </div>
             <?php endif; ?>
         </div>
@@ -187,6 +191,10 @@ function yw_protect_my_infos_options_page() {
                     <div class="yw-donation-option">
                         <h3><?php esc_html_e('Donate with PayPal', 'protect-my-infos'); ?></h3>
                         <div id="yw-donate-button-container">
+                            <button type="button" id="yw-load-paypal" class="button button-secondary">
+                                <?php esc_html_e('Donate with PayPal', 'protect-my-infos'); ?>
+                            </button>
+                            <p id="yw-paypal-status" role="status" aria-live="polite"></p>
                             <div id="yw-donate-button"></div>
                         </div>
                     </div>
@@ -211,7 +219,7 @@ function yw_protect_my_infos_options_page() {
             <!-- Right Column -->
             <div class="yw-column-right">
                 <div class="yw-right-image">
-                    <a href="https://www.yugaweb.com/" target="_blank">
+                    <a href="https://www.yugaweb.com/" target="_blank" rel="noopener noreferrer">
                         <img
                             src="<?php echo esc_url( yw_protect_my_infos_get_image_url('banner') ); ?>"
                             alt="<?php esc_attr_e('Yuga Web Design banner', 'protect-my-infos'); ?>"

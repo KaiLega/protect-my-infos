@@ -36,8 +36,13 @@ function yw_protect_my_infos_shortcode($atts) {
         'yw_protect_my_infos'
     );
 
+    $type = sanitize_key($atts['type']);
+    if (!in_array($type, array('phone', 'email'), true)) {
+        return '';
+    }
+
     // If no value is provided, return an empty string
-    if (empty($atts['value'])) {
+    if ((string) $atts['value'] === '') {
         return esc_html__('No value provided.', 'protect-my-infos');
     }
 
@@ -49,6 +54,8 @@ function yw_protect_my_infos_shortcode($atts) {
         return esc_html__('Settings not configured.', 'protect-my-infos');
     }
 
+    yw_protect_my_infos_enqueue_frontend_assets();
+
     // Use the obfuscator class to generate the protected output
-    return YW_Protect_My_Infos_Obfuscator::generate($atts['type'], $atts['value'], $options);
+    return YW_Protect_My_Infos_Obfuscator::generate($type, $atts['value'], $options);
 }

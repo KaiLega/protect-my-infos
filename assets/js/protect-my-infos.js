@@ -46,54 +46,39 @@ jQuery(document).ready(function ($) {
                 .css('color', textColor)
                 .text(decodedInfo);
 
-            $element.empty();
+            var $revealed = $('<span>')
+                .addClass('yw-protect-info yw-protect-info-revealed')
+                .attr({
+                    'data-type': infoType,
+                    'role': 'status',
+                    'aria-live': 'polite'
+                })
+                .css('color', textColor);
+
             if ($iconElement && $iconElement.length) {
-                $element.append($iconElement);
+                $revealed.append($iconElement);
             }
-            $element.append($link);
+            $revealed.append($link);
+            $element.attr('aria-expanded', 'true').replaceWith($revealed);
         } catch (e) {
             console.error('Error decoding data:', e);
         }
     }
 
-    // Function to handle mouseover events
-    $(document).on('mouseover click touchend', '.yw-protect-info[data-obfuscated="true"] .yw-blurred-info', function (e) {
+    // Preserve hover-to-reveal for blurred values.
+    $(document).on('mouseover', '.yw-protect-info-button[data-obfuscated="true"] .yw-blurred-info', function () {
         var $container   = $(this).closest('.yw-protect-info');
-        var revealed     = $container.data('revealed') === true;
         var encodedInfo  = $container.data('encoded');
         var infoType     = $container.data('type');
         var textColor    = $container.css('color');
         var $iconElement = $container.find('.dashicons').first().clone();
 
-        if (!revealed) {
-            // Prevent default action for non-mouseover events
-            if (e.type !== 'mouseover') {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-            }
-
-            // Reveal the information after a short delay
-            setTimeout(function () {
-                decodeAndShow($container, encodedInfo, infoType, textColor, $iconElement);
-                $container.data('revealed', true);
-            }, 0);
-
-            return false;
-        }
-
+        decodeAndShow($container, encodedInfo, infoType, textColor, $iconElement);
     });
 
-    // Function to handle click events
-    // (First tap reveals, second tap follows the link)
-    $(document).on('click touchend', '.yw-protect-info[data-obfuscated="true"]', function (e) {
+    // A native button provides click, Enter, and Space keyboard activation.
+    $(document).on('click', '.yw-protect-info-button[data-obfuscated="true"]', function (e) {
         var $this = $(this);
-
-        // If already revealed, do nothing (let the link be followed)
-        if ($this.find('.yw-blurred-info').length) {
-            return;
-        }
-
-        var revealed     = $this.data('revealed') === true;
         var encodedInfo  = $this.data('encoded');
         var infoType     = $this.data('type');
         var textColor    = $this.css('color');
@@ -104,17 +89,7 @@ jQuery(document).ready(function ($) {
             return;
         }
 
-        if (!revealed) {
-            // Prevent default action for non-mouseover events
-            e.preventDefault();
-            e.stopImmediatePropagation();
-
-            setTimeout(function () {
-                decodeAndShow($this, encodedInfo, infoType, textColor, $iconElement);
-                $this.data('revealed', true);
-            }, 0);
-
-            return false;
-        }
+        e.preventDefault();
+        decodeAndShow($this, encodedInfo, infoType, textColor, $iconElement);
     });
 });

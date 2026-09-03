@@ -6,11 +6,11 @@ License: GPLv2 or later. See LICENSE file for details.
 
 # Protect My Infos
 
-**Protect My Infos** is a WordPress plugin designed to protect sensitive information, such as phone numbers and email addresses, by obfuscating or hiding them on the frontend of your site. This plugin allows you to choose from different obfuscation methods and provides an easy-to-use management interface within the WordPress admin panel.
+**Protect My Infos** is a WordPress plugin designed to help protect sensitive contact information, such as phone numbers and email addresses, from basic automated harvesting through configurable client-side obfuscation. It provides configurable reveal methods and an administration interface in the WordPress admin panel.
 
 ## Features
 
-- **Data Obfuscation**: Hide emails and phone numbers using placeholders, blur effects, or base64 encoding.
+- **Data Obfuscation**: Obfuscate emails and phone numbers using placeholders, blur effects, and Base64 encoding.
 - **Shortcode Support**: Use the `[protect_my_infos]` shortcode to protect specific information within your posts or pages.
 - **Customizable Settings**: Configure obfuscation behavior, custom reveal texts, and text color through the admin panel.
 - **Icon Support**: Display an icon next to protected data.
@@ -52,6 +52,20 @@ You can configure the plugin settings from the WordPress admin panel by going to
 
 ## Contributing
 If you'd like to contribute to this plugin, you are welcome to do so! Feel free to submit pull requests or report any issues through the official repository.
+
+## Development and tests
+
+Runtime plugin files do not require a build step. Development checks are available with:
+
+```bash
+composer install
+composer test
+
+npm install
+npm run test:js
+```
+
+The GitHub Actions workflow also runs WordPress smoke tests across WordPress 6.9, 7.0, and 7.1 with PHP 7.4, 8.2, and 8.3, plus the official WordPress Plugin Check action.
 
 ## License
 

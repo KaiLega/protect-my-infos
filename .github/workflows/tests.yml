@@ -1,0 +1,106 @@
+name: Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  phpunit:
+    name: PHPUnit / PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['7.4', '8.2', '8.3']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: composer
+      - run: composer install --no-interaction --no-progress
+      - run: composer test
+
+  javascript:
+    name: JavaScript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-audit --no-fund
+      - run: npm run test:js
+
+  wordpress:
+    name: WordPress ${{ matrix.name }} / PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        name: ['6.9', '7.0', '7.1']
+        php: ['7.4', '8.2', '8.3']
+        include:
+          - name: '6.9'
+            core: https://wordpress.org/wordpress-6.9-latest.zip
+          - name: '7.0'
+            core: https://wordpress.org/wordpress-7.0-latest.zip
+          - name: '7.1'
+            core: https://wordpress.org/wordpress-7.1.zip
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --global @wordpress/env
+      - run: wp-env start --update
+        env:
+          WP_ENV_CORE: ${{ matrix.core }}
+          WP_ENV_PHP_VERSION: ${{ matrix.php }}
+      - run: wp-env run cli wp plugin activate --all
+      - name: Shortcode smoke test
+        run: >-
+          wp-env run cli wp eval
+          'do_action("wp_enqueue_scripts");
+          if (wp_script_is("yw-protect-my-infos-script", "enqueued")) { throw new Exception("Frontend script was globally enqueued."); }
+          update_option("yw_protect_my_infos_options", array("enable_obfuscation" => 1, "yw_protect_emails" => 1, "yw-obfuscation_type" => "placeholder", "show_icons" => 1));
+          $output = do_shortcode("[protect_my_infos type=\"email\" value=\"müller@example.com\"]");
+          if (false === strpos($output, "yw-protect-info-button")) { throw new Exception("Shortcode output was not generated."); }
+          if (!wp_script_is("yw-protect-my-infos-script", "enqueued")) { throw new Exception("Frontend script was not enqueued."); }
+          if (!wp_style_is("yw-protect-my-infos-css", "enqueued")) { throw new Exception("Frontend style was not enqueued."); }
+          if (!wp_style_is("dashicons", "enqueued")) { throw new Exception("Dashicons were not enqueued."); }'
+      - if: always()
+        run: wp-env stop
+
+  plugin-check:
+    name: Plugin Check / WordPress ${{ matrix.wordpress }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        wordpress: [latest, trunk]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: wordpress/plugin-check-action@v1
+        with:
+          build-dir: .
+          slug: protect-my-infos
+          wp-version: ${{ matrix.wordpress }}
+          exclude-directories: |
+            .github
+            tests
+            node_modules
+            vendor
+          exclude-files: |
+            .distignore
+            .gitattributes
+            .gitignore
+            .wp-env.json
+            composer.json
+            composer.lock
+            package.json
+            package-lock.json
+            phpunit.xml.dist

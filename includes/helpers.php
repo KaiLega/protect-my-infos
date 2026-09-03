@@ -18,6 +18,15 @@ if (!function_exists('yw_protect_my_infos_get_plugin_version')) {
  * Display an admin notice 
  */
 function yw_protect_my_infos_admin_notice() {
+    if (!current_user_can('manage_options')) {
+        return;
+    }
+
+    $screen = get_current_screen();
+    if (!$screen || $screen->id !== 'toplevel_page_yw-protect-my-infos') {
+        return;
+    }
+
     // Check if the user has dismissed the notice
     $user_id = get_current_user_id();
     if (get_user_meta($user_id, 'yw_protect_my_infos_dismissed_notice', true)) {
@@ -33,7 +42,7 @@ function yw_protect_my_infos_admin_notice() {
 
     // Generate the notice
     echo '<div class="yw-protect-my-infos-notice is-dismissible notice notice-info" style="display: flex; justify-content: space-between; align-items: center;">';
-    echo '<p style="margin: 0;">' . esc_html($notice_text) . ' <a href="' . esc_url($website_url) . '" target="_blank">' . esc_html($visit_link_text) . '</a></p>';
+    echo '<p style="margin: 0;">' . esc_html($notice_text) . ' <a href="' . esc_url($website_url) . '" target="_blank" rel="noopener noreferrer">' . esc_html($visit_link_text) . '</a></p>';
     echo '<button type="button" class="yw-dismiss-notice button-link" aria-label="' . esc_attr($dismiss_button_label) . '" style="margin-left: auto;">' . esc_html($dismiss_button_text) . '</button>';
     echo '</div>';
 }
@@ -47,7 +56,11 @@ add_action('admin_notices', 'yw_protect_my_infos_admin_notice');
 function yw_protect_my_infos_dismiss_notice() {
     // Check if it's an AJAX request
     if (!defined('DOING_AJAX') || !DOING_AJAX) {
-        wp_die(esc_html__('Unauthorized request.', 'protect-my-infos'), 403);
+        wp_die(
+            esc_html__('Unauthorized request.', 'protect-my-infos'),
+            esc_html__('Unauthorized request.', 'protect-my-infos'),
+            array('response' => 403)
+        );
     }
 
     // Check the nonce
@@ -82,11 +95,20 @@ add_action('wp_ajax_yw_dismiss_notice', 'yw_protect_my_infos_dismiss_notice');
  * Enqueue the JavaScript for the admin notice.
  */
 function yw_protect_my_infos_enqueue_admin_notice_scripts($hook) {
+    if ($hook !== 'toplevel_page_yw-protect-my-infos' || !current_user_can('manage_options')) {
+        return;
+    }
+
+    $user_id = get_current_user_id();
+    if (get_user_meta($user_id, 'yw_protect_my_infos_dismissed_notice', true)) {
+        return;
+    }
+
     $plugin_version = yw_protect_my_infos_get_plugin_version();
 
     wp_enqueue_script(
         'yw-protect-my-infos-notice',
-        plugin_dir_url(__FILE__) . '../assets/js/protect-my-infos-notice.js',
+        plugins_url('assets/js/protect-my-infos-notice.js', YW_PLUGIN_FILE),
         array('jquery'),
         $plugin_version,
         true

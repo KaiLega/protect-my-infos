@@ -11,59 +11,80 @@ if (!defined('ABSPATH')) {
 
 // Retrieve the plugin version
 function yw_protect_my_infos_get_plugin_version() {
+    if (defined('YW_PROTECT_MY_INFOS_VERSION')) {
+        return YW_PROTECT_MY_INFOS_VERSION;
+    }
+
     if (!function_exists('get_plugin_data')) {
         require_once ABSPATH . 'wp-admin/includes/plugin.php';
     }
-    $plugin_data = get_plugin_data(WP_PLUGIN_DIR . '/protect-my-infos/protect-my-infos.php');
-    return $plugin_data['Version'] ?? '1.0';
+
+    $plugin_file = defined('YW_PLUGIN_FILE') ? YW_PLUGIN_FILE : dirname(__DIR__) . '/protect-my-infos.php';
+    $plugin_data = get_plugin_data($plugin_file, false, false);
+
+    return !empty($plugin_data['Version']) ? $plugin_data['Version'] : '1.0';
 }
 
-// Enqueue frontend scripts and styles
-function yw_protect_my_infos_enqueue_scripts() {
+/**
+ * Register frontend assets without loading them globally.
+ */
+function yw_protect_my_infos_register_frontend_assets() {
     $plugin_version = yw_protect_my_infos_get_plugin_version();
 
-    // Enqueue the frontend script
-    wp_enqueue_script(
+    wp_register_script(
         'yw-protect-my-infos-script',
-        plugin_dir_url(__FILE__) . '../assets/js/protect-my-infos.js',
+        plugins_url('assets/js/protect-my-infos.js', YW_PLUGIN_FILE),
         array('jquery'),
         $plugin_version,
         true
     );
 
-    // Enqueue the frontend CSS
-    wp_enqueue_style(
+    wp_register_style(
         'yw-protect-my-infos-css',
-        plugin_dir_url(__FILE__) . '../assets/css/frontend-styles.css',
+        plugins_url('assets/css/frontend-styles.css', YW_PLUGIN_FILE),
         array(),
         $plugin_version
     );
-
-    // Localize script with plugin options
-    $options = get_option('yw_protect_my_infos_options', []);
-
-    $protect_phone_numbers = isset($options['yw_protect_phone_numbers'])
-        ? (int)$options['yw_protect_phone_numbers']
-        : (isset($options['protect_phone_numbers']) ? (int)$options['protect_phone_numbers'] : 0);
-
-    $protect_emails = isset($options['yw_protect_emails'])
-        ? (int)$options['yw_protect_emails']
-        : (isset($options['protect_emails']) ? (int)$options['protect_emails'] : 0);
-        
-    wp_localize_script('yw-protect-my-infos-script', 'ywProtectMyInfos', array(
-        'ajaxUrl' => esc_url(admin_url('admin-ajax.php')),
-        'protectPhoneNumbers' => $protect_phone_numbers,
-        'protectEmails'       => $protect_emails,
-        'enableObfuscation' => isset($options['enable_obfuscation']) ? intval($options['enable_obfuscation']) : 0,
-        'revealPhoneText' => !empty($options['reveal_phone_text'])
-            ? esc_html($options['reveal_phone_text'])
-            : esc_html__('- Click to reveal the phone number -', 'protect-my-infos'),
-        'revealEmailText' => !empty($options['reveal_email_text'])
-            ? esc_html($options['reveal_email_text'])
-            : esc_html__('- Click to reveal the email address -', 'protect-my-infos'),
-    ));
 }
-add_action('wp_enqueue_scripts', 'yw_protect_my_infos_enqueue_scripts');
+
+/**
+ * Enqueue frontend assets when protected content is rendered.
+ */
+function yw_protect_my_infos_enqueue_frontend_assets() {
+    if (
+        !wp_script_is('yw-protect-my-infos-script', 'registered')
+        || !wp_style_is('yw-protect-my-infos-css', 'registered')
+    ) {
+        yw_protect_my_infos_register_frontend_assets();
+    }
+
+    wp_enqueue_script('yw-protect-my-infos-script');
+    wp_enqueue_style('yw-protect-my-infos-css');
+
+    $options = get_option('yw_protect_my_infos_options', array());
+    if (!empty($options['show_icons'])) {
+        wp_enqueue_style('dashicons');
+    }
+}
+
+/**
+ * Enqueue before wp_head when the shortcode occurs in queried post content.
+ */
+function yw_protect_my_infos_maybe_enqueue_frontend_assets() {
+    global $wp_query;
+
+    if (empty($wp_query->posts) || !is_array($wp_query->posts)) {
+        return;
+    }
+
+    foreach ($wp_query->posts as $post) {
+        if (isset($post->post_content) && has_shortcode($post->post_content, 'protect_my_infos')) {
+            yw_protect_my_infos_enqueue_frontend_assets();
+            return;
+        }
+    }
+}
+add_action('wp_enqueue_scripts', 'yw_protect_my_infos_maybe_enqueue_frontend_assets', 10);
 
 // Enqueue admin scripts and styles
 function yw_protect_my_infos_enqueue_admin_scripts($hook_suffix) {
@@ -77,7 +98,7 @@ function yw_protect_my_infos_enqueue_admin_scripts($hook_suffix) {
         // Enqueue the admin CSS
         wp_enqueue_style(
             'yw-protect-my-infos-admin-css',
-            plugin_dir_url(__FILE__) . '../assets/css/admin-styles.css',
+            plugins_url('assets/css/admin-styles.css', YW_PLUGIN_FILE),
             array(),
             $plugin_version
         );
@@ -85,7 +106,7 @@ function yw_protect_my_infos_enqueue_admin_scripts($hook_suffix) {
         // Enqueue the admin JS
         wp_enqueue_script(
             'yw-protect-my-infos-admin-script',
-            plugin_dir_url(__FILE__) . '../assets/js/protect-my-infos-admin.js',
+            plugins_url('assets/js/protect-my-infos-admin.js', YW_PLUGIN_FILE),
             array('jquery', 'wp-color-picker'),
             $plugin_version,
             true
@@ -101,18 +122,11 @@ function yw_protect_my_infos_enqueue_admin_scripts($hook_suffix) {
             )
         );
 
-        // Enqueue PayPal SDK and donation button script
-        wp_enqueue_script(
-            'paypal-sdk',
-            'https://www.paypalobjects.com/donate/sdk/donate-sdk.js',
-            array(),
-            $plugin_version,
-            true
-        );
+        // The local loader requests the PayPal SDK only after explicit interaction.
         wp_enqueue_script(
             'yw-protect-my-infos-donation-button',
-            plugin_dir_url(dirname(__FILE__)) . 'assets/js/donation-button.js',
-            array('paypal-sdk'),
+            plugins_url('assets/js/donation-button.js', YW_PLUGIN_FILE),
+            array(),
             $plugin_version,
             true
         );
@@ -121,7 +135,10 @@ function yw_protect_my_infos_enqueue_admin_scripts($hook_suffix) {
         wp_localize_script('yw-protect-my-infos-donation-button', 'ywProtectMyInfosLang', array(
             'altText' => esc_html__('Donate with PayPal button', 'protect-my-infos'),
             'titleText' => esc_html__('PayPal - The safer, easier way to pay online!', 'protect-my-infos'),
-            'locale' => get_locale()
+            'locale' => get_locale(),
+            'sdkUrl' => 'https://www.paypalobjects.com/donate/sdk/donate-sdk.js',
+            'loadingText' => esc_html__('Loading PayPal...', 'protect-my-infos'),
+            'errorText' => esc_html__('Unable to load PayPal. Please try again.', 'protect-my-infos'),
         ));
     }
 }
