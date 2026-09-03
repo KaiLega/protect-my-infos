@@ -18,7 +18,7 @@ License: GPLv2 or later. See LICENSE file for details.
 ## Requirements
 
 - WordPress 5.0 or higher.
-- PHP 7.2 or higher.
+- PHP 7.4 or higher.
 
 ## Installation
 

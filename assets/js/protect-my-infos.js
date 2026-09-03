@@ -1,21 +1,56 @@
 jQuery(document).ready(function ($) {
 
-    // Function to decode and show the encoded information
-    function decodeAndShow($element, encodedInfo, infoType, textColor, icon) {
+    // Decode the UTF-8 value stored in the Base64 attribute.
+    function decodeBase64Utf8(encodedInfo) {
+        var binary = atob(encodedInfo);
+        var bytes = new Uint8Array(binary.length);
+
+        for (var i = 0; i < binary.length; i++) {
+            bytes[i] = binary.charCodeAt(i);
+        }
+
+        if (typeof TextDecoder !== 'undefined') {
+            return new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+        }
+
+        var escapedBytes = '';
+        for (var j = 0; j < bytes.length; j++) {
+            var hexByte = bytes[j].toString(16);
+            escapedBytes += '%' + (hexByte.length === 1 ? '0' : '') + hexByte;
+        }
+
+        return decodeURIComponent(escapedBytes);
+    }
+
+    // Decode and render using DOM APIs so the protected value is never parsed as HTML.
+    function decodeAndShow($element, encodedInfo, infoType, textColor, $iconElement) {
         if (!encodedInfo) {
             console.warn('Missing encoded data for element:', $element);
             return;
         }
 
         try {
-            var decodedInfo = atob(encodedInfo);
-            var link;
+            var decodedInfo = decodeBase64Utf8(encodedInfo);
+            var linkPrefix;
+
             if (infoType === 'phone') {
-                link = '<a href="tel:' + decodedInfo + '" style="color:' + textColor + ';">' + decodedInfo + '</a>';
+                linkPrefix = 'tel:';
             } else if (infoType === 'email') {
-                link = '<a href="mailto:' + decodedInfo + '" style="color:' + textColor + ';">' + decodedInfo + '</a>';
+                linkPrefix = 'mailto:';
+            } else {
+                throw new Error('Unsupported protected information type.');
             }
-            $element.html(icon + link);
+
+            var $link = $('<a>')
+                .attr('href', linkPrefix + decodedInfo)
+                .css('color', textColor)
+                .text(decodedInfo);
+
+            $element.empty();
+            if ($iconElement && $iconElement.length) {
+                $element.append($iconElement);
+            }
+            $element.append($link);
         } catch (e) {
             console.error('Error decoding data:', e);
         }
@@ -29,7 +64,6 @@ jQuery(document).ready(function ($) {
         var infoType     = $container.data('type');
         var textColor    = $container.css('color');
         var $iconElement = $container.find('.dashicons').first().clone();
-        var icon         = $iconElement.length > 0 ? $iconElement[0].outerHTML + ' ' : '';
 
         if (!revealed) {
             // Prevent default action for non-mouseover events
@@ -40,7 +74,7 @@ jQuery(document).ready(function ($) {
 
             // Reveal the information after a short delay
             setTimeout(function () {
-                decodeAndShow($container, encodedInfo, infoType, textColor, icon);
+                decodeAndShow($container, encodedInfo, infoType, textColor, $iconElement);
                 $container.data('revealed', true);
             }, 0);
 
@@ -64,7 +98,6 @@ jQuery(document).ready(function ($) {
         var infoType     = $this.data('type');
         var textColor    = $this.css('color');
         var $iconElement = $this.find('.dashicons').clone();
-        var icon         = $iconElement.length > 0 ? $iconElement[0].outerHTML + ' ' : '';
 
         if (!encodedInfo) {
             console.warn('Missing encoded data for placeholder:', $this);
@@ -77,7 +110,7 @@ jQuery(document).ready(function ($) {
             e.stopImmediatePropagation();
 
             setTimeout(function () {
-                decodeAndShow($this, encodedInfo, infoType, textColor, icon);
+                decodeAndShow($this, encodedInfo, infoType, textColor, $iconElement);
                 $this.data('revealed', true);
             }, 0);
 

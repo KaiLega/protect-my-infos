@@ -2,9 +2,9 @@
 Contributors: yugaweb, kaichi
 Tags: security, privacy, email obfuscation, anti-spam, phone number protection
 Requires at least: 5.0
-Tested up to: 6.9
-Requires PHP: 7.2
-Stable tag: 1.3.8
+Tested up to: 7.1
+Requires PHP: 7.4
+Stable tag: 1.3.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,6 +91,12 @@ Note: This plugin does not store or process sensitive personal information. All 
 2. **Frontend Protection**: Emails and phone numbers are protected on your site.
 
 == Changelog ==
+= 1.3.9 =
+* Fix secure rendering of revealed email addresses and phone numbers.
+* Fix fatal errors for one-character values in center blur mode.
+* Add UTF-8 support for international email addresses and protected values.
+* Declare compatibility with WordPress 7.1 and require PHP 7.4 or later.
+
 = 1.3.8 =
 * Declare compatibility with WordPress 6.9 and update documentation.
 
@@ -134,6 +140,9 @@ Note: This plugin does not store or process sensitive personal information. All 
 
 
 == Upgrade Notice ==
+= 1.3.9 =
+Improves output security and UTF-8 support, fixes short-value blur errors, and adds WordPress 7.1 compatibility. Clear all caches after updating.
+
 = 1.3.8 =
 Declared compatibility with WordPress 6.9 and refreshed documentation. No action required; clear cache if you use a caching plugin.
 

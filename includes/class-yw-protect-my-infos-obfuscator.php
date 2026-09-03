@@ -24,14 +24,17 @@ class YW_Protect_My_Infos_Obfuscator {
      * @return string The generated HTML output.
      */
     public static function generate($type, $value, $options) {
-        if (empty($value)) {
+        $value = (string) $value;
+        if ($value === '') {
+            return '';
+        }
+
+        if (!in_array($type, array('phone', 'email'), true)) {
             return '';
         }
 
         // Encode the value to protect it from bots
-        $encodedValue = !empty($value) ? base64_encode($value) : '';
-        if (empty($encodedValue)) {
-        }
+        $encodedValue = base64_encode($value);
 
         $enableObfuscation = isset($options['enable_obfuscation']) ? intval($options['enable_obfuscation']) : 0;
         $protectPhoneNumbers = isset($options['yw_protect_phone_numbers'])
@@ -94,28 +97,42 @@ class YW_Protect_My_Infos_Obfuscator {
      * @return string The blurred value.
      */
     public static function apply_blur_mode($value, $blurMode) {
-        $length = strlen($value);
+        $characters = preg_split('//u', (string) $value, -1, PREG_SPLIT_NO_EMPTY);
+        if ($characters === false) {
+            $characters = str_split((string) $value);
+        }
+
+        $length = count($characters);
         $placeholder = str_repeat('*', $length); // Maintain the original length of the data
         $output = '';
 
+        $blurred = static function ($contents) {
+            return '<span class="yw-blurred-info" style="filter: blur(3px); cursor: pointer;" title="' . esc_attr__('Hover to reveal', 'protect-my-infos') . '">' . esc_html($contents) . '</span>';
+        };
+
         switch ($blurMode) {
             case 'center':
-                $first = substr($value, 0, 1);
-                $last = substr($value, -1);
+                if ($length <= 2) {
+                    $output = $blurred($placeholder);
+                    break;
+                }
+
+                $first = $characters[0];
+                $last = $characters[$length - 1];
                 $middle = str_repeat('*', $length - 2);
-                $output = $first . '<span class="yw-blurred-info" style="filter: blur(3px); cursor: pointer;" title="' . esc_attr__('Hover to reveal', 'protect-my-infos') . '">' . $middle . '</span>' . $last;
+                $output = esc_html($first) . $blurred($middle) . esc_html($last);
                 break;
             case 'first_half':
-                $half = floor($length / 2);
-                $output = '<span class="yw-blurred-info" style="filter: blur(3px); cursor: pointer;" title="' . esc_attr__('Hover to reveal', 'protect-my-infos') . '">' . str_repeat('*', $half) . '</span>' . substr($value, $half);
+                $half = (int) ceil($length / 2);
+                $output = $blurred(str_repeat('*', $half)) . esc_html(implode('', array_slice($characters, $half)));
                 break;
             case 'second_half':
-                $half = floor($length / 2);
-                $output = substr($value, 0, $half) . '<span class="yw-blurred-info" style="filter: blur(3px); cursor: pointer;" title="' . esc_attr__('Hover to reveal', 'protect-my-infos') . '">' . str_repeat('*', $length - $half) . '</span>';
+                $half = (int) floor($length / 2);
+                $output = esc_html(implode('', array_slice($characters, 0, $half))) . $blurred(str_repeat('*', $length - $half));
                 break;
             case 'full':
             default:
-                $output = '<span class="yw-blurred-info" style="filter: blur(3px); cursor: pointer;" title="' . esc_attr__('Hover to reveal', 'protect-my-infos') . '">' . $placeholder . '</span>';
+                $output = $blurred($placeholder);
                 break;
         }
 
