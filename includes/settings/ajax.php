@@ -19,8 +19,9 @@ add_action('wp_ajax_yw_protect_my_infos_save_settings', function () {
     }
 
     // Parse the serialized form (entire form)
+    // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Serialized form data is parsed, allowlisted, and sanitized below.
     $raw = isset($_POST['options']) ? wp_unslash($_POST['options']) : '';
-    parse_str($raw, $parsed);
+    wp_parse_str($raw, $parsed);
     $data = isset($parsed['yw_protect_my_infos_options']) ? $parsed['yw_protect_my_infos_options'] : [];
     if (!is_array($data)) {
         wp_send_json_error(__('Invalid options structure.', 'protect-my-infos'));

@@ -23,7 +23,7 @@ jQuery(document).ready(function ($) {
     }
 
     // Decode and render using DOM APIs so the protected value is never parsed as HTML.
-    function decodeAndShow($element, encodedInfo, infoType, textColor, $iconElement) {
+    function decodeAndShow($element, encodedInfo, infoType, textColor, $iconElement, moveFocus) {
         if (!encodedInfo) {
             console.warn('Missing encoded data for element:', $element);
             return;
@@ -60,6 +60,10 @@ jQuery(document).ready(function ($) {
             }
             $revealed.append($link);
             $element.attr('aria-expanded', 'true').replaceWith($revealed);
+
+            if (moveFocus) {
+                $link.trigger('focus');
+            }
         } catch (e) {
             console.error('Error decoding data:', e);
         }
@@ -73,7 +77,7 @@ jQuery(document).ready(function ($) {
         var textColor    = $container.css('color');
         var $iconElement = $container.find('.dashicons').first().clone();
 
-        decodeAndShow($container, encodedInfo, infoType, textColor, $iconElement);
+        decodeAndShow($container, encodedInfo, infoType, textColor, $iconElement, false);
     });
 
     // A native button provides click, Enter, and Space keyboard activation.
@@ -90,6 +94,6 @@ jQuery(document).ready(function ($) {
         }
 
         e.preventDefault();
-        decodeAndShow($this, encodedInfo, infoType, textColor, $iconElement);
+        decodeAndShow($this, encodedInfo, infoType, textColor, $iconElement, true);
     });
 });

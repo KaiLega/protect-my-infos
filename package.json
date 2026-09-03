@@ -5,6 +5,7 @@
         "test:js": "jest --runInBand"
     },
     "devDependencies": {
+        "@wordpress/env": "11.14.0",
         "jest": "^29.7.0",
         "jest-environment-jsdom": "^29.7.0",
         "jquery": "^3.7.1"

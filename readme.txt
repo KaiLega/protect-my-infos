@@ -13,7 +13,7 @@ Protect sensitive information like emails and phone numbers from bots with advan
 == Description ==
 **Protect My Infos** is a WordPress plugin designed to help protect sensitive contact information, such as phone numbers and email addresses, from basic automated harvesting through configurable client-side obfuscation.
 
-Emails and phone numbers are encoded and hidden from bots, while visitors can interact with placeholders to reveal the information.
+Emails and phone numbers are obfuscated to discourage basic automated harvesting, while visitors can interact with reveal controls to display the information.
 
 = Features =
 - Obfuscate contact information with placeholders, blur effects, and Base64 encoding.
@@ -88,7 +88,9 @@ Protected phone numbers and email addresses are not sent to PayPal. Payment tran
 
 == Screenshots ==
 1. **Admin Panel**: Configure the plugin settings from the WordPress admin.
-2. **Frontend Protection**: Emails and phone numbers are protected on your site.
+2. **Placeholder Settings**: Customize the text visitors use to reveal protected information.
+3. **Blur Settings**: Choose which portion of an email address or phone number is blurred.
+4. **Frontend Protection**: Compare the available blur modes and placeholder controls.
 
 == Changelog ==
 = 1.4.0 =
@@ -99,6 +101,8 @@ Protected phone numbers and email addresses are not sent to PayPal. Payment tran
 * Correct security and privacy claims in the documentation.
 * Add automated PHP, JavaScript, WordPress compatibility, and Plugin Check workflows.
 * Add consistent Git line-ending rules and remove duplicate generic Italian catalogs.
+* Preserve keyboard focus after reveal and support late-rendered shortcodes.
+* Improve settings accessibility, option validation, translations, and uninstall cleanup.
 
 = 1.3.9 =
 * Fix secure rendering of revealed email addresses and phone numbers.

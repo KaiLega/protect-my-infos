@@ -26,14 +26,6 @@ if (!defined('YW_PROTECT_MY_INFOS_VERSION')) {
     define('YW_PROTECT_MY_INFOS_VERSION', '1.4.0');
 }
 
-// Load plugin text domain for localization (for WordPress versions < 4.6)
-function yw_protect_my_infos_load_textdomain() {
-    if (version_compare(get_bloginfo('version'), '4.6', '<')) {
-        load_plugin_textdomain('protect-my-infos', false, dirname(plugin_basename(__FILE__)) . '/languages');
-    }
-}
-add_action('init', 'yw_protect_my_infos_load_textdomain');
-
 // Include necessary files
 require_once plugin_dir_path(__FILE__) . 'includes/enqueue.php';
 require_once plugin_dir_path(__FILE__) . 'includes/shortcode.php';

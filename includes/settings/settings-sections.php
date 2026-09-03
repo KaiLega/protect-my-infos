@@ -14,55 +14,70 @@ if (!defined('ABSPATH')) {
  * Sanitization callback for plugin options.
  */
 function yw_protect_my_infos_sanitize_options($input) {
-    // Define an empty array for sanitized values
-    $sanitized = array();
+    $input = is_array($input) ? $input : array();
+
+    // Defaults also ensure unchecked checkboxes are stored explicitly as 0.
+    $sanitized = array(
+        'yw_protect_phone_numbers' => 0,
+        'yw_protect_emails' => 0,
+        'show_icons' => 0,
+        'text_color' => '#000000',
+        'icons_color' => '#000000',
+        'enable_obfuscation' => 0,
+    );
 
     // Phone
     if (isset($input['yw_protect_phone_numbers'])) {
-        $sanitized['yw_protect_phone_numbers'] = (int)$input['yw_protect_phone_numbers'];
+        $sanitized['yw_protect_phone_numbers'] = empty($input['yw_protect_phone_numbers']) ? 0 : 1;
     } elseif (isset($input['protect_phone_numbers'])) {
-        $sanitized['yw_protect_phone_numbers'] = (int)$input['protect_phone_numbers'];
+        $sanitized['yw_protect_phone_numbers'] = empty($input['protect_phone_numbers']) ? 0 : 1;
     }
 
     // Email
     if (isset($input['yw_protect_emails'])) {
-        $sanitized['yw_protect_emails'] = (int)$input['yw_protect_emails'];
+        $sanitized['yw_protect_emails'] = empty($input['yw_protect_emails']) ? 0 : 1;
     } elseif (isset($input['protect_emails'])) {
-        $sanitized['yw_protect_emails'] = (int)$input['protect_emails'];
+        $sanitized['yw_protect_emails'] = empty($input['protect_emails']) ? 0 : 1;
     }
 
     // Sanitize each option individually
     if (isset($input['show_icons'])) {
-        $sanitized['show_icons'] = intval($input['show_icons']);
+        $sanitized['show_icons'] = empty($input['show_icons']) ? 0 : 1;
     }
 
-    if (isset($input['text_color'])) {
-        $sanitized['text_color'] = sanitize_hex_color($input['text_color']);
+    if (isset($input['text_color']) && is_string($input['text_color'])) {
+        $text_color = sanitize_hex_color($input['text_color']);
+        $sanitized['text_color'] = $text_color ? $text_color : '#000000';
     }
 
-    if (isset($input['icons_color'])) {
-        $sanitized['icons_color'] = sanitize_hex_color($input['icons_color']);
+    if (isset($input['icons_color']) && is_string($input['icons_color'])) {
+        $icons_color = sanitize_hex_color($input['icons_color']);
+        $sanitized['icons_color'] = $icons_color ? $icons_color : '#000000';
     }
 
     if (isset($input['enable_obfuscation'])) {
-        $sanitized['enable_obfuscation'] = intval($input['enable_obfuscation']);
+        $sanitized['enable_obfuscation'] = empty($input['enable_obfuscation']) ? 0 : 1;
     }
 
-    $obfuscation_type = isset($input['yw-obfuscation_type']) ? sanitize_key($input['yw-obfuscation_type']) : 'placeholder';
+    $obfuscation_type = isset($input['yw-obfuscation_type']) && is_string($input['yw-obfuscation_type'])
+        ? sanitize_key($input['yw-obfuscation_type'])
+        : 'placeholder';
     $sanitized['yw-obfuscation_type'] = in_array($obfuscation_type, array('placeholder', 'blurred'), true)
         ? $obfuscation_type
         : 'placeholder';
 
-    $blur_mode = isset($input['blur_mode']) ? sanitize_key($input['blur_mode']) : 'full';
+    $blur_mode = isset($input['blur_mode']) && is_string($input['blur_mode'])
+        ? sanitize_key($input['blur_mode'])
+        : 'full';
     $sanitized['blur_mode'] = in_array($blur_mode, array('full', 'center', 'first_half', 'second_half'), true)
         ? $blur_mode
         : 'full';
 
-    if (isset($input['reveal_phone_text'])) {
+    if (isset($input['reveal_phone_text']) && is_string($input['reveal_phone_text'])) {
         $sanitized['reveal_phone_text'] = sanitize_text_field($input['reveal_phone_text']);
     }
     
-    if (isset($input['reveal_email_text'])) {
+    if (isset($input['reveal_email_text']) && is_string($input['reveal_email_text'])) {
         $sanitized['reveal_email_text'] = sanitize_text_field($input['reveal_email_text']);
     }
 
@@ -97,7 +112,8 @@ function yw_protect_my_infos_settings_init() {
         esc_html__('Protect Phone Numbers', 'protect-my-infos'),
         'yw_protect_my_infos_render_phone_numbers',
         'yw_protect_my_infos_general',
-        'yw_protect_my_infos_general_section'
+        'yw_protect_my_infos_general_section',
+        array('label_for' => 'yw-protect-phone-numbers')
     );
 
     add_settings_field(
@@ -105,7 +121,8 @@ function yw_protect_my_infos_settings_init() {
         esc_html__('Protect Emails', 'protect-my-infos'),
         'yw_protect_my_infos_render_emails',
         'yw_protect_my_infos_general',
-        'yw_protect_my_infos_general_section'
+        'yw_protect_my_infos_general_section',
+        array('label_for' => 'yw-protect-emails')
     );
 
     add_settings_field(
@@ -113,7 +130,8 @@ function yw_protect_my_infos_settings_init() {
         esc_html__('Show Icons', 'protect-my-infos'),
         'yw_protect_my_infos_render_show_icons',
         'yw_protect_my_infos_general',
-        'yw_protect_my_infos_general_section'
+        'yw_protect_my_infos_general_section',
+        array('label_for' => 'yw-show-icons')
     );
 
     add_settings_field(
@@ -121,7 +139,8 @@ function yw_protect_my_infos_settings_init() {
         esc_html__('Text Color', 'protect-my-infos'),
         'yw_protect_my_infos_render_text_color',
         'yw_protect_my_infos_general',
-        'yw_protect_my_infos_general_section'
+        'yw_protect_my_infos_general_section',
+        array('label_for' => 'yw-text-color')
     );
 
     add_settings_field(
@@ -129,7 +148,8 @@ function yw_protect_my_infos_settings_init() {
         esc_html__('Icons Color', 'protect-my-infos'),
         'yw_protect_my_infos_render_icons_color',
         'yw_protect_my_infos_general',
-        'yw_protect_my_infos_general_section'
+        'yw_protect_my_infos_general_section',
+        array('label_for' => 'yw-icons-color')
     );
 
     // Obfuscation Settings Section
@@ -147,7 +167,8 @@ function yw_protect_my_infos_settings_init() {
         esc_html__('Enable Obfuscation', 'protect-my-infos'),
         'yw_protect_my_infos_render_enable_obfuscation',
         'yw_protect_my_infos_obfuscation',
-        'yw_protect_my_infos_obfuscation_section'
+        'yw_protect_my_infos_obfuscation_section',
+        array('label_for' => 'yw-enable-obfuscation')
     );
 
     add_settings_field(
@@ -155,7 +176,8 @@ function yw_protect_my_infos_settings_init() {
         esc_html__('Obfuscation Type', 'protect-my-infos'),
         'yw_protect_my_infos_render_obfuscation_type',
         'yw_protect_my_infos_obfuscation',
-        'yw_protect_my_infos_obfuscation_section'
+        'yw_protect_my_infos_obfuscation_section',
+        array('label_for' => 'yw-obfuscation_type')
     );
 
 }
@@ -166,11 +188,11 @@ add_action('admin_init', function () {
     $changed = false;
 
     if (!isset($opts['yw_protect_phone_numbers']) && isset($opts['protect_phone_numbers'])) {
-        $opts['yw_protect_phone_numbers'] = intval($opts['protect_phone_numbers']);
+        $opts['yw_protect_phone_numbers'] = empty($opts['protect_phone_numbers']) ? 0 : 1;
         $changed = true;
     }
     if (!isset($opts['yw_protect_emails']) && isset($opts['protect_emails'])) {
-        $opts['yw_protect_emails'] = intval($opts['protect_emails']);
+        $opts['yw_protect_emails'] = empty($opts['protect_emails']) ? 0 : 1;
         $changed = true;
     }
 

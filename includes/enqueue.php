@@ -86,6 +86,32 @@ function yw_protect_my_infos_maybe_enqueue_frontend_assets() {
 }
 add_action('wp_enqueue_scripts', 'yw_protect_my_infos_maybe_enqueue_frontend_assets', 10);
 
+/**
+ * Print styles that were enqueued by a shortcode rendered after wp_head.
+ *
+ * This covers widgets, page builders, and template-level do_shortcode() calls
+ * on WordPress versions that do not handle late-enqueued styles automatically.
+ */
+function yw_protect_my_infos_print_late_frontend_styles() {
+    $handles = array();
+
+    if (
+        wp_style_is('yw-protect-my-infos-css', 'enqueued')
+        && !wp_style_is('yw-protect-my-infos-css', 'done')
+    ) {
+        $handles[] = 'yw-protect-my-infos-css';
+    }
+
+    if (wp_style_is('dashicons', 'enqueued') && !wp_style_is('dashicons', 'done')) {
+        $handles[] = 'dashicons';
+    }
+
+    if (!empty($handles)) {
+        wp_print_styles($handles);
+    }
+}
+add_action('wp_footer', 'yw_protect_my_infos_print_late_frontend_styles', 1);
+
 // Enqueue admin scripts and styles
 function yw_protect_my_infos_enqueue_admin_scripts($hook_suffix) {
     if ($hook_suffix === 'toplevel_page_yw-protect-my-infos') {

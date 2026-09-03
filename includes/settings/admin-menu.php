@@ -87,9 +87,10 @@ function yw_protect_my_infos_options_page() {
                     <h2><?php esc_html_e('General Settings', 'protect-my-infos'); ?></h2>
                     <table class="form-table">
                         <tr>
-                            <th scope="row"><?php esc_html_e('Protect Phone Numbers', 'protect-my-infos'); ?></th>
+                            <th scope="row"><label for="yw-protect-phone-numbers"><?php esc_html_e('Protect Phone Numbers', 'protect-my-infos'); ?></label></th>
                             <td>
                                 <input type="checkbox"
+                                    id="yw-protect-phone-numbers"
                                     name="yw_protect_my_infos_options[yw_protect_phone_numbers]"
                                     value="1"
                                     <?php checked(1, $phone, true); ?> 
@@ -97,9 +98,10 @@ function yw_protect_my_infos_options_page() {
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e('Protect Emails', 'protect-my-infos'); ?></th>
+                            <th scope="row"><label for="yw-protect-emails"><?php esc_html_e('Protect Emails', 'protect-my-infos'); ?></label></th>
                             <td>
                                 <input type="checkbox"
+                                    id="yw-protect-emails"
                                     name="yw_protect_my_infos_options[yw_protect_emails]"
                                     value="1"
                                     <?php checked(1, $email, true); ?> 
@@ -107,21 +109,21 @@ function yw_protect_my_infos_options_page() {
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e('Show Icons', 'protect-my-infos'); ?></th>
+                            <th scope="row"><label for="yw-show-icons"><?php esc_html_e('Show Icons', 'protect-my-infos'); ?></label></th>
                             <td>
-                                <input type="checkbox" name="yw_protect_my_infos_options[show_icons]" value="1" <?php checked(1, $options['show_icons'], true); ?> />
+                                <input type="checkbox" id="yw-show-icons" name="yw_protect_my_infos_options[show_icons]" value="1" <?php checked(1, $options['show_icons'], true); ?> />
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e('Text Color', 'protect-my-infos'); ?></th>
+                            <th scope="row"><label for="yw-text-color"><?php esc_html_e('Text Color', 'protect-my-infos'); ?></label></th>
                             <td>
-                                <input type="text" name="yw_protect_my_infos_options[text_color]" value="<?php echo esc_attr($options['text_color']); ?>" class="yw-color-field" />
+                                <input type="text" id="yw-text-color" name="yw_protect_my_infos_options[text_color]" value="<?php echo esc_attr($options['text_color']); ?>" class="yw-color-field" />
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e('Icons Color', 'protect-my-infos'); ?></th>
+                            <th scope="row"><label for="yw-icons-color"><?php esc_html_e('Icons Color', 'protect-my-infos'); ?></label></th>
                             <td>
-                                <input type="text" name="yw_protect_my_infos_options[icons_color]" value="<?php echo esc_attr($options['icons_color']); ?>" class="yw-color-field" />
+                                <input type="text" id="yw-icons-color" name="yw_protect_my_infos_options[icons_color]" value="<?php echo esc_attr($options['icons_color']); ?>" class="yw-color-field" />
                             </td>
                         </tr>
                     </table>
@@ -137,7 +139,7 @@ function yw_protect_my_infos_options_page() {
                     <table class="form-table">
                         <tbody>
                             <tr class="yw-blur-mode-option" style="display: none;">
-                                <th scope="row"><?php esc_html_e('Blur Mode', 'protect-my-infos'); ?></th>
+                                <th scope="row"><label for="blur_mode"><?php esc_html_e('Blur Mode', 'protect-my-infos'); ?></label></th>
                                 <td><?php yw_protect_my_infos_render_blur_mode(); ?></td>
                             </tr>
                         </tbody>
@@ -146,11 +148,11 @@ function yw_protect_my_infos_options_page() {
                     <table class="form-table">
                         <tbody>
                             <tr class="yw-reveal-option" style="display: none;">
-                                <th scope="row"><?php esc_html_e('Custom Phone Reveal Text', 'protect-my-infos'); ?></th>
+                                <th scope="row"><label for="yw-reveal-phone-text"><?php esc_html_e('Custom Phone Reveal Text', 'protect-my-infos'); ?></label></th>
                                 <td><?php yw_protect_my_infos_render_reveal_phone_text(); ?></td>
                             </tr>
                             <tr class="yw-reveal-option" style="display: none;">
-                                <th scope="row"><?php esc_html_e('Custom Email Reveal Text', 'protect-my-infos'); ?></th>
+                                <th scope="row"><label for="yw-reveal-email-text"><?php esc_html_e('Custom Email Reveal Text', 'protect-my-infos'); ?></label></th>
                                 <td><?php yw_protect_my_infos_render_reveal_email_text(); ?></td>
                             </tr>
                         </tbody>

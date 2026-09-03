@@ -2,7 +2,7 @@ name: Tests
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
 
 permissions:
@@ -16,7 +16,7 @@ jobs:
       matrix:
         php: ['7.4', '8.2', '8.3']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
@@ -29,11 +29,12 @@ jobs:
     name: JavaScript
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: 20
-      - run: npm install --no-audit --no-fund
+          node-version: 24
+          cache: npm
+      - run: npm ci --no-audit --no-fund
       - run: npm run test:js
 
   wordpress:
@@ -46,35 +47,46 @@ jobs:
         php: ['7.4', '8.2', '8.3']
         include:
           - name: '6.9'
-            core: https://wordpress.org/wordpress-6.9-latest.zip
+            core: https://wordpress.org/wordpress-6.9.7.zip
           - name: '7.0'
-            core: https://wordpress.org/wordpress-7.0-latest.zip
+            core: https://wordpress.org/wordpress-7.0.4.zip
           - name: '7.1'
             core: https://wordpress.org/wordpress-7.1.zip
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: 20
-      - run: npm install --global @wordpress/env
-      - run: wp-env start --update
+          node-version: 24
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npx wp-env start --update
         env:
           WP_ENV_CORE: ${{ matrix.core }}
           WP_ENV_PHP_VERSION: ${{ matrix.php }}
-      - run: wp-env run cli wp plugin activate --all
+      - name: Verify WordPress and PHP versions
+        run: >-
+          npx wp-env run cli wp eval
+          '$wordpress = get_bloginfo("version");
+          $php = PHP_MAJOR_VERSION . "." . PHP_MINOR_VERSION;
+          if (0 !== strpos($wordpress, "${{ matrix.name }}")) { throw new Exception("Expected WordPress ${{ matrix.name }}, got " . $wordpress); }
+          if ("${{ matrix.php }}" !== $php) { throw new Exception("Expected PHP ${{ matrix.php }}, got " . $php); }'
+      - run: npx wp-env run cli wp plugin activate --all
       - name: Shortcode smoke test
         run: >-
-          wp-env run cli wp eval
-          'do_action("wp_enqueue_scripts");
+          npx wp-env run cli wp eval
+          'ob_start(); wp_head(); ob_end_clean();
           if (wp_script_is("yw-protect-my-infos-script", "enqueued")) { throw new Exception("Frontend script was globally enqueued."); }
           update_option("yw_protect_my_infos_options", array("enable_obfuscation" => 1, "yw_protect_emails" => 1, "yw-obfuscation_type" => "placeholder", "show_icons" => 1));
           $output = do_shortcode("[protect_my_infos type=\"email\" value=\"müller@example.com\"]");
           if (false === strpos($output, "yw-protect-info-button")) { throw new Exception("Shortcode output was not generated."); }
           if (!wp_script_is("yw-protect-my-infos-script", "enqueued")) { throw new Exception("Frontend script was not enqueued."); }
           if (!wp_style_is("yw-protect-my-infos-css", "enqueued")) { throw new Exception("Frontend style was not enqueued."); }
-          if (!wp_style_is("dashicons", "enqueued")) { throw new Exception("Dashicons were not enqueued."); }'
+          if (!wp_style_is("dashicons", "enqueued")) { throw new Exception("Dashicons were not enqueued."); }
+          ob_start(); wp_footer(); $footer = ob_get_clean();
+          if (false === strpos($footer, "yw-protect-my-infos-css")) { throw new Exception("Late frontend style was not printed."); }
+          if (false === strpos($footer, "dashicons")) { throw new Exception("Late Dashicons style was not printed."); }'
       - if: always()
-        run: wp-env stop
+        run: npx wp-env stop
 
   plugin-check:
     name: Plugin Check / WordPress ${{ matrix.wordpress }}
@@ -83,7 +95,7 @@ jobs:
       matrix:
         wordpress: [latest, trunk]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: wordpress/plugin-check-action@v1
         with:
           build-dir: .

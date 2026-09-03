@@ -1,9 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Protect My Infos\n"
-"POT-Creation-Date: 2025-01-27 00:13+0100\n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/protect-my-infos\n"
+"POT-Creation-Date: 2026-09-03T13:16:23+00:00\n"
+"PO-Revision-Date: 2026-09-03 15:20+0200\n"
+"Last-Translator: Yuga Web\n"
 "Language-Team: Yuga Web\n"
 "Language: it_IT\n"
 "MIME-Version: 1.0\n"
@@ -22,162 +23,198 @@ msgstr ""
 "X-Poedit-SearchPath-6: css\n"
 "X-Poedit-SearchPath-7: .\n"
 
-#: includes/class-yw-protect-my-infos-obfuscator.php:65 includes/enqueue.php:50
-#: includes/settings/helpers.php:99
-msgid "- Click to reveal the phone number -"
-msgstr "- Clicca qui per rivelare il telefono -"
-
-#: includes/class-yw-protect-my-infos-obfuscator.php:66 includes/enqueue.php:51
-msgid "- Click to reveal the email address -"
-msgstr "- Clicca qui per rivelare l'email -"
-
-#: includes/class-yw-protect-my-infos-obfuscator.php:68
-msgid "Click to reveal"
-msgstr "- Clicca qui per rivelare"
-
-#: includes/class-yw-protect-my-infos-obfuscator.php:97
-#: includes/class-yw-protect-my-infos-obfuscator.php:101
-#: includes/class-yw-protect-my-infos-obfuscator.php:105
-#: includes/class-yw-protect-my-infos-obfuscator.php:109
-msgid "Hover to reveal"
-msgstr "Passa qui il mouse per rivelare"
-
-#: includes/enqueue.php:111
-msgid "Donate with PayPal button"
-msgstr "Dona con Paypal"
-
-#: includes/enqueue.php:112
-msgid "PayPal - The safer, easier way to pay online!"
-msgstr "PayPal - Il modo più sicuro e facile per pagare online!"
-
-#: includes/helpers.php:28
-msgid "Thank you for installing Protect My Infos!"
-msgstr "Grazie per aver installato Protect My Infos! "
-
-#: includes/helpers.php:29
-msgid "Visit our website for updates."
-msgstr "Visitate il nostro sito web per gli aggiornamenti."
-
-#: includes/helpers.php:30
-msgid "Do not show again"
-msgstr "Non mostrare più"
-
-#: includes/helpers.php:31
-msgid "Do not show this notice again"
-msgstr "Non mostrare più questo avviso"
-
-#: includes/helpers.php:50
-msgid "Unauthorized request."
-msgstr "Richiesta non autorizzata."
-
-#: includes/helpers.php:56 includes/helpers.php:110
-#: includes/settings/ajax.php:24
-msgid "Invalid nonce."
-msgstr "Nonce non valido."
-
-#: includes/helpers.php:62 includes/settings/ajax.php:29
-msgid "Permission denied."
-msgstr "Permesso negato."
-
-#: includes/helpers.php:71
-msgid "Failed to update user meta."
-msgstr "Errore nell'aggiornamento dei dati utente"
-
-#: includes/helpers.php:75
-msgid "Notice dismissed."
-msgstr "Notifica rimossa."
-
-#: includes/helpers.php:128
-msgid "Invalid image parameter."
-msgstr "Parametri dell'immagine non validi."
-
-#. Plugin Name of the plugin/theme
-#: includes/settings/admin-menu.php:16 includes/settings/admin-menu.php:17
+#. Plugin Name of the plugin
+#: protect-my-infos.php includes/settings/admin-menu.php:16
+#: includes/settings/admin-menu.php:17
 msgid "Protect My Infos"
 msgstr "Protect My Infos"
 
-#: includes/settings/admin-menu.php:48
-msgid "Plugin updates are available."
-msgstr "Aggiornamenti del plugin disponibili."
+#. Plugin URI of the plugin
+#: protect-my-infos.php
+msgid "https://www.yugaweb.com/protect-my-infos/"
+msgstr "https://www.yugaweb.com/protect-my-infos/"
 
-#: includes/settings/admin-menu.php:58 includes/settings/admin-menu.php:73
+#. Description of the plugin
+#: protect-my-infos.php
+msgid ""
+"Discourage basic automated harvesting of phone numbers and email addresses "
+"using configurable client-side obfuscation and reveal controls."
+msgstr ""
+"Scoraggia la raccolta automatizzata di base di numeri di telefono e "
+"indirizzi email tramite offuscamento configurabile lato client e controlli "
+"di rivelazione."
+
+#. Author of the plugin
+#: protect-my-infos.php
+msgid "Yuga Web"
+msgstr "Yuga Web"
+
+#. Author URI of the plugin
+#: protect-my-infos.php
+msgid "https://www.yugaweb.com/"
+msgstr "https://www.yugaweb.com/"
+
+#: includes/class-yw-protect-my-infos-obfuscator.php:88
+#: includes/class-yw-protect-my-infos-obfuscator.php:97
+msgid "Reveal phone number"
+msgstr "Rivela il numero di telefono"
+
+#: includes/class-yw-protect-my-infos-obfuscator.php:89
+#: includes/class-yw-protect-my-infos-obfuscator.php:98
+msgid "Reveal email address"
+msgstr "Rivela l’indirizzo email"
+
+#: includes/class-yw-protect-my-infos-obfuscator.php:93
+#: includes/settings/helpers.php:100
+msgid "- Click to reveal the phone number -"
+msgstr "- Clicca qui per rivelare il telefono -"
+
+#: includes/class-yw-protect-my-infos-obfuscator.php:94
+msgid "- Click to reveal the email address -"
+msgstr "- Clicca qui per rivelare l'email -"
+
+#: includes/class-yw-protect-my-infos-obfuscator.php:99
+msgid "Click to reveal"
+msgstr "- Clicca qui per rivelare"
+
+#: includes/class-yw-protect-my-infos-obfuscator.php:130
+msgid "Hover to reveal"
+msgstr "Passa qui il mouse per rivelare"
+
+#: includes/enqueue.php:162
+msgid "Donate with PayPal button"
+msgstr "Dona con Paypal"
+
+#: includes/enqueue.php:163
+msgid "PayPal - The safer, easier way to pay online!"
+msgstr "PayPal - Il modo più sicuro e facile per pagare online!"
+
+#: includes/enqueue.php:166
+msgid "Loading PayPal..."
+msgstr "Caricamento di PayPal..."
+
+#: includes/enqueue.php:167
+msgid "Unable to load PayPal. Please try again."
+msgstr "Impossibile caricare PayPal. Riprova."
+
+#: includes/helpers.php:37
+msgid "Thank you for installing Protect My Infos!"
+msgstr "Grazie per aver installato Protect My Infos! "
+
+#: includes/helpers.php:38
+msgid "Visit our website for updates."
+msgstr "Visitate il nostro sito web per gli aggiornamenti."
+
+#: includes/helpers.php:39
+msgid "Do not show again"
+msgstr "Non mostrare più"
+
+#: includes/helpers.php:40
+msgid "Do not show this notice again"
+msgstr "Non mostrare più questo avviso"
+
+#: includes/helpers.php:60 includes/helpers.php:61
+msgid "Unauthorized request."
+msgstr "Richiesta non autorizzata."
+
+#: includes/helpers.php:69 includes/settings/ajax.php:15
+msgid "Invalid nonce."
+msgstr "Nonce non valido."
+
+#: includes/helpers.php:75 includes/settings/ajax.php:18
+msgid "Permission denied."
+msgstr "Permesso negato."
+
+#: includes/helpers.php:84
+msgid "Failed to update user meta."
+msgstr "Errore nell'aggiornamento dei dati utente"
+
+#: includes/helpers.php:88
+msgid "Notice dismissed."
+msgstr "Notifica rimossa."
+
+#: includes/settings/admin-menu.php:63
+msgid "An update for Protect My Infos is available."
+msgstr "È disponibile un aggiornamento per Protect My Infos."
+
+#: includes/settings/admin-menu.php:73 includes/settings/admin-menu.php:87
 msgid "General Settings"
 msgstr "Impostazioni generali"
 
-#: includes/settings/admin-menu.php:59
+#: includes/settings/admin-menu.php:74
 msgid "Obfuscation"
 msgstr "Offuscamento"
 
-#: includes/settings/admin-menu.php:60 includes/settings/admin-menu.php:143
+#: includes/settings/admin-menu.php:75 includes/settings/admin-menu.php:167
 msgid "Advanced Settings"
 msgstr "Impostazioni avanzate"
 
-#: includes/settings/admin-menu.php:61
+#: includes/settings/admin-menu.php:76
 msgid "How to use it"
 msgstr "Come utilizzare il plugin"
 
-#: includes/settings/admin-menu.php:62 includes/settings/admin-menu.php:165
+#: includes/settings/admin-menu.php:77 includes/settings/admin-menu.php:189
 msgid "Support the Author"
 msgstr "Supporta l’autore"
 
-#: includes/settings/admin-menu.php:76
-#: includes/settings/settings-sections.php:89
+#: includes/settings/admin-menu.php:90
+#: includes/settings/settings-sections.php:106
 msgid "Protect Phone Numbers"
 msgstr "Proteggi i numeri di telefono"
 
-#: includes/settings/admin-menu.php:82
-#: includes/settings/settings-sections.php:97
+#: includes/settings/admin-menu.php:101
+#: includes/settings/settings-sections.php:114
 msgid "Protect Emails"
 msgstr "Proteggi le email"
 
-#: includes/settings/admin-menu.php:88
-#: includes/settings/settings-sections.php:105
+#: includes/settings/admin-menu.php:112
+#: includes/settings/settings-sections.php:122
 msgid "Show Icons"
 msgstr "Mostra le icone"
 
-#: includes/settings/admin-menu.php:94
-#: includes/settings/settings-sections.php:113
+#: includes/settings/admin-menu.php:118
+#: includes/settings/settings-sections.php:130
 msgid "Text Color"
 msgstr "Colore del testo"
 
-#: includes/settings/admin-menu.php:100
-#: includes/settings/settings-sections.php:121
+#: includes/settings/admin-menu.php:124
+#: includes/settings/settings-sections.php:138
 msgid "Icons Color"
 msgstr "Colore delle icone"
 
-#: includes/settings/admin-menu.php:106 includes/settings/admin-menu.php:138
+#: includes/settings/admin-menu.php:130 includes/settings/admin-menu.php:162
 msgid "Save Settings"
 msgstr "Salva impostazioni"
 
-#: includes/settings/admin-menu.php:111
+#: includes/settings/admin-menu.php:135
 msgid "Obfuscation Settings"
 msgstr "Impostazioni di offuscamento"
 
-#: includes/settings/admin-menu.php:118
+#: includes/settings/admin-menu.php:142
 msgid "Blur Mode"
 msgstr "Modalità Blur"
 
-#: includes/settings/admin-menu.php:127
+#: includes/settings/admin-menu.php:151
 msgid "Custom Phone Reveal Text"
 msgstr "Testo personalizzato per rivelare il numero di telefono"
 
-#: includes/settings/admin-menu.php:131
+#: includes/settings/admin-menu.php:155
 msgid "Custom Email Reveal Text"
 msgstr "Testo personalizzato per rivelare l'indirizzo email"
 
-#: includes/settings/admin-menu.php:144
+#: includes/settings/admin-menu.php:168
 msgid "New features coming soon..."
 msgstr "Nuove funzionalità in arrivo..."
 
-#: includes/settings/admin-menu.php:149
+#: includes/settings/admin-menu.php:173
 msgid "How to use Protect My Infos"
 msgstr "Come utilizzare Protect My Infos"
 
-#: includes/settings/admin-menu.php:150
+#: includes/settings/admin-menu.php:174
 msgid "To use Protect My Infos, follow these steps:"
 msgstr "Per utilizzare Protect My Infos, segui questi passaggi:"
 
-#: includes/settings/admin-menu.php:152
+#: includes/settings/admin-menu.php:176
 msgid ""
 "In General Settings, choose the data you want to protect: phone numbers, "
 "email addresses, or both."
@@ -185,7 +222,7 @@ msgstr ""
 "Nelle Impostazioni Generali, scegli i dati che desideri proteggere: numeri "
 "di telefono, indirizzi email o entrambi."
 
-#: includes/settings/admin-menu.php:153
+#: includes/settings/admin-menu.php:177
 msgid ""
 "In Obfuscation, set your preferred obfuscation type and customization "
 "options."
@@ -193,21 +230,21 @@ msgstr ""
 "Nella sezione Offuscamento, imposta il tipo di offuscamento preferito e le "
 "opzioni di personalizzazione."
 
-#: includes/settings/admin-menu.php:154
+#: includes/settings/admin-menu.php:178
 msgid ""
 "Use the shortcode in your posts or pages to protect specific information:"
 msgstr ""
 "Usa lo shortcode nei tuoi post o nelle tue pagine per proteggere "
 "informazioni specifiche:"
 
-#: includes/settings/admin-menu.php:159
+#: includes/settings/admin-menu.php:183
 msgid ""
 "Save your settings and test on your site to ensure proper functionality."
 msgstr ""
 "Salva le impostazioni e testa sul tuo sito per assicurarti che funzioni "
 "correttamente."
 
-#: includes/settings/admin-menu.php:166
+#: includes/settings/admin-menu.php:190
 msgid ""
 "If you like this plugin and would like to support me, please consider making "
 "a donation!"
@@ -215,39 +252,35 @@ msgstr ""
 "Se ti piace il plugin e vuoi supportare il suo sviluppo, considera una "
 "donazione!"
 
-#: includes/settings/admin-menu.php:170
+#: includes/settings/admin-menu.php:194 includes/settings/admin-menu.php:197
 msgid "Donate with PayPal"
 msgstr "Dona con Paypal"
 
-#: includes/settings/admin-menu.php:178
+#: includes/settings/admin-menu.php:206
 msgid "Donate with Bitcoin"
 msgstr "Dona con Bitcoin"
 
-#: includes/settings/admin-menu.php:179
+#: includes/settings/admin-menu.php:207
 msgid "Scan the QR code or use this address to donate:"
 msgstr "Scansiona il codice QR o usa questo indirizzo:"
 
-#: includes/settings/admin-menu.php:187
+#: includes/settings/admin-menu.php:212
 msgid "Bitcoin QR Code"
 msgstr "QR Code per Bitcoin"
 
-#: includes/settings/admin-menu.php:205
+#: includes/settings/admin-menu.php:227
 msgid "Yuga Web Design banner"
 msgstr "Yuga Web Design banner"
 
-#: includes/settings/ajax.php:36 includes/settings/ajax.php:44
+#: includes/settings/ajax.php:26
 msgid "Invalid options structure."
 msgstr "Struttura delle opzioni non valida."
 
-#: includes/settings/ajax.php:83
-msgid "Failed to save settings."
-msgstr "Errore nel salvataggio delle impostazioni."
-
-#: includes/settings/ajax.php:88
+#: includes/settings/ajax.php:34
 msgid "Settings saved successfully."
 msgstr "Impostazioni salvate con successo."
 
-#: includes/settings/header.php:25
+#: includes/settings/header.php:27
 msgid "Protect My Infos Logo"
 msgstr "Protect My Infos Logo"
 
@@ -279,69 +312,30 @@ msgstr "Offusca solo la seconda metà"
 msgid "Enter custom text..."
 msgstr "Inserisci custom text..."
 
-#: includes/settings/helpers.php:112
+#: includes/settings/helpers.php:114
 msgid "- Click to reveal the email -"
 msgstr "- Clicca qui per rivelare l'email -"
 
-#: includes/settings/settings-sections.php:139
+#: includes/settings/settings-sections.php:156
 msgid "Enable Obfuscation"
 msgstr "Abilita l'offuscamento"
 
-#: includes/settings/settings-sections.php:147
+#: includes/settings/settings-sections.php:165
 msgid "Obfuscation Type"
 msgstr "Tipo di offuscamento"
 
-#: includes/settings/settings-sections.php:160
+#: includes/settings/settings-sections.php:199
 msgid "Configure general settings for Protect My Infos."
 msgstr "Configura le impostazioni generali per Protect My Infos."
 
-#: includes/settings/settings-sections.php:167
+#: includes/settings/settings-sections.php:206
 msgid "Configure obfuscation settings for Protect My Infos."
 msgstr "Configura le impostazioni di offuscamento per Protect My Infos."
 
-#: includes/shortcode.php:41
+#: includes/shortcode.php:46
 msgid "No value provided."
 msgstr "Nessun valore fornito."
 
-#: includes/shortcode.php:49
+#: includes/shortcode.php:54
 msgid "Settings not configured."
 msgstr "Impostazioni non configurate."
-
-#. Plugin URI of the plugin/theme
-msgid "https://www.yugaweb.com/protect-my-infos/"
-msgstr "https://www.yugaweb.com/protect-my-infos/"
-
-#. Description of the plugin/theme
-msgid ""
-"Protect phone numbers and email addresses from bots using advanced "
-"encryption and various protection methods, ensuring visibility only to human "
-"users. Highly customizable, this plugin allows you to select which data to "
-"protect and how, offering flexibility and robust security for your website."
-msgstr ""
-"Protegge i numeri di telefono e gli indirizzi email dai bot utilizzando "
-"cifrature avanzate e diversi metodi di protezione, garantendo la visibilità "
-"solo agli utenti umani. Altamente personalizzabile, questo plugin consente "
-"di selezionare quali dati proteggere e come, offrendo flessibilità e "
-"sicurezza robusta per il tuo sito web."
-
-#. Author of the plugin/theme
-msgid "Yuga Web"
-msgstr "Yuga Web"
-
-#. Author URI of the plugin/theme
-msgid "https://www.yugaweb.com/"
-msgstr "https://www.yugaweb.com/"
-
-#~ msgid "Dona con PayPal"
-#~ msgstr "Dona con Paypal"
-
-#~ msgid "PayPal - Il modo più sicuro e facile per pagare online!"
-#~ msgstr "PayPal - Il modo più sicuro e facile per pagare online!"
-
-#, fuzzy
-#~| msgid "- Click to reveal the email address -"
-#~ msgid "- Clicca qui per rivelare email -"
-#~ msgstr "- Clicca qui per rivelare email -"
-
-#~ msgid "Ad Banner"
-#~ msgstr "Banner pubblicitario"

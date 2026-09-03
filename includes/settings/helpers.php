@@ -14,42 +14,42 @@ if (!defined('ABSPATH')) {
 function yw_protect_my_infos_render_phone_numbers() {
     $options = get_option('yw_protect_my_infos_options');
     ?>
-    <input type="checkbox" name="yw_protect_my_infos_options[protect_phone_numbers]" <?php checked(isset($options['protect_phone_numbers']), 1); ?> value="1">
+    <input type="checkbox" id="yw-protect-phone-numbers" name="yw_protect_my_infos_options[protect_phone_numbers]" <?php checked(!empty($options['protect_phone_numbers'])); ?> value="1">
     <?php
 }
 
 function yw_protect_my_infos_render_emails() {
     $options = get_option('yw_protect_my_infos_options');
     ?>
-    <input type="checkbox" name="yw_protect_my_infos_options[protect_emails]" <?php checked(isset($options['protect_emails']), 1); ?> value="1">
+    <input type="checkbox" id="yw-protect-emails" name="yw_protect_my_infos_options[protect_emails]" <?php checked(!empty($options['protect_emails'])); ?> value="1">
     <?php
 }
 
 function yw_protect_my_infos_render_show_icons() {
     $options = get_option('yw_protect_my_infos_options');
     ?>
-    <input type="checkbox" name="yw_protect_my_infos_options[show_icons]" <?php checked(isset($options['show_icons']), 1); ?> value="1">
+    <input type="checkbox" id="yw-show-icons" name="yw_protect_my_infos_options[show_icons]" <?php checked(!empty($options['show_icons'])); ?> value="1">
     <?php
 }
 
 function yw_protect_my_infos_render_text_color() {
     $options = get_option('yw_protect_my_infos_options');
     ?>
-    <input type="text" name="yw_protect_my_infos_options[text_color]" id="text_color" value="<?php echo isset($options['text_color']) ? esc_attr($options['text_color']) : '#000000'; ?>" class="yw-color-field" data-default-color="#000000">
+    <input type="text" name="yw_protect_my_infos_options[text_color]" id="yw-text-color" value="<?php echo isset($options['text_color']) ? esc_attr($options['text_color']) : '#000000'; ?>" class="yw-color-field" data-default-color="#000000">
     <?php
 }
 
 function yw_protect_my_infos_render_icons_color() {
     $options = get_option('yw_protect_my_infos_options');
     ?>
-    <input type="text" name="yw_protect_my_infos_options[icons_color]" value="<?php echo isset($options['icons_color']) ? esc_attr($options['icons_color']) : '#000000'; ?>" class="yw-color-field" data-default-color="#000000">
+    <input type="text" name="yw_protect_my_infos_options[icons_color]" id="yw-icons-color" value="<?php echo isset($options['icons_color']) ? esc_attr($options['icons_color']) : '#000000'; ?>" class="yw-color-field" data-default-color="#000000">
     <?php
 }
 
 function yw_protect_my_infos_render_enable_obfuscation() {
     $options = get_option('yw_protect_my_infos_options');
     ?>
-    <input type="checkbox" name="yw_protect_my_infos_options[enable_obfuscation]" <?php checked(isset($options['enable_obfuscation']), 1); ?> value="1">
+    <input type="checkbox" id="yw-enable-obfuscation" name="yw_protect_my_infos_options[enable_obfuscation]" <?php checked(!empty($options['enable_obfuscation'])); ?> value="1">
     <?php
 }
 
@@ -94,6 +94,7 @@ function yw_protect_my_infos_render_reveal_phone_text() {
     ?>
     <input 
         type="text" 
+        id="yw-reveal-phone-text"
         name="yw_protect_my_infos_options[reveal_phone_text]" 
         value="<?php echo isset($options['reveal_phone_text']) ? esc_attr($options['reveal_phone_text']) : ''; ?>" 
         placeholder="<?php echo esc_attr__('- Click to reveal the phone number -', 'protect-my-infos'); ?>"
@@ -107,6 +108,7 @@ function yw_protect_my_infos_render_reveal_email_text() {
     ?>
     <input 
         type="text" 
+        id="yw-reveal-email-text"
         name="yw_protect_my_infos_options[reveal_email_text]" 
         value="<?php echo isset($options['reveal_email_text']) ? esc_attr($options['reveal_email_text']) : ''; ?>" 
         placeholder="<?php esc_html_e('- Click to reveal the email -', 'protect-my-infos'); ?>" 

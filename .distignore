@@ -3,6 +3,7 @@
 /.gitattributes
 /.gitignore
 /.wp-env.json
+/.phpunit.result.cache
 /composer.json
 /composer.lock
 /package.json

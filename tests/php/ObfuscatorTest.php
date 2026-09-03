@@ -65,4 +65,44 @@ final class ObfuscatorTest extends TestCase {
         $this->assertSame('placeholder', $options['yw-obfuscation_type']);
         $this->assertSame('full', $options['blur_mode']);
     }
+
+    public function test_settings_sanitizer_normalizes_checkboxes_and_colors() {
+        $options = yw_protect_my_infos_sanitize_options(
+            array(
+                'yw_protect_phone_numbers' => '25',
+                'yw_protect_emails' => '0',
+                'show_icons' => '-1',
+                'enable_obfuscation' => '',
+                'text_color' => 'invalid',
+                'icons_color' => '#123456',
+            )
+        );
+
+        $this->assertSame(1, $options['yw_protect_phone_numbers']);
+        $this->assertSame(0, $options['yw_protect_emails']);
+        $this->assertSame(1, $options['show_icons']);
+        $this->assertSame(0, $options['enable_obfuscation']);
+        $this->assertSame('#000000', $options['text_color']);
+        $this->assertSame('#123456', $options['icons_color']);
+    }
+
+    public function test_settings_sanitizer_rejects_nested_values_for_scalar_fields() {
+        $options = yw_protect_my_infos_sanitize_options(
+            array(
+                'text_color' => array('#ffffff'),
+                'icons_color' => array('#ffffff'),
+                'yw-obfuscation_type' => array('blurred'),
+                'blur_mode' => array('center'),
+                'reveal_phone_text' => array('Reveal'),
+                'reveal_email_text' => array('Reveal'),
+            )
+        );
+
+        $this->assertSame('#000000', $options['text_color']);
+        $this->assertSame('#000000', $options['icons_color']);
+        $this->assertSame('placeholder', $options['yw-obfuscation_type']);
+        $this->assertSame('full', $options['blur_mode']);
+        $this->assertArrayNotHasKey('reveal_phone_text', $options);
+        $this->assertArrayNotHasKey('reveal_email_text', $options);
+    }
 }
